@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aloisdeniel/vsts-flutter-tasks.git"
+    "url": "git+https://github.com/hey24sheep/vsts-flutter-tasks.git"
   },
-  "author": "Aloïs Deniel",
+  "author": "Hey24sheep",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/aloisdeniel/vsts-flutter-tasks/issues"
+    "url": "https://github.com/hey24sheep/vsts-flutter-tasks/issues"
   },
-  "homepage": "https://github.com/aloisdeniel/vsts-flutter-tasks#readme",
+  "homepage": "https://github.com/hey24sheep/vsts-flutter-tasks#readme",
   "dependencies": {
     "azure-pipelines-task-lib": "^2.7.0",
     "vsts-task-tool-lib": "*"

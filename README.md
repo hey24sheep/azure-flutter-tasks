@@ -2,13 +2,20 @@
 
 [Flutter](http://flutter.io) build task for [Azure DevOps](https://azure.microsoft.com/fr-fr/services/devops/).
 
+All credit goes to original author for his awesome work.
+This extension is updated/maintained fork of Alois Deniel's extension [Github](https://github.com/aloisdeniel/vsts-flutter-tasks)
+
+Why? His repository is inactive for a while with pending open issues and prs.
+
 ## Installation
 
-Installation can be done using [Visual Studio MarketPlace](https://marketplace.visualstudio.com/items?itemName=aloisdeniel.flutter).
+Installation can be done using [Visual Studio MarketPlace](https://marketplace.visualstudio.com/items?itemName=hey24sheep.flutter).
 
 ## Source Code
 
-Source code can be found on [Github](https://github.com/aloisdeniel/vsts-flutter-tasks).
+Source code can be found on [Github](https://github.com/hey24sheep/vsts-flutter-tasks).
+
+Original Author : [Github](https://github.com/aloisdeniel/vsts-flutter-tasks).
 
 ## Usage
 
@@ -22,7 +29,7 @@ Installs the [Flutter SDK](https://flutter.io/sdk-archive/) onto the running age
 
 * Select the `channel`: `stable (default)`, `beta`, or `dev`.
 * Select the `version` of the SDK to install:  `latest (default)`, `custom`. If `custom` is specified, a `custom version` must be set.
-* _(Optional)_. Set the `custom version` (in a `<M>.<m>.<p>` semver format) if needed.
+* _(Optional)_. Set the `custom version` (in a `<M>.<m>.<p>` semver format) if needed for example : 'v1.22+3' or '1.17.0'.
 
 ### Build
 
@@ -82,4 +89,4 @@ A task example :
 
 ## License
 
-[MIT](https://raw.githubusercontent.com/aloisdeniel/vsts-flutter-tasks/master/LICENSE)
+[MIT](https://raw.githubusercontent.com/hey24sheep/vsts-flutter-tasks/master/LICENSE)

@@ -2,9 +2,9 @@
     "manifestVersion": 1,
     "id": "flutter",
     "version": "0.2.21",
-    "name": "Flutter",
-    "description": "Flutter extension for Azure DevOps",
-    "publisher": "aloisdeniel",
+    "name": "Flutter Tasks",
+    "description": "Flutter extension for Azure DevOps. Active-Updated Fork of aloisdeniel/vsts-flutter-tasks",
+    "publisher": "hey24sheep",
     "public": true,
     "targets": [
         {
@@ -12,7 +12,7 @@
         }
     ],
     "categories": [
-        "Pipelines"
+        "Azure Pipelines"
     ],
     "icons": {
         "default": "icon.png"
@@ -33,7 +33,7 @@
     },
     "repository": {
         "type": "git",
-        "uri": "https://github.com/aloisdeniel/vsts-flutter-tasks"
+        "uri": "https://github.com/hey24sheep/vsts-flutter-tasks"
     },
     "tags": [
         "flutter",

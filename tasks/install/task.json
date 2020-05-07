@@ -1,11 +1,11 @@
 {
-    "id": "fca8d27d-85f4-4d5d-a519-8d7a7edf15d7",
+    "id": "83c91e05-bdf9-42ce-b27e-6dae8771294e",
     "name": "FlutterInstall",
     "friendlyName": "Flutter Install",
     "description": "Install the Flutter environment.",
     "helpMarkdown": "For more information, take a look at the Flutter [documentation](https://flutter.io)",
     "category": "Tool",
-    "author": "Aloïs Deniel",
+    "author": "Hey24sheep",
     "version": {
         "Major": 0,
         "Minor": 2,
@@ -44,7 +44,7 @@
             "label": "Custom version (semver)",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "The version of the SDK to use (in a <M>.<m>.<p> semver format, from (https://flutter.io/sdk-archive/).",
+            "helpMarkDown": "The version of the SDK to use like '1.17' or 'v1.12+3.9', etc (in a <M>.<m>.<p> semver format, from (https://flutter.io/sdk-archive/).",
             "visibleRule": "version = custom"
         }
     ],

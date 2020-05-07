@@ -1,14 +1,14 @@
 {
-    "id": "10a2efb1-b922-4849-81de-bccd2537ccc1",
+    "id": "5721365d-ec15-4b77-8d2f-430f93368c1f",
     "name": "FlutterBuild",
     "friendlyName": "Flutter Build",
     "description": "Build a Flutter application project.",
-    "helpMarkDown": "[More Information](https://github.com/aloisdeniel/vsts-flutter-tasks)",
+    "helpMarkDown": "[More Information](https://github.com/hey24sheep/vsts-flutter-tasks)",
     "category": "Build",
     "visibility": [
         "Build"
     ],
-    "author": "Aloïs Deniel",
+    "author": "Hey24sheep",
     "version": {
         "Major": 0,
         "Minor": 2,

@@ -26,7 +26,7 @@ assertDirectory(process.env["AGENT_BUILDDIRECTORY"] = path.join(agentPath, "buil
 // Run install tests
 process.env["FlutterToolPath"] = path.join(agentPath, "tools", "Flutter", "0.9.6-dev", "macos", "flutter", "bin");
 runner.setInput("target", "apk");
-runner.setInput("buildName", "com.aloisdeniel.vsts");
+runner.setInput("buildName", "com.hey24sheep.vsts");
 runner.setInput("buildNumber", "12");
 runner.setInput("projectDirectory", path.join(rootPath, "sample_project"));
 runner.setInput("outputDirectory", dropPath);

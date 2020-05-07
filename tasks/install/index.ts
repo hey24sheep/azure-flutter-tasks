@@ -50,7 +50,7 @@ function findArchitecture() {
 
 async function downloadAndCacheSdk(versionSpec: string, channel: string, arch: string): Promise<void> {
 	// 1. Download SDK archive
-	let downloadUrl = `https://storage.googleapis.com/flutter_infra/releases/${channel}/${arch}/flutter_${arch}_v${versionSpec}.zip`;
+	let downloadUrl = `https://storage.googleapis.com/flutter_infra/releases/${channel}/${arch}/flutter_${arch}_${versionSpec}.zip`;
 	task.debug(`Starting download archive from '${downloadUrl}'`);
 	var bundleZip = await tool.downloadTool(downloadUrl);
 	task.debug(`Succeeded to download '${bundleZip}' archive from '${downloadUrl}'`);
@@ -72,8 +72,8 @@ async function findLatestSdkVersion(channel: string, arch: string): Promise<stri
 	var json = JSON.parse(body);
 	var currentHash = json.current_release[channel];
 	task.debug(`Last version hash '${currentHash}'`);
-	var current = json.releases.find((item) => item.hash === currentHash);
-	return current.version.substring(1); // removing leading 'v'
+	var current = json.releases.find((item) => item.hash === currentHash && item.channel == channel);
+	return current.version;
 }
 
 main().catch(error => {
