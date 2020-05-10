@@ -48,6 +48,9 @@ function main() {
         if (target === "all" || target === "aab") {
             yield buildAab(flutterPath, buildName, buildNumber, debugMode, buildFlavour, entryPoint);
         }
+        if (target === "all" || target === "web") {
+            yield buildWeb(flutterPath);
+        }
         task.setResult(task.TaskResult.Succeeded, "Application built");
     });
 }
@@ -146,6 +149,18 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
             throw new Error("ios build failed");
+        }
+    });
+}
+function buildWeb(flutter) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var args = [
+            "build",
+            "web"
+        ];
+        var result = yield task.exec(flutter, args);
+        if (result !== 0) {
+            throw new Error("web build failed");
         }
     });
 }
