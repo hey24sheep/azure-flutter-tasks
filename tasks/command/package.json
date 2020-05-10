@@ -1,7 +1,7 @@
 {
-  "name": "fluttertest",
-  "version": "1.2.32",
-  "description": "Flutter Test Task",
+  "name": "fluttercommand",
+  "version": "0.2.32",
+  "description": "Flutter Command Task",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,9 +17,7 @@
   },
   "homepage": "https://github.com/hey24sheep/vsts-flutter-tasks#readme",
   "dependencies": {
-    "vsts-task-lib": "2.7.0",
-    "vsts-task-tool-lib": "*",
-    "@types/xml2js": "*",
-    "xml2js": "*"
+    "azure-pipelines-task-lib": "^2.7.0",
+    "vsts-task-tool-lib": "*"
   }
 }

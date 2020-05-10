@@ -1,7 +1,7 @@
 {
-  "name": "flutterbuild",
-  "version": "0.2.21",
-  "description": "Flutter Build Task",
+  "name": "flutteranalyze",
+  "version": "0.2.32",
+  "description": "Flutter Analyze Task",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

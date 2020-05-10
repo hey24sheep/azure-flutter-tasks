@@ -3,9 +3,7 @@
 [Flutter](http://flutter.io) build task for [Azure DevOps](https://azure.microsoft.com/fr-fr/services/devops/).
 
 All credit goes to original author for his awesome work.
-This extension is updated/maintained fork of Alois Deniel's extension [Github](https://github.com/aloisdeniel/vsts-flutter-tasks)
-
-Why? His repository is inactive for a while with pending open issues and prs.
+This extension is custom/updated/maintained fork of Alois Deniel's extension [Github](https://github.com/aloisdeniel/vsts-flutter-tasks)
 
 ## Installation
 
@@ -70,6 +68,12 @@ Launch analyze on flutter directory.
 * Select the `project source directory` (that contains to `pubspec.yaml` file).
 * _(Optional)_. Set `pub get` if you wish to pub get before analyze: `true (default)`.
 
+
+### Command
+
+![](images/step_command.png)
+
+Launch a Flutter command with custom arguments.
 
 
 ## FAQ

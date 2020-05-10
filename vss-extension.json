@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "flutter",
-    "version": "0.2.31",
+    "version": "0.2.32",
     "name": "Flutter Tasks",
     "description": "Flutter extension for Azure DevOps. Active-Updated Fork of aloisdeniel/vsts-flutter-tasks",
     "publisher": "hey24sheep",
@@ -56,6 +56,9 @@
             "path": "tasks/analyze"
         },
         {
+            "path": "tasks/command"
+        },
+        {
             "path": "images",
             "addressable": true
         }
@@ -99,6 +102,16 @@
             ],
             "properties": {
                 "name": "tasks/analyze"
+            }
+        },
+        {
+            "id": "flutter-command",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/command"
             }
         }
     ]
