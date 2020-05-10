@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 21
+        "Patch": 32
     },
     "groups": [],
     "instanceNameFormat": "Flutter Build $(target)",
@@ -28,7 +28,8 @@
                 "all": "All",
                 "ios": "iOS",
                 "apk": "Android (apk)",
-                "aab": "Android (aab)"
+                "aab": "Android (aab)",
+                "web": "Flutter Web"
             }
         },
         {

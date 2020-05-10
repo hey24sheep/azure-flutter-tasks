@@ -45,6 +45,10 @@ async function main(): Promise<void> {
         await buildAab(flutterPath, buildName, buildNumber, debugMode, buildFlavour, entryPoint);
     }
 
+    if (target === "all" || target === "web") {
+        await buildWeb(flutterPath);
+    }
+    
     task.setResult(task.TaskResult.Succeeded, "Application built");
 }
 
@@ -168,6 +172,21 @@ async function buildIpa(flutter: string, simulator?: boolean, codesign?: boolean
         throw new Error("ios build failed");
     }
 }
+
+async function buildWeb(flutter: string) {
+
+    var args = [
+        "build",
+        "web"
+    ];
+
+    var result = await task.exec(flutter, args);
+
+    if (result !== 0) {
+        throw new Error("web build failed");
+    }
+}
+
 
 main().catch(error => {
     task.setResult(task.TaskResult.Failed, error);

@@ -1,0 +1,23 @@
+{
+  "name": "flutterbuild",
+  "version": "0.2.21",
+  "description": "Flutter Build Task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hey24sheep/vsts-flutter-tasks.git"
+  },
+  "author": "Hey24sheep",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hey24sheep/vsts-flutter-tasks/issues"
+  },
+  "homepage": "https://github.com/hey24sheep/vsts-flutter-tasks#readme",
+  "dependencies": {
+    "azure-pipelines-task-lib": "^2.7.0",
+    "vsts-task-tool-lib": "*"
+  }
+}

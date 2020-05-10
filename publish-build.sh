@@ -11,3 +11,4 @@ cd ../../
 tfx extension create --manifest-globs vss-extension.json
 
 # > Original Upload from https://marketplace.visualstudio.com/manage/publishers/aloisdeniel
+# > Author https://marketplace.visualstudio.com/manage/publishers/hey24sheep

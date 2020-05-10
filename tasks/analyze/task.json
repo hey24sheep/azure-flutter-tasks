@@ -1,0 +1,39 @@
+{
+    "id": "1160e06f-9896-421f-89ff-783ae03781c5",
+    "name": "FlutterAnalyzeTask",
+    "friendlyName": "Flutter Analyze Task",
+    "description": "Analyze a Flutter application project.",
+    "helpMarkDown": "[More Information](https://github.com/hey24sheep/vsts-flutter-tasks)",
+    "category": "Tool",
+    "author": "Hey24sheep",
+    "version": {
+        "Major": 0,
+        "Minor": 2,
+        "Patch": 15
+    },
+    "groups": [],
+    "instanceNameFormat": "Flutter Analyze",
+    "inputs": [
+        {
+            "name": "projectDirectory",
+            "type": "filePath",
+            "label": "Path to the project folder",
+            "defaultValue": ".",
+            "helpMarkDown": "The path to the project folder (which contains the `pubspec.yaml`)",
+            "required": true
+        },
+        {
+            "name": "pubGet",
+            "type": "boolean",
+            "label": "Run pub get before analyze",
+            "defaultValue": "true",
+            "required": false,
+            "helpMarkDown": "Sets the --[no-]pub arg. Defaults to true"
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": "index.js"
+        }
+    }
+}

@@ -61,6 +61,16 @@ Launch tests and publish a report as build test results.
 * _(Optional)_. Set `update goldens`: whether `matchesGoldenFile()` calls within your test methods should update the golden files rather than test for an existing match.
 * _(Optional)_. The number of `concurrent` test processes to run. (defaults to `6`)
 
+### Analyze
+
+![](images/step_analyze.png)
+
+Launch analyze on flutter directory.
+
+* Select the `project source directory` (that contains to `pubspec.yaml` file).
+* _(Optional)_. Set `pub get` if you wish to pub get before analyze: `true (default)`.
+
+
 
 ## FAQ
 
