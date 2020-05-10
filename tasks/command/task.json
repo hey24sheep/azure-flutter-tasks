@@ -1,7 +1,7 @@
 {
     "id": "1416022c-c995-4e2c-85ec-0cd88e54a2b0",
     "name": "FlutterCommand",
-    "friendlyName": "Flutter Command",
+    "friendlyName": "Flutter Command Task",
     "description": "Launch a custom Flutter command with custom arguments.",
     "helpMarkDown": "Don't forget to insert a 'Flutter Install' task before. [More Information](https://github.com/hey24sheep/vsts-flutter-tasks)",
     "category": "Tool",
@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 32
+        "Patch": 33
     },
     "groups": [],
     "instanceNameFormat": "Flutter Command",

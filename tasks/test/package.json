@@ -1,6 +1,6 @@
 {
   "name": "fluttertest",
-  "version": "1.2.32",
+  "version": "1.2.33",
   "description": "Flutter Test Task",
   "main": "index.js",
   "scripts": {

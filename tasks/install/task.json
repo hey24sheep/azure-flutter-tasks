@@ -1,7 +1,7 @@
 {
     "id": "83c91e05-bdf9-42ce-b27e-6dae8771294e",
     "name": "FlutterInstall",
-    "friendlyName": "Flutter Install",
+    "friendlyName": "Flutter Install Task",
     "description": "Install the Flutter environment.",
     "helpMarkdown": "For more information, take a look at the Flutter [documentation](https://flutter.io)",
     "category": "Tool",
@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 32
+        "Patch": 33
     },
     "instanceNameFormat": "Flutter Install",
     "inputs": [

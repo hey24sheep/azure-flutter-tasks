@@ -1,7 +1,7 @@
 {
     "id": "6ca6cdf5-44cf-4600-9fe3-bd62340ddb1f",
     "name": "FlutterTest",
-    "friendlyName": "Flutter Test",
+    "friendlyName": "Flutter Test Task",
     "description": "Executes all tests for a Flutter project.",
     "helpMarkdown": "For more information, take a look at the Flutter [documentation](https://flutter.io)",
     "category": "Test",
@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 32
+        "Patch": 33
     },
     "instanceNameFormat": "Flutter Test",
     "inputs": [

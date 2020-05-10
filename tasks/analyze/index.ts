@@ -36,6 +36,8 @@ async function runAnalyze(flutter: string, pubGet?: boolean) {
 
 	if (pubGet) {
 		args.push("--pub");
+	} else {
+		args.push("--no-pub");
 	}
 
 	var result = await task.exec(flutter, args);
