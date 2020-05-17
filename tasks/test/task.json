@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 33
+        "Patch": 34
     },
     "instanceNameFormat": "Flutter Test",
     "inputs": [
@@ -52,6 +52,13 @@
             "defaultValue": "",
             "required": false,
             "helpMarkDown": "The number of concurrent test processes to run. (defaults to '6')"
+        },
+        {
+            "name": "publishTests",
+            "type": "boolean",
+            "label": "Publish Test Results",
+            "defaultValue": true,
+            "required": false
         }
     ],
     "execution": {

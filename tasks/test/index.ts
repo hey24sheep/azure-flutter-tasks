@@ -24,14 +24,17 @@ async function main(): Promise<void> {
     let testPlainName = task.getInput('testPlainName', false);
     let updateGoldens = task.getBoolInput('updateGoldens', false);
     let concurrency = task.getInput('concurrency', false);
+    let canPublishTests = task.getInput('publishTests', false);
 
     // 5. Running tests
     var results = await runTests(flutterPath, (concurrency ? Number(concurrency) : null), updateGoldens, testName, testPlainName);
 
     // 6. Publishing tests
-    await publishTests(results);
+    if (canPublishTests) {
+        await publishTests(results);
+    }
 
-    if(results.isSuccess) {
+    if (results.isSuccess) {
         task.setResult(task.TaskResult.Succeeded, `All tests passed`);
     }
     else {
@@ -43,7 +46,7 @@ async function publishTests(results: any) {
     var publisher = new task.TestPublisher("JUnit");
 
     task.debug(`results: ` + JSON.stringify(results));
-    
+
     // 1. Generating Junit XML result file
     var junitResults = createJunitResults(results);
     var xmlBuilder = new xml2js.Builder();
@@ -52,7 +55,7 @@ async function publishTests(results: any) {
     task.writeFile(xmlPath, xml);
 
     // 2. Publishing to task
-    publisher.publish([ xmlPath ], false, "", "", "", true, "VSTS - Flutter");
+    publisher.publish([xmlPath], false, "", "", "", true, "VSTS - Flutter");
 }
 
 async function runTests(flutter: string, concurrency?: number, updateGoldens?: boolean, name?: string, plainName?: string) {
@@ -75,7 +78,7 @@ async function runTests(flutter: string, concurrency?: number, updateGoldens?: b
         testRunner.arg("--concurrency=" + concurrency);
     }
 
-    var currentSuite : any = null;
+    var currentSuite: any = null;
     var results = {
         isSuccess: false,
         suites: []
@@ -84,7 +87,7 @@ async function runTests(flutter: string, concurrency?: number, updateGoldens?: b
     testRunner.on('stdout', line => {
         const testSuiteRegex = /\s*\d\d:\d\d (\+\d+)?(\s+\-\d+)?:\s*loading\s*(.*\.dart)\s*/;
         let loadingMatch = testSuiteRegex.exec(line);
-        if(loadingMatch) {
+        if (loadingMatch) {
             var newSuite = {
                 title: path.basename(loadingMatch[3], ".dart"),
                 isSuccess: false,
@@ -92,8 +95,8 @@ async function runTests(flutter: string, concurrency?: number, updateGoldens?: b
                 failed: 0,
                 cases: []
             }
-            
-            if(!currentSuite || newSuite.title !== currentSuite.title) {
+
+            if (!currentSuite || newSuite.title !== currentSuite.title) {
                 currentSuite = newSuite;
                 results.suites.push(newSuite);
             }
@@ -107,7 +110,7 @@ async function runTests(flutter: string, concurrency?: number, updateGoldens?: b
         await testRunner.exec();
         results.isSuccess = true;
     }
-    catch {}
+    catch { }
 
     return results;
 }
@@ -119,29 +122,29 @@ function createTestCase(suite: any, output: string) {
         var title = match[3];
         var successes = Number(match[1]);
         var failures = match[2] ? -Number(match[2]) : suite.failed;
-        
-        var newCase ={ 
+
+        var newCase = {
             title: title.trim(),
-            isSuccess: false, 
+            isSuccess: false,
             started: new Date(),
             ended: new Date,
         };
 
         var hasNewCase = false;
 
-        if(suite.succeeded != successes) {
+        if (suite.succeeded != successes) {
             suite.succeeded = successes;
             newCase.isSuccess = true;
             hasNewCase = true;
         }
-        else if(suite.failed != failures) {
+        else if (suite.failed != failures) {
             suite.failed = failures;
             newCase.isSuccess = false;
             hasNewCase = true;
         }
 
-        if(hasNewCase) {
-            if(suite.cases.length > 0) {
+        if (hasNewCase) {
+            if (suite.cases.length > 0) {
                 suite.cases[suite.cases.length - 1].ended = newCase.started;
             }
             suite.cases.push(newCase);
@@ -149,7 +152,7 @@ function createTestCase(suite: any, output: string) {
     }
 }
 
-function createJunitResults(results:any) {
+function createJunitResults(results: any) {
     var testSuites = [];
 
     results.suites.forEach(suite => {
@@ -158,32 +161,32 @@ function createJunitResults(results:any) {
             var duration = (c.ended.getTime() - c.started.getTime());
             var s = (duration / 1000);
             var testCase = {
-                "$": { 
+                "$": {
                     "name": c.title,
                     "classname": c.title,
                     "time": s,
                 }
             };
 
-            if(!c.isSuccess) {
+            if (!c.isSuccess) {
                 testCase["failure"] = {
-                    "$": { 
+                    "$": {
                         "type": "FlutterError",
                     }
                 }
             }
-    
+
             testCases.push(testCase);
         });
 
         var testSuite = {
-            "$": { 
+            "$": {
                 "name": suite.title,
                 "timestamp": new Date().toISOString(),
                 "errors": 0, // TODO 
                 "skipped": 0, // TODO 
-                "failures": suite.failed, 
-                "tests": (suite.failed + suite.succeeded) 
+                "failures": suite.failed,
+                "tests": (suite.failed + suite.succeeded)
             },
             "testcase": testCases
         };
@@ -191,8 +194,8 @@ function createJunitResults(results:any) {
     });
 
     return {
-        "testsuites" : {
-            "testsuite" : testSuites
+        "testsuites": {
+            "testsuite": testSuites
         }
     };
 }

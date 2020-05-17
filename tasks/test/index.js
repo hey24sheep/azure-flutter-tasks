@@ -32,10 +32,13 @@ function main() {
         let testPlainName = task.getInput('testPlainName', false);
         let updateGoldens = task.getBoolInput('updateGoldens', false);
         let concurrency = task.getInput('concurrency', false);
+        let canPublishTests = task.getInput('publishTests', false);
         // 5. Running tests
         var results = yield runTests(flutterPath, (concurrency ? Number(concurrency) : null), updateGoldens, testName, testPlainName);
         // 6. Publishing tests
-        yield publishTests(results);
+        if (canPublishTests) {
+            yield publishTests(results);
+        }
         if (results.isSuccess) {
             task.setResult(task.TaskResult.Succeeded, `All tests passed`);
         }

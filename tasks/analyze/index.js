@@ -42,6 +42,9 @@ function runAnalyze(flutter, pubGet) {
         if (pubGet) {
             args.push("--pub");
         }
+        else {
+            args.push("--no-pub");
+        }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
             throw new Error("Analyze Failed");

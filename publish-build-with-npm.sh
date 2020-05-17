@@ -9,6 +9,12 @@ tsc
 cd ../build
 npm install
 tsc 
+cd ../analyze
+npm install
+tsc 
+cd ../command
+npm install
+tsc 
 cd ../../
 
 # Create extension

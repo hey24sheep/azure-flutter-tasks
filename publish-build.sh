@@ -4,6 +4,10 @@ tsc
 cd ../install
 tsc
 cd ../build
+tsc
+cd ../analyze
+tsc 
+cd ../command
 tsc 
 cd ../../
 
