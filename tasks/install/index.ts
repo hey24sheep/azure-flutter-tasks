@@ -52,12 +52,20 @@ async function downloadAndCacheSdk(versionSpec: string, channel: string, arch: s
 	// 1. Download SDK archive
 	let downloadUrl = `https://storage.googleapis.com/flutter_infra/releases/${channel}/${arch}/flutter_${arch}_${versionSpec}.zip`;
 	task.debug(`Starting download archive from '${downloadUrl}'`);
-	var bundleZip = await tool.downloadTool(downloadUrl);
-	task.debug(`Succeeded to download '${bundleZip}' archive from '${downloadUrl}'`);
+	var bundleArchive = await tool.downloadTool(downloadUrl);
+	task.debug(`Succeeded to download '${bundleArchive}' archive from '${downloadUrl}'`);
 
 	// 2. Extracting SDK bundle
 	task.debug(`Extracting '${downloadUrl}' archive`);
-	var bundleDir = await tool.extractZip(bundleZip);
+
+	var bundleDir: string;
+	
+	if (downloadUrl.endsWith('tar.xz')) {
+		bundleDir = await tool.extractTar(bundleArchive);
+	} else {
+		bundleDir = await tool.extractZip(bundleArchive);
+	}
+
 	task.debug(`Extracted to '${bundleDir}' '${downloadUrl}' archive`);
 
 	// 3. Adding SDK bundle to cache
