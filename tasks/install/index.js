@@ -24,16 +24,15 @@ function main() {
         // 2. Building version spec
         let channel = task.getInput('channel', true);
         let version = task.getInput('version', true);
-        let semVer = task.getInput('customVersion', false);
-        if (version === 'latest' || semVer === "")
-            semVer = yield findLatestSdkVersion(channel, arch);
-        let versionSpec = `${semVer}-${channel}`;
+        let versionData = yield findLatestSdkVersion(channel, arch, version);
+        let versionSpec = versionData.version;
+        let downloadUrl = versionData.downloadUrl;
         // 3. Check if already available
         task.debug(`Trying to get (${FLUTTER_TOOL_NAME},${versionSpec}, ${arch}) tool from local cache`);
         let toolPath = tool.findLocalTool(FLUTTER_TOOL_NAME, versionSpec, arch);
         if (!toolPath) {
             // 4.1. Downloading SDK
-            yield downloadAndCacheSdk(versionSpec, channel, arch);
+            yield downloadAndCacheSdk(versionSpec, channel, arch, downloadUrl);
             // 4.2. Verifying that tool is now available
             task.debug(`Trying again to get (${FLUTTER_TOOL_NAME},${versionSpec}, ${arch}) tool from local cache`);
             toolPath = tool.findLocalTool(FLUTTER_TOOL_NAME, versionSpec, arch);
@@ -52,10 +51,9 @@ function findArchitecture() {
         return "linux";
     return "windows";
 }
-function downloadAndCacheSdk(versionSpec, channel, arch) {
+function downloadAndCacheSdk(versionSpec, channel, arch, downloadUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         // 1. Download SDK archive
-        let downloadUrl = `https://storage.googleapis.com/flutter_infra/releases/${channel}/${arch}/flutter_${arch}_${versionSpec}.zip`;
         task.debug(`Starting download archive from '${downloadUrl}'`);
         var bundleArchive = yield tool.downloadTool(downloadUrl);
         task.debug(`Succeeded to download '${bundleArchive}' archive from '${downloadUrl}'`);
@@ -74,16 +72,25 @@ function downloadAndCacheSdk(versionSpec, channel, arch) {
         tool.cacheDir(bundleDir, FLUTTER_TOOL_NAME, versionSpec, arch);
     });
 }
-function findLatestSdkVersion(channel, arch) {
+function findLatestSdkVersion(channel, arch, version) {
     return __awaiter(this, void 0, void 0, function* () {
         var releasesUrl = `https://storage.googleapis.com/flutter_infra/releases/releases_${arch}.json`;
-        task.debug(`Finding latest version from '${releasesUrl}'`);
+        task.debug(`Finding version '${version}' from '${releasesUrl}'`);
         var body = yield request.get(releasesUrl);
         var json = JSON.parse(body);
         var currentHash = json.current_release[channel];
-        task.debug(`Last version hash '${currentHash}'`);
         var current = json.releases.find((item) => item.hash === currentHash && item.channel == channel);
-        return current.version;
+        // if user selected custom
+        if (version.toLowerCase() !== 'latest') {
+            // fetch custom version
+            version = task.getInput('customVersion', false);
+            current = json.releases.find((item) => item.channel == channel && version == version);
+        }
+        task.debug(`Found version hash '${current.hash}'`);
+        return {
+            version: current.version + '-' + channel,
+            downloadUrl: json.base_url + '/' + current.archive,
+        };
     });
 }
 main().catch(error => {

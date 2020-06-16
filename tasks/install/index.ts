@@ -1,5 +1,7 @@
 import * as path from 'path';
 import * as os from 'os';
+import * as https from 'https';
+
 import * as request from 'request-promise';
 import * as task from "vsts-task-lib/task";
 import * as tool from 'vsts-task-tool-lib/tool';
@@ -15,10 +17,10 @@ async function main(): Promise<void> {
 	// 2. Building version spec
 	let channel = task.getInput('channel', true);
 	let version = task.getInput('version', true);
-	let semVer = task.getInput('customVersion', false);
-	if (version === 'latest' || semVer === "")
-		semVer = await findLatestSdkVersion(channel, arch);
-	let versionSpec = `${semVer}-${channel}`;
+
+	let versionData = await findLatestSdkVersion(channel, arch, version);
+	let versionSpec = versionData.version;
+	let downloadUrl = versionData.downloadUrl;
 
 	// 3. Check if already available
 	task.debug(`Trying to get (${FLUTTER_TOOL_NAME},${versionSpec}, ${arch}) tool from local cache`);
@@ -26,7 +28,7 @@ async function main(): Promise<void> {
 
 	if (!toolPath) {
 		// 4.1. Downloading SDK
-		await downloadAndCacheSdk(versionSpec, channel, arch);
+		await downloadAndCacheSdk(versionSpec, channel, arch, downloadUrl);
 
 		// 4.2. Verifying that tool is now available
 		task.debug(`Trying again to get (${FLUTTER_TOOL_NAME},${versionSpec}, ${arch}) tool from local cache`);
@@ -48,9 +50,8 @@ function findArchitecture() {
 	return "windows";
 }
 
-async function downloadAndCacheSdk(versionSpec: string, channel: string, arch: string): Promise<void> {
+async function downloadAndCacheSdk(versionSpec: string, channel: string, arch: string, downloadUrl: string): Promise<void> {
 	// 1. Download SDK archive
-	let downloadUrl = `https://storage.googleapis.com/flutter_infra/releases/${channel}/${arch}/flutter_${arch}_${versionSpec}.zip`;
 	task.debug(`Starting download archive from '${downloadUrl}'`);
 	var bundleArchive = await tool.downloadTool(downloadUrl);
 	task.debug(`Succeeded to download '${bundleArchive}' archive from '${downloadUrl}'`);
@@ -59,7 +60,7 @@ async function downloadAndCacheSdk(versionSpec: string, channel: string, arch: s
 	task.debug(`Extracting '${downloadUrl}' archive`);
 
 	var bundleDir: string;
-	
+
 	if (downloadUrl.endsWith('tar.xz')) {
 		bundleDir = await tool.extractTar(bundleArchive);
 	} else {
@@ -73,15 +74,27 @@ async function downloadAndCacheSdk(versionSpec: string, channel: string, arch: s
 	tool.cacheDir(bundleDir, FLUTTER_TOOL_NAME, versionSpec, arch);
 }
 
-async function findLatestSdkVersion(channel: string, arch: string): Promise<string> {
+async function findLatestSdkVersion(channel: string, arch: string, version: string): Promise<{ downloadUrl: string, version: string }> {
 	var releasesUrl = `https://storage.googleapis.com/flutter_infra/releases/releases_${arch}.json`;
-	task.debug(`Finding latest version from '${releasesUrl}'`);
+	task.debug(`Finding version '${version}' from '${releasesUrl}'`);
 	var body = await request.get(releasesUrl);
 	var json = JSON.parse(body);
+
 	var currentHash = json.current_release[channel];
-	task.debug(`Last version hash '${currentHash}'`);
 	var current = json.releases.find((item) => item.hash === currentHash && item.channel == channel);
-	return current.version;
+
+	// if user selected custom
+	if (version.toLowerCase() !== 'latest') {
+		// fetch custom version
+		version = task.getInput('customVersion', false);
+		current = json.releases.find((item) => item.channel == channel && version == version);
+	}
+
+	task.debug(`Found version hash '${current.hash}'`);
+	return {
+		version: current.version + '-' + channel,
+		downloadUrl: json.base_url + '/' + current.archive,
+	};
 }
 
 main().catch(error => {
