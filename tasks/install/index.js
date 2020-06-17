@@ -61,7 +61,7 @@ function downloadAndCacheSdk(versionSpec, channel, arch, downloadUrl) {
         task.debug(`Extracting '${downloadUrl}' archive`);
         var bundleDir;
         if (downloadUrl.endsWith('tar.xz')) {
-            bundleDir = yield tool.extractTar(bundleArchive);
+            bundleDir = yield tool.extract7z(bundleArchive);
         }
         else {
             bundleDir = yield tool.extractZip(bundleArchive);

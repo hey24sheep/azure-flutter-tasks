@@ -62,7 +62,7 @@ async function downloadAndCacheSdk(versionSpec: string, channel: string, arch: s
 	var bundleDir: string;
 
 	if (downloadUrl.endsWith('tar.xz')) {
-		bundleDir = await tool.extractTar(bundleArchive);
+		bundleDir = await tool.extract7z(bundleArchive);
 	} else {
 		bundleDir = await tool.extractZip(bundleArchive);
 	}
