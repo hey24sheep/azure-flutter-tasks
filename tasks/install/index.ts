@@ -1,10 +1,9 @@
 import * as path from 'path';
 import * as os from 'os';
-import * as https from 'https';
 
 import * as request from 'request-promise';
-import * as task from "vsts-task-lib/task";
-import * as tool from 'vsts-task-tool-lib/tool';
+import * as task from "azure-pipelines-task-lib";
+import * as tool from 'azure-pipelines-tool-lib/tool';
 
 const FLUTTER_TOOL_NAME: string = 'Flutter';
 const FLUTTER_EXE_RELATIVEPATH = 'flutter/bin';
@@ -62,7 +61,7 @@ async function downloadAndCacheSdk(versionSpec: string, channel: string, arch: s
 	var bundleDir: string;
 
 	if (downloadUrl.endsWith('tar.xz')) {
-		bundleDir = await tool.extract7z(bundleArchive);
+		bundleDir = await tool.extractTar(bundleArchive);
 	} else {
 		bundleDir = await tool.extractZip(bundleArchive);
 	}

@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const path = require("path");
 const os = require("os");
 const request = require("request-promise");
-const task = require("vsts-task-lib/task");
-const tool = require("vsts-task-tool-lib/tool");
+const task = require("azure-pipelines-task-lib");
+const tool = require("azure-pipelines-tool-lib/tool");
 const FLUTTER_TOOL_NAME = 'Flutter';
 const FLUTTER_EXE_RELATIVEPATH = 'flutter/bin';
 const FLUTTER_TOOL_PATH_ENV_VAR = 'FlutterToolPath';
@@ -61,7 +61,7 @@ function downloadAndCacheSdk(versionSpec, channel, arch, downloadUrl) {
         task.debug(`Extracting '${downloadUrl}' archive`);
         var bundleDir;
         if (downloadUrl.endsWith('tar.xz')) {
-            bundleDir = yield tool.extract7z(bundleArchive);
+            bundleDir = yield tool.extractTar(bundleArchive);
         }
         else {
             bundleDir = yield tool.extractZip(bundleArchive);
