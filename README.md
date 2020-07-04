@@ -85,7 +85,7 @@ Make sure that you have a `Flutter Install` at the beginning of your definition.
 
 > Can I run a custom Flutter command ?
 
-Yes, right after the `Flutter Install` task, a `FlutterToolPath` environment variable points to the `bin` of the Flutter SDK directory. You just have to use `$(FlutterToolPath)` in your following tasks.
+Yes, right after the `Flutter Install` task, a `FlutterToolPath` environment variable points to the `bin` of the Flutter SDK directory. You just have to use `$(FlutterToolPath)` in your following tasks. Example command "$(FlutterToolPath)/flutter packages get"
 
 > Can I run Dart program ?
 
