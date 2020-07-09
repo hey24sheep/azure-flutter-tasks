@@ -97,11 +97,11 @@ async function findLatestSdkVersion(channel: string, arch: string, version: stri
 }
 
 // Removes the 'v' prefix from given version.
-function uniformizeVersion(version) {
-    if (version.startsWith('v')) {
-        return version.substring(1);
-    }
-    return version;
+function uniformizeVersion(version: string) {
+	if (version.startsWith('v')) {
+		return version.substring(1);
+	}
+	return version;
 }
 
 main().catch(error => {
