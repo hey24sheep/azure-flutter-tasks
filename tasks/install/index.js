@@ -84,7 +84,7 @@ function findLatestSdkVersion(channel, arch, version) {
         if (version.toLowerCase() !== 'latest') {
             // fetch custom version
             version = task.getInput('customVersion', false);
-            current = json.releases.find((item) => item.channel == channel && version == version);
+            current = json.releases.find((item) => item.channel == channel && uniformizeVersion(item.version) == uniformizeVersion(version));
         }
         task.debug(`Found version hash '${current.hash}'`);
         return {
@@ -92,6 +92,13 @@ function findLatestSdkVersion(channel, arch, version) {
             downloadUrl: json.base_url + '/' + current.archive,
         };
     });
+}
+// Removes the 'v' prefix from given version.
+function uniformizeVersion(version) {
+    if (version.startsWith('v')) {
+        return version.substring(1);
+    }
+    return version;
 }
 main().catch(error => {
     task.setResult(task.TaskResult.Failed, error);
