@@ -86,7 +86,7 @@ async function findLatestSdkVersion(channel: string, arch: string, version: stri
 	if (version.toLowerCase() !== 'latest') {
 		// fetch custom version
 		version = task.getInput('customVersion', false);
-		current = json.releases.find((item) => item.channel == channel && version == version);
+		current = json.releases.find((item) => item.channel == channel && uniformizeVersion(item.version) == uniformizeVersion(version));
 	}
 
 	task.debug(`Found version hash '${current.hash}'`);
@@ -94,6 +94,14 @@ async function findLatestSdkVersion(channel: string, arch: string, version: stri
 		version: current.version + '-' + channel,
 		downloadUrl: json.base_url + '/' + current.archive,
 	};
+}
+
+// Removes the 'v' prefix from given version.
+function uniformizeVersion(version) {
+    if (version.startsWith('v')) {
+        return version.substring(1);
+    }
+    return version;
 }
 
 main().catch(error => {
