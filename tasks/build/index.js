@@ -35,6 +35,7 @@ function main() {
         let buildNumber = task.getInput('buildNumber', false);
         let buildFlavour = task.getInput('buildFlavour', false);
         let entryPoint = task.getInput('entryPoint', false);
+        let splitPerAbi = task.getBoolInput('splitPerAbi', false);
         // 5. Builds
         if (target === "all" || target === "ios") {
             let targetPlatform = task.getInput('iosTargetPlatform', false);
@@ -43,7 +44,7 @@ function main() {
         }
         if (target === "all" || target === "apk") {
             let targetPlatform = task.getInput('apkTargetPlatform', false);
-            yield buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint);
+            yield buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi);
         }
         if (target === "all" || target === "aab") {
             yield buildAab(flutterPath, buildName, buildNumber, debugMode, buildFlavour, entryPoint);
@@ -54,7 +55,7 @@ function main() {
         task.setResult(task.TaskResult.Succeeded, "Application built");
     });
 }
-function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint) {
+function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -77,6 +78,9 @@ function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, bu
         }
         if (entryPoint) {
             args.push("--target=" + entryPoint);
+        }
+        if (splitPerAbi) {
+            args.push("--split-per-abi");
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {

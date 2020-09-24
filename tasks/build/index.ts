@@ -28,6 +28,7 @@ async function main(): Promise<void> {
     let buildNumber = task.getInput('buildNumber', false);
     let buildFlavour = task.getInput('buildFlavour', false);
     let entryPoint = task.getInput('entryPoint', false);
+    let splitPerAbi = task.getBoolInput('splitPerAbi', false);
 
     // 5. Builds
     if (target === "all" || target === "ios") {
@@ -38,7 +39,7 @@ async function main(): Promise<void> {
 
     if (target === "all" || target === "apk") {
         let targetPlatform = task.getInput('apkTargetPlatform', false);
-        await buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint);
+        await buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi);
     }
 
     if (target === "all" || target === "aab") {
@@ -48,11 +49,19 @@ async function main(): Promise<void> {
     if (target === "allweb" || target === "web") {
         await buildWeb(flutterPath);
     }
-    
+
     task.setResult(task.TaskResult.Succeeded, "Application built");
 }
 
-async function buildApk(flutter: string, targetPlatform?: string, buildName?: string, buildNumber?: string, debugMode?: boolean, buildFlavour?: string, entryPoint?: string) {
+async function buildApk(
+    flutter: string,
+    targetPlatform?: string,
+    buildName?: string,
+    buildNumber?: string,
+    debugMode?: boolean,
+    buildFlavour?: string,
+    entryPoint?: string,
+    splitPerAbi?: boolean) {
 
     var args = [
         "build",
@@ -81,6 +90,10 @@ async function buildApk(flutter: string, targetPlatform?: string, buildName?: st
 
     if (entryPoint) {
         args.push("--target=" + entryPoint);
+    }
+
+    if (splitPerAbi) {
+        args.push("--split-per-abi");
     }
 
     var result = await task.exec(flutter, args);

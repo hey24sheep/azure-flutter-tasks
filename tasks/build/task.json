@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 34
+        "Patch": 35
     },
     "groups": [],
     "instanceNameFormat": "Flutter Build $(target)",
@@ -55,6 +55,14 @@
             "label": "Debug",
             "defaultValue": false,
             "helpMarkDown": "Force build type to be Debug instead of Release.",
+            "required": false
+        },
+        {
+            "name": "splitPerAbi",
+            "type": "boolean",
+            "label": "Split Per ABI",
+            "defaultValue": false,
+            "helpMarkDown": "Will enable --split-per-abi option. For more details check https://flutter.dev/docs/deployment/android",
             "required": false
         },
         {
