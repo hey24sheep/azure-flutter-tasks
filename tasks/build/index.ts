@@ -28,18 +28,19 @@ async function main(): Promise<void> {
     let buildNumber = task.getInput('buildNumber', false);
     let buildFlavour = task.getInput('buildFlavour', false);
     let entryPoint = task.getInput('entryPoint', false);
+    let dartDefine = task.getInput('dartDefine', false);
     let splitPerAbi = task.getBoolInput('splitPerAbi', false);
 
     // 5. Builds
     if (target === "all" || target === "ios") {
         let targetPlatform = task.getInput('iosTargetPlatform', false);
         let codesign = task.getBoolInput('iosCodesign', false);
-        await buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint);
+        await buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine);
     }
 
     if (target === "all" || target === "apk") {
         let targetPlatform = task.getInput('apkTargetPlatform', false);
-        await buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi);
+        await buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi,dartDefine);
     }
 
     if (target === "all" || target === "aab") {
@@ -61,7 +62,8 @@ async function buildApk(
     debugMode?: boolean,
     buildFlavour?: string,
     entryPoint?: string,
-    splitPerAbi?: boolean) {
+    splitPerAbi?: boolean,
+    dartDefine?: string) {
 
     var args = [
         "build",
@@ -90,6 +92,10 @@ async function buildApk(
 
     if (entryPoint) {
         args.push("--target=" + entryPoint);
+    }
+    
+     if (dartDefine) {
+        args.push("--dart-define="+ dartDefine);
     }
 
     if (splitPerAbi) {
@@ -137,8 +143,9 @@ async function buildAab(flutter: string, buildName?: string, buildNumber?: strin
     }
 }
 
-async function buildIpa(flutter: string, simulator?: boolean, codesign?: boolean, buildName?: string, buildNumber?: string, debugMode?: boolean, buildFlavour?: string, entryPoint?: string) {
-
+async function buildIpa(flutter: string, simulator?: boolean, codesign?: boolean, buildName?: string, buildNumber?: string, debugMode?: boolean, buildFlavour?: string,
+     entryPoint?: string, dartDefine?: string) {
+    
     var args = [
         "build",
         "ios"
@@ -180,6 +187,10 @@ async function buildIpa(flutter: string, simulator?: boolean, codesign?: boolean
         }
     }
 
+    if (dartDefine) {
+        args.push("--dart-define="+ dartDefine);
+    }
+    
     var result = await task.exec(flutter, args);
     if (result !== 0) {
         throw new Error("ios build failed");

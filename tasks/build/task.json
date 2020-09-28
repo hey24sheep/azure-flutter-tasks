@@ -131,7 +131,15 @@
             "required": false,
             "helpMarkDown": "Indicates whether the application bundle should be codesigned. **Warning: you must install a valid certificate before build with the `Install an Apple Certificate`task**",
             "visibleRule": "target = ios"
-        }
+        },
+        {
+            "name": "dartDefine",
+            "type": "string",
+            "label": "Parameter value for --dart-define",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Parameter passed to --dart-define"
+       }
     ],
     "execution": {
         "Node": {
