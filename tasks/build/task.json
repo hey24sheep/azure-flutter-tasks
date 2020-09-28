@@ -138,7 +138,7 @@
             "label": "Parameter value for --dart-define",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "Parameter passed to --dart-define"
+            "helpMarkDown": "Parameter passed to --dart-define, example : 'Some_Var=Some_val --dart-define=Some_Var2=Val'"
        }
     ],
     "execution": {

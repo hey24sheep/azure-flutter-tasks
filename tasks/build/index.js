@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const path = require("path");
 const task = require("azure-pipelines-task-lib/task");
+const path = require("path");
 const FLUTTER_TOOL_PATH_ENV_VAR = 'FlutterToolPath';
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -35,16 +35,17 @@ function main() {
         let buildNumber = task.getInput('buildNumber', false);
         let buildFlavour = task.getInput('buildFlavour', false);
         let entryPoint = task.getInput('entryPoint', false);
+        let dartDefine = task.getInput('dartDefine', false);
         let splitPerAbi = task.getBoolInput('splitPerAbi', false);
         // 5. Builds
         if (target === "all" || target === "ios") {
             let targetPlatform = task.getInput('iosTargetPlatform', false);
             let codesign = task.getBoolInput('iosCodesign', false);
-            yield buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint);
+            yield buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine);
         }
         if (target === "all" || target === "apk") {
             let targetPlatform = task.getInput('apkTargetPlatform', false);
-            yield buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi);
+            yield buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine);
         }
         if (target === "all" || target === "aab") {
             yield buildAab(flutterPath, buildName, buildNumber, debugMode, buildFlavour, entryPoint);
@@ -55,7 +56,7 @@ function main() {
         task.setResult(task.TaskResult.Succeeded, "Application built");
     });
 }
-function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi) {
+function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -78,6 +79,9 @@ function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, bu
         }
         if (entryPoint) {
             args.push("--target=" + entryPoint);
+        }
+        if (dartDefine) {
+            args.push("--dart-define=" + dartDefine);
         }
         if (splitPerAbi) {
             args.push("--split-per-abi");
@@ -115,7 +119,7 @@ function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entr
         }
     });
 }
-function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint) {
+function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -149,6 +153,9 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
             if (buildFlavour) {
                 args.push("--flavor=" + buildFlavour);
             }
+        }
+        if (dartDefine) {
+            args.push("--dart-define=" + dartDefine);
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
