@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 41
+        "Patch": 42
     },
     "groups": [],
     "instanceNameFormat": "Flutter Build $(target)",
@@ -147,7 +147,15 @@
             "defaultValue": "",
             "required": false,
             "helpMarkDown": "Parameter passed to --dart-define, example : 'Some_Var=Some_val --dart-define=Some_Var2=Val'"
-       }
+        },
+        {
+            "name": "extraArgs",
+            "type": "string",
+            "label": "Extra command arguments",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Extra command arguments like --no-tree-shake-icons. Space separated"
+        }
     ],
     "execution": {
         "Node": {

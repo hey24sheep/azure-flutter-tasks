@@ -31,6 +31,7 @@ async function main(): Promise<void> {
     let dartDefine = task.getInput('dartDefine', false);
     let splitPerAbi = task.getBoolInput('splitPerAbi', false);
     let isVerbose = task.getBoolInput('verboseMode', false);
+    let extraArgs = task.getInput('extraArgs', false);
 
     // 5. Builds
     if (target === "all" || target === "ios") {
@@ -46,7 +47,8 @@ async function main(): Promise<void> {
             buildFlavour,
             entryPoint,
             dartDefine,
-            isVerbose);
+            isVerbose,
+            extraArgs);
     }
 
     if (target === "all" || target === "apk") {
@@ -61,7 +63,8 @@ async function main(): Promise<void> {
             entryPoint,
             splitPerAbi,
             dartDefine,
-            isVerbose);
+            isVerbose,
+            extraArgs);
     }
 
     if (target === "all" || target === "aab") {
@@ -72,11 +75,13 @@ async function main(): Promise<void> {
             debugMode,
             buildFlavour,
             entryPoint,
-            isVerbose);
+            isVerbose,
+            extraArgs);
     }
 
     if (target === "allweb" || target === "web") {
-        await buildWeb(flutterPath, isVerbose);
+        await buildWeb(flutterPath, isVerbose,
+            extraArgs);
     }
 
     task.setResult(task.TaskResult.Succeeded, "Application built");
@@ -92,7 +97,8 @@ async function buildApk(
     entryPoint?: string,
     splitPerAbi?: boolean,
     dartDefine?: string,
-    isVerbose?: boolean) {
+    isVerbose?: boolean,
+    extraArgs?: string) {
 
     var args = [
         "build",
@@ -135,6 +141,10 @@ async function buildApk(
         args.push("--verbose");
     }
 
+    if (extraArgs) {
+        args.push(extraArgs);
+    }
+
     var result = await task.exec(flutter, args);
 
     if (result !== 0) {
@@ -149,7 +159,8 @@ async function buildAab(
     debugMode?: boolean,
     buildFlavour?: string,
     entryPoint?: string,
-    isVerbose?: boolean) {
+    isVerbose?: boolean,
+    extraArgs?: string) {
 
     var args = [
         "build",
@@ -180,6 +191,10 @@ async function buildAab(
         args.push("--verbose");
     }
 
+    if (extraArgs) {
+        args.push(extraArgs);
+    }
+
     var result = await task.exec(flutter, args);
 
     if (result !== 0) {
@@ -197,7 +212,8 @@ async function buildIpa(
     buildFlavour?: string,
     entryPoint?: string,
     dartDefine?: string,
-    isVerbose?: boolean) {
+    isVerbose?: boolean,
+    extraArgs?: string) {
 
     var args = [
         "build",
@@ -248,13 +264,20 @@ async function buildIpa(
         args.push("--verbose");
     }
 
+    if (extraArgs) {
+        args.push(extraArgs);
+    }
+
     var result = await task.exec(flutter, args);
     if (result !== 0) {
         throw new Error("ios build failed");
     }
 }
 
-async function buildWeb(flutter: string, isVerbose?: boolean) {
+async function buildWeb(
+    flutter: string, 
+    isVerbose?: boolean,
+    extraArgs?: string) {
 
     var args = [
         "build",
@@ -263,6 +286,10 @@ async function buildWeb(flutter: string, isVerbose?: boolean) {
 
     if (isVerbose) {
         args.push("--verbose");
+    }
+
+    if (extraArgs) {
+        args.push(extraArgs);
     }
 
     var result = await task.exec(flutter, args);
