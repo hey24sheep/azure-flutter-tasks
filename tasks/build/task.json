@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 35
+        "Patch": 40
     },
     "groups": [],
     "instanceNameFormat": "Flutter Build $(target)",
@@ -47,6 +47,14 @@
             "label": "Path to the Flutter SDK",
             "defaultValue": "",
             "helpMarkDown": "Path to the Flutter SDK if not using Flutter Install task before this one.",
+            "required": false
+        },
+        {
+            "name": "verboseMode",
+            "type": "boolean",
+            "label": "Verbose",
+            "defaultValue": false,
+            "helpMarkDown": "The output from this command might aid in diagnosing the problem.",
             "required": false
         },
         {
