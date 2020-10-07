@@ -41,6 +41,7 @@ Build the given mobile application project. You must call the `Flutter Install` 
 * _(Optional)_. Set `package name` (like `1.2.3`) that will override the manifest's one.
 * _(Optional)_. Set `package number` (like `12`) that will override the manifest's one.
 * _(Optional)_. Set `build flavour` (like `development`) to specify a build flavour.  Must match Android Gradle flavor definition or XCode scheme.
+* _(Optional)_. Set `verbose` if you wish to get detailed verbose log output for diagnoses purposes.
 * _(Optional)_. Set `debug` if you wish to override the default release mode for the build.
 * _(Optional)_. Set `dart-define` compile-time variables. Example : "Some_Var=Some_val --dart-define=Some_Var2=Val"
 * __(Android)__._(Optional)_. Set `platform` for the Android target: `android-arm (default)`, `android-arm64`.
