@@ -33,8 +33,9 @@ function main() {
         let updateGoldens = task.getBoolInput('updateGoldens', false);
         let concurrency = task.getInput('concurrency', false);
         let canPublishTests = task.getInput('publishTests', false);
+        let canGenerateCodeCoverage = task.getBoolInput("generateCodeCoverageReport", false);
         // 5. Running tests
-        var results = yield runTests(flutterPath, (concurrency ? Number(concurrency) : null), updateGoldens, testName, testPlainName);
+        var results = yield runTests(flutterPath, (concurrency ? Number(concurrency) : null), updateGoldens, testName, testPlainName, canGenerateCodeCoverage);
         // 6. Publishing tests
         if (canPublishTests) {
             yield publishTests(results);
@@ -61,12 +62,15 @@ function publishTests(results) {
         publisher.publish([xmlPath], false, "", "", "", true, "VSTS - Flutter");
     });
 }
-function runTests(flutter, concurrency, updateGoldens, name, plainName) {
+function runTests(flutter, concurrency, updateGoldens, name, plainName, canGenerateCodeCoverage) {
     return __awaiter(this, void 0, void 0, function* () {
         let testRunner = task.tool(flutter);
         testRunner.arg(['test', '--pub']);
         if (updateGoldens) {
             testRunner.arg("--update-goldens");
+        }
+        if (canGenerateCodeCoverage) {
+            testRunner.arg("--coverage");
         }
         if (name) {
             testRunner.arg("--name=" + name);

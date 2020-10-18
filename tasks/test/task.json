@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 35
+        "Patch": 36
     },
     "instanceNameFormat": "Flutter Test",
     "inputs": [
@@ -51,7 +51,7 @@
             "label": "Generate code coverage report",
             "defaultValue": false,
             "required": false,
-            "helpMarkDown": "Whether flutter should generate a code coverage report based on tests in project."
+            "helpMarkDown": "Whether flutter should generate a code coverage report based on tests in project. File is generated at project source directory in coverage/lcov.info."
         },
         {
             "name": "concurrency",

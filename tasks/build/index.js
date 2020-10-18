@@ -38,26 +38,27 @@ function main() {
         let dartDefine = task.getInput('dartDefine', false);
         let splitPerAbi = task.getBoolInput('splitPerAbi', false);
         let isVerbose = task.getBoolInput('verboseMode', false);
+        let extraArgs = task.getInput('extraArgs', false);
         // 5. Builds
         if (target === "all" || target === "ios") {
             let targetPlatform = task.getInput('iosTargetPlatform', false);
             let codesign = task.getBoolInput('iosCodesign', false);
-            yield buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose);
+            yield buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs);
         }
         if (target === "all" || target === "apk") {
             let targetPlatform = task.getInput('apkTargetPlatform', false);
-            yield buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, isVerbose);
+            yield buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, isVerbose, extraArgs);
         }
         if (target === "all" || target === "aab") {
-            yield buildAab(flutterPath, buildName, buildNumber, debugMode, buildFlavour, entryPoint, isVerbose);
+            yield buildAab(flutterPath, buildName, buildNumber, debugMode, buildFlavour, entryPoint, isVerbose, extraArgs);
         }
         if (target === "allweb" || target === "web") {
-            yield buildWeb(flutterPath, isVerbose);
+            yield buildWeb(flutterPath, isVerbose, extraArgs);
         }
         task.setResult(task.TaskResult.Succeeded, "Application built");
     });
 }
-function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, isVerbose) {
+function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, isVerbose, extraArgs) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -90,13 +91,16 @@ function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, bu
         if (isVerbose) {
             args.push("--verbose");
         }
+        if (extraArgs) {
+            args.push(extraArgs);
+        }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
             throw new Error("apk build failed");
         }
     });
 }
-function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entryPoint, isVerbose) {
+function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entryPoint, isVerbose, extraArgs) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -120,13 +124,16 @@ function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entr
         if (isVerbose) {
             args.push("--verbose");
         }
+        if (extraArgs) {
+            args.push(extraArgs);
+        }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
             throw new Error("aab build failed");
         }
     });
 }
-function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose) {
+function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -167,13 +174,16 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
         if (isVerbose) {
             args.push("--verbose");
         }
+        if (extraArgs) {
+            args.push(extraArgs);
+        }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
             throw new Error("ios build failed");
         }
     });
 }
-function buildWeb(flutter, isVerbose) {
+function buildWeb(flutter, isVerbose, extraArgs) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -181,6 +191,9 @@ function buildWeb(flutter, isVerbose) {
         ];
         if (isVerbose) {
             args.push("--verbose");
+        }
+        if (extraArgs) {
+            args.push(extraArgs);
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
