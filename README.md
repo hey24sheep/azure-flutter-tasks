@@ -61,6 +61,7 @@ Launch tests and publish a report as build test results.
 * _(Optional)_. Set `Test plain name` as a plain-text substring of the names of tests to run.
 * _(Optional)_. Set `Test plain name` as a plain-text substring of the names of tests to run.
 * _(Optional)_. Set `update goldens`: whether `matchesGoldenFile()` calls within your test methods should update the golden files rather than test for an existing match.
+* _(Optional)_. Set `Generate code coverage report`: whether flutter should generate a code coverage report based on tests in project. File is generated at `project source directory` in `coverage/lcov.info`.
 * _(Optional)_. The number of `concurrent` test processes to run. (defaults to `6`)
 
 ### Analyze

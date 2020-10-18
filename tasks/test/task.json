@@ -46,6 +46,14 @@
             "helpMarkDown": "Whether matchesGoldenFile() calls within your test methods should update the golden files rather than test for an existing match."
         },
         {
+            "name": "generateCodeCoverageReport",
+            "type": "boolean",
+            "label": "Generate code coverage report",
+            "defaultValue": false,
+            "required": false,
+            "helpMarkDown": "Whether flutter should generate a code coverage report based on tests in project."
+        },
+        {
             "name": "concurrency",
             "type": "string",
             "label": "Concurrency",
