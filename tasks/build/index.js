@@ -40,20 +40,41 @@ function main() {
         let isVerbose = task.getBoolInput('verboseMode', false);
         let extraArgs = task.getInput('extraArgs', false);
         // 5. Builds
-        if (target === "all" || target === "ios") {
+        if (target === "all"
+            || target === "mobile"
+            || target === "ios") {
             let targetPlatform = task.getInput('iosTargetPlatform', false);
             let codesign = task.getBoolInput('iosCodesign', false);
             yield buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs);
         }
-        if (target === "all" || target === "apk") {
+        if (target === "all"
+            || target === "mobile"
+            || target === "apk") {
             let targetPlatform = task.getInput('apkTargetPlatform', false);
             yield buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, isVerbose, extraArgs);
         }
-        if (target === "all" || target === "aab") {
+        if (target === "all"
+            || target === "mobile"
+            || target === "aab") {
             yield buildAab(flutterPath, buildName, buildNumber, debugMode, buildFlavour, entryPoint, isVerbose, extraArgs);
         }
-        if (target === "allweb" || target === "web") {
+        if (target === "all" || target === "web") {
             yield buildWeb(flutterPath, isVerbose, extraArgs);
+        }
+        if (target === "all"
+            || target === "desktop"
+            || target === "windows") {
+            yield buildDesktop(flutterPath, "windows", isVerbose, extraArgs);
+        }
+        if (target === "all"
+            || target === "desktop"
+            || target === "macos") {
+            yield buildDesktop(flutterPath, "macos", isVerbose, extraArgs);
+        }
+        if (target === "all"
+            || target === "desktop"
+            || target === "linux") {
+            yield buildDesktop(flutterPath, "linux", isVerbose, extraArgs);
         }
         task.setResult(task.TaskResult.Succeeded, "Application built");
     });
@@ -198,6 +219,24 @@ function buildWeb(flutter, isVerbose, extraArgs) {
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
             throw new Error("web build failed");
+        }
+    });
+}
+function buildDesktop(flutter, os, isVerbose, extraArgs) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var args = [
+            "build",
+            os
+        ];
+        if (isVerbose) {
+            args.push("--verbose");
+        }
+        if (extraArgs) {
+            args.push(extraArgs);
+        }
+        var result = yield task.exec(flutter, args);
+        if (result !== 0) {
+            throw new Error("desktop (windows) build failed");
         }
     });
 }

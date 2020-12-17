@@ -36,7 +36,7 @@ Installs the [Flutter SDK](https://flutter.io/sdk-archive/) onto the running age
 Build the given mobile application project. You must call the `Flutter Install` task or use the optional `flutterDirectory` task input that points to your `flutter/bin` folder before execution. All application bundles are created in the `build/outputs` folder of your project.
 
 * Select the `projectDirectory` that contains the `pubspec.yaml` file.
-* Select the `target` platform. Options are: `apk` (default), `aab`, `ios`, `web`, `all` (Android and iOS, but without Web) or `allweb` (Android, iOS and Web).
+* Select the `target` platform. Options are: `apk` (default), `aab`, `ios`, `web`, `all mobile` (all mobile platforms only), `desktop (windows)`, `desktop (macos)`, `desktop (linux)`, `all desktop` (all desktop platforms only) , `all` (all platforms).
 * _(Optional)_. Set `flutterDirectory` to set path to the Flutter SDK if you were not using `Flutter Install` task before this one
 * _(Optional)_. Set `buildName` (like `1.2.3`) that will override the manifest's one.
 * _(Optional)_. Set `buildNumber` (like `12`) that will override the manifest's one.

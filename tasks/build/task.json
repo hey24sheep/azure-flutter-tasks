@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 42
+        "Patch": 43
     },
     "groups": [],
     "instanceNameFormat": "Flutter Build $(target)",
@@ -25,12 +25,16 @@
             "helpMarkDown": "The target platform of your application.",
             "required": true,
             "options": {
-                "allweb": "All (with 'web')",
-                "all": "All (except 'web')",
+                "all": "All Platforms",
+                "mobile": "All Mobile Platform Only",
+                "desktop": "All Desktop Platform Only",
                 "ios": "iOS",
                 "apk": "Android (apk)",
                 "aab": "Android (aab)",
-                "web": "Web"
+                "web": "Web",
+                "windows": "Desktop (windows)",
+                "macos": "Desktop (macos)",
+                "linux": "Desktop (linux)"
             }
         },
         {

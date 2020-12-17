@@ -34,7 +34,9 @@ async function main(): Promise<void> {
     let extraArgs = task.getInput('extraArgs', false);
 
     // 5. Builds
-    if (target === "all" || target === "ios") {
+    if (target === "all"
+        || target === "mobile"
+        || target === "ios") {
         let targetPlatform = task.getInput('iosTargetPlatform', false);
         let codesign = task.getBoolInput('iosCodesign', false);
         await buildIpa(
@@ -51,7 +53,9 @@ async function main(): Promise<void> {
             extraArgs);
     }
 
-    if (target === "all" || target === "apk") {
+    if (target === "all"
+        || target === "mobile"
+        || target === "apk") {
         let targetPlatform = task.getInput('apkTargetPlatform', false);
         await buildApk(
             flutterPath,
@@ -67,7 +71,9 @@ async function main(): Promise<void> {
             extraArgs);
     }
 
-    if (target === "all" || target === "aab") {
+    if (target === "all"
+        || target === "mobile"
+        || target === "aab") {
         await buildAab(
             flutterPath,
             buildName,
@@ -79,9 +85,26 @@ async function main(): Promise<void> {
             extraArgs);
     }
 
-    if (target === "allweb" || target === "web") {
-        await buildWeb(flutterPath, isVerbose,
-            extraArgs);
+    if (target === "all" || target === "web") {
+        await buildWeb(flutterPath, isVerbose, extraArgs);
+    }
+
+    if (target === "all"
+        || target === "desktop"
+        || target === "windows") {
+        await buildDesktop(flutterPath, "windows", isVerbose, extraArgs);
+    }
+
+    if (target === "all"
+        || target === "desktop"
+        || target === "macos") {
+        await buildDesktop(flutterPath, "macos", isVerbose, extraArgs);
+    }
+
+    if (target === "all"
+        || target === "desktop"
+        || target === "linux") {
+        await buildDesktop(flutterPath, "linux", isVerbose, extraArgs);
     }
 
     task.setResult(task.TaskResult.Succeeded, "Application built");
@@ -275,7 +298,7 @@ async function buildIpa(
 }
 
 async function buildWeb(
-    flutter: string, 
+    flutter: string,
     isVerbose?: boolean,
     extraArgs?: string) {
 
@@ -299,6 +322,31 @@ async function buildWeb(
     }
 }
 
+async function buildDesktop(
+    flutter: string,
+    os: string,
+    isVerbose?: boolean,
+    extraArgs?: string) {
+
+    var args = [
+        "build",
+        os
+    ];
+
+    if (isVerbose) {
+        args.push("--verbose");
+    }
+
+    if (extraArgs) {
+        args.push(extraArgs);
+    }
+
+    var result = await task.exec(flutter, args);
+
+    if (result !== 0) {
+        throw new Error("desktop (windows) build failed");
+    }
+}
 
 main().catch(error => {
     task.setResult(task.TaskResult.Failed, error);
