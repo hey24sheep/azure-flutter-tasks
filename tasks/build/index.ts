@@ -81,6 +81,7 @@ async function main(): Promise<void> {
             debugMode,
             buildFlavour,
             entryPoint,
+            dartDefine,
             isVerbose,
             extraArgs);
     }
@@ -182,6 +183,7 @@ async function buildAab(
     debugMode?: boolean,
     buildFlavour?: string,
     entryPoint?: string,
+    dartDefine?: string,
     isVerbose?: boolean,
     extraArgs?: string) {
 
@@ -208,6 +210,10 @@ async function buildAab(
 
     if (entryPoint) {
         args.push("--target=" + entryPoint);
+    }
+
+    if (dartDefine) {
+        args.push("--dart-define=" + dartDefine);
     }
 
     if (isVerbose) {

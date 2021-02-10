@@ -56,7 +56,7 @@ function main() {
         if (target === "all"
             || target === "mobile"
             || target === "aab") {
-            yield buildAab(flutterPath, buildName, buildNumber, debugMode, buildFlavour, entryPoint, isVerbose, extraArgs);
+            yield buildAab(flutterPath, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs);
         }
         if (target === "all" || target === "web") {
             yield buildWeb(flutterPath, isVerbose, extraArgs);
@@ -121,7 +121,7 @@ function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, bu
         }
     });
 }
-function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entryPoint, isVerbose, extraArgs) {
+function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -141,6 +141,9 @@ function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entr
         }
         if (entryPoint) {
             args.push("--target=" + entryPoint);
+        }
+        if (dartDefine) {
+            args.push("--dart-define=" + dartDefine);
         }
         if (isVerbose) {
             args.push("--verbose");
