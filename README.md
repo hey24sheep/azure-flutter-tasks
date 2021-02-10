@@ -93,17 +93,11 @@ Yes, right after the `Flutter Install` task, a `FlutterToolPath` environment var
 
 > Can I run Dart program ?
 
-Yes, actually a Dart runtime is embedded with Flutter tools (in the `/cache/dart-sdk/bin` subdirectory). 
+Yes, right after the `Flutter Install` task, a `DartToolPath` environment variable points to the `bin` of the Dart SDK directory. You just have to use `$(DartToolPath)` in your following tasks. Example: "$(DartToolPath)/dart program.dart arg1 arg2"
 
-A task example :
+> Can I access Flutter's pub-cache ?
 
-```yaml
-- task: CmdLine@2
-  displayName: 'Execute Dart program'
-  inputs:
-    script: '$(FlutterToolPath)/cache/dart-sdk/bin/dart program.dart arg1 arg2'
-    workingDirectory: 'src'
-```
+Yes, right after the `Flutter Install` task, a `FlutterPubCachePath` environment variable points to the `pub-cache` directory that Flutter installs all depdencies. You just have to use `$(FlutterPubCachePath)` in your following tasks. Example: "$(FlutterPubCachePath)/pubver set $(Version)"
 
 ## License
 
