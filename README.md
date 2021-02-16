@@ -80,6 +80,10 @@ Launch analyze on flutter directory.
 
 Launch a Flutter command with custom arguments.
 
+* Set the `arguments` to your custom valid flutter command.
+* Select the `projectDirectory` that contains the `pubspec.yaml` file.
+* _(Optional)_. Set `flutterDirectory` to set path to the Flutter SDK if you were not using `Flutter Install` task before this one
+
 ## FAQ
 
 
