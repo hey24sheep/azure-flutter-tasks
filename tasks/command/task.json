@@ -9,11 +9,27 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 33
+        "Patch": 34
     },
     "groups": [],
     "instanceNameFormat": "Flutter Command",
     "inputs": [
+        {
+            "name": "projectDirectory",
+            "type": "filePath",
+            "label": "Path to the project folder",
+            "defaultValue": ".",
+            "helpMarkDown": "The path to the project folder (which contains the `pubspec.yaml`)",
+            "required": true
+        },
+        {
+            "name": "flutterDirectory",
+            "type": "filePath",
+            "label": "Path to the Flutter SDK",
+            "defaultValue": "",
+            "helpMarkDown": "Path to the Flutter SDK if not using Flutter Install task before this one.",
+            "required": false
+        },
         {
             "name": "arguments",
             "type": "string",
