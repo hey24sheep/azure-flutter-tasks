@@ -49,9 +49,9 @@ async function main(): Promise<void> {
 	task.setVariable(FLUTTER_PUBCACHE_PATH_ENV_VAR, fullPubCachePath);
 	
 	// 5.2 Create dart environment variable
-	let fullDarthPath: string = path.join(fullFlutterPath, DART_EXE_RELATIVEPATH);
-	task.debug(`Set ${DART_TOOL_PATH_ENV_VAR} with '${fullDarthPath}'`);
-	task.setVariable(FLUTTER_TOOL_PATH_ENV_VAR, fullFlutterPath);
+	let fullDartPath: string = path.join(fullFlutterPath, DART_EXE_RELATIVEPATH);
+	task.debug(`Set ${DART_TOOL_PATH_ENV_VAR} with '${fullDartPath}'`);
+	task.setVariable(DART_TOOL_PATH_ENV_VAR, fullDartPath);
 	
 
 	task.setResult(task.TaskResult.Succeeded, "Installed");
