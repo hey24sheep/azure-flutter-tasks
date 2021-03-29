@@ -77,6 +77,7 @@ Launch analyze on flutter directory.
 
 * Select the `projectDirectory` that contains the `pubspec.yaml` file.
 * _(Optional)_. Set `pubGet` if you wish to run `pub get` command before analyze. Default is `true`.
+* _(Optional)_. Set `extraArgs` if you want to pass more official/custom command arguments. Example: "--fatal-infos --fatal-warnings"
 
 
 ### Command

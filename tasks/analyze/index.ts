@@ -1,5 +1,5 @@
-import * as path from "path";
 import * as task from "azure-pipelines-task-lib/task";
+import * as path from "path";
 
 const FLUTTER_TOOL_PATH_ENV_VAR: string = 'FlutterToolPath';
 
@@ -19,19 +19,18 @@ async function main(): Promise<void> {
 	}
 	task.debug(`Project's directory : ${task.cwd()}`);
 
-	// get args
-    let pubGetArg = task.getBoolInput('pubGet', false);
-
 	// 3. Get common input
-	let pubGet = task.getBoolInput('pubGet', pubGetArg);
+	let pubGet = task.getBoolInput('pubGet', false);
+    let extraArgs = task.getInput('extraArgs', false);
 
 	// 4. Builds
-	await runAnalyze(flutterPath, pubGet);
+	await runAnalyze(flutterPath, pubGet, extraArgs);
 
 	task.setResult(task.TaskResult.Succeeded, "Analyze succeeded");
 }
 
-async function runAnalyze(flutter: string, pubGet?: boolean) {
+async function runAnalyze(flutter: string, pubGet?: boolean,
+	extraArgs?: string) {
 
 	var args = [
 		"analyze",
@@ -41,6 +40,10 @@ async function runAnalyze(flutter: string, pubGet?: boolean) {
 		args.push("--pub");
 	} else {
 		args.push("--no-pub");
+	}
+	
+	if (extraArgs) {
+		args.push(extraArgs);
 	}
 
 	var result = await task.exec(flutter, args);

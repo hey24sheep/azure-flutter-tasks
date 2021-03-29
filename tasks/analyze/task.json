@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 33
+        "Patch": 35
     },
     "groups": [],
     "instanceNameFormat": "Flutter Analyze",
@@ -29,6 +29,14 @@
             "defaultValue": "true",
             "required": false,
             "helpMarkDown": "Sets the --[no-]pub arg. Defaults to true"
+        },
+        {
+            "name": "extraArgs",
+            "type": "string",
+            "label": "Extra command arguments",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Extra command arguments like --[no-]fatal-infos --fatal-warnings. Note: Space separated"
         }
     ],
     "execution": {

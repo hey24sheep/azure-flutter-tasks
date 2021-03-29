@@ -1,6 +1,6 @@
 {
   "name": "flutteranalyze",
-  "version": "0.2.33",
+  "version": "0.2.35",
   "description": "Flutter Analyze Task",
   "main": "index.js",
   "scripts": {
