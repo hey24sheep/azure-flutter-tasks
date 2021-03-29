@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const path = require("path");
 const task = require("azure-pipelines-task-lib/task");
+const path = require("path");
 const FLUTTER_TOOL_PATH_ENV_VAR = 'FlutterToolPath';
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -29,12 +29,13 @@ function main() {
         task.debug(`Project's directory : ${task.cwd()}`);
         // 3. Get common input
         let pubGet = task.getBoolInput('pubGet', false);
+        let extraArgs = task.getInput('extraArgs', false);
         // 4. Builds
-        yield runAnalyze(flutterPath, pubGet);
+        yield runAnalyze(flutterPath, pubGet, extraArgs);
         task.setResult(task.TaskResult.Succeeded, "Analyze succeeded");
     });
 }
-function runAnalyze(flutter, pubGet) {
+function runAnalyze(flutter, pubGet, extraArgs) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "analyze",
@@ -44,6 +45,9 @@ function runAnalyze(flutter, pubGet) {
         }
         else {
             args.push("--no-pub");
+        }
+        if (extraArgs) {
+            args.push(extraArgs);
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
