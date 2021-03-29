@@ -19,8 +19,11 @@ async function main(): Promise<void> {
 	}
 	task.debug(`Project's directory : ${task.cwd()}`);
 
+	// get args
+    let pubGetArg = task.getBoolInput('pubGet', false);
+
 	// 3. Get common input
-	let pubGet = task.getBoolInput('pubGet', false);
+	let pubGet = task.getBoolInput('pubGet', pubGetArg);
 
 	// 4. Builds
 	await runAnalyze(flutterPath, pubGet);
