@@ -30,9 +30,11 @@ Add the tasks to your build definition.
 
 Installs the [Flutter SDK](https://flutter.io/sdk-archive/) onto the running agent if not already installed. Then uses it for following tasks.
 
+* Select the `Release Url Mode`: `auto` (default), `custom`. If `custom` is specified, a `Custom (Flutter SDK Install Url)` must be set.
 * Select the `channel`: `stable` (default), `beta`, or `dev`.
 * Select the `version` of the SDK to install:  `latest` (default), `custom`. If `custom` is specified, a `customVersion` must be set.
 * _(Optional)_. Set the `customVersion` (in a `<M>.<m>.<p>` semver format) if needed.
+* _(Optional)_. Set the `Custom (Flutter SDK Install Url)` to release install url like `https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_2.2.1-stable.zip` or any other available on (https://flutter.dev/docs/development/tools/sdk/releases?tab=windows).
 
 ### Build
 
@@ -41,7 +43,7 @@ Installs the [Flutter SDK](https://flutter.io/sdk-archive/) onto the running age
 Build the given mobile application project. You must call the `Flutter Install` task or use the optional `flutterDirectory` task input that points to your `flutter/bin` folder before execution. All application bundles are created in the `build/outputs` folder of your project.
 
 * Select the `projectDirectory` that contains the `pubspec.yaml` file.
-* Select the `target` platform. Options are: `apk` (default), `aab`, `ios`, `web`, `all mobile` (all mobile platforms only), `desktop (windows)`, `desktop (macos)`, `desktop (linux)`, `all desktop` (all desktop platforms only) , `all` (all platforms).
+* Select the `target` platform. Options are: `apk` (default), `aab`, `ios`, `ipa`, `web`, `all mobile` (all mobile platforms only), `desktop (windows)`, `desktop (macos)`, `desktop (linux)`, `all desktop` (all desktop platforms only) , `all` (all platforms).
 * _(Optional)_. Set `flutterDirectory` to set path to the Flutter SDK if you were not using `Flutter Install` task before this one
 * _(Optional)_. Set `buildName` (like `1.2.3`) that will override the manifest's one.
 * _(Optional)_. Set `buildNumber` (like `12`) that will override the manifest's one.

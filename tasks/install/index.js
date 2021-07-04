@@ -26,17 +26,27 @@ function main() {
         // 1. Getting current platform identifier
         let arch = findArchitecture();
         // 2. Building version spec
-        let channel = task.getInput('channel', true);
-        let version = task.getInput('version', true);
-        let versionData = yield findLatestSdkVersion(channel, arch, version);
-        let versionSpec = versionData.version;
-        let downloadUrl = versionData.downloadUrl;
+        let mode = task.getInput('mode', true);
+        let versionSpec = '';
+        let downloadUrl = '';
+        if (mode === 'auto') {
+            let channel = task.getInput('channel', true);
+            let version = task.getInput('version', true);
+            let versionData = yield findLatestSdkVersion(channel, arch, version);
+            versionSpec = versionData.version;
+            downloadUrl = versionData.downloadUrl;
+        }
+        else {
+            downloadUrl = task.getInput('customUrl', true);
+            let urlSplits = downloadUrl.split('/');
+            versionSpec = urlSplits[urlSplits.length - 1];
+        }
         // 3. Check if already available
         task.debug(`Trying to get (${FLUTTER_TOOL_NAME},${versionSpec}, ${arch}) tool from local cache`);
         let toolPath = tool.findLocalTool(FLUTTER_TOOL_NAME, versionSpec, arch);
         if (!toolPath) {
             // 4.1. Downloading SDK
-            yield downloadAndCacheSdk(versionSpec, channel, arch, downloadUrl);
+            yield downloadAndCacheSdk(versionSpec, arch, downloadUrl);
             // 4.2. Verifying that tool is now available
             task.debug(`Trying again to get (${FLUTTER_TOOL_NAME},${versionSpec}, ${arch}) tool from local cache`);
             toolPath = tool.findLocalTool(FLUTTER_TOOL_NAME, versionSpec, arch);
@@ -63,7 +73,7 @@ function findArchitecture() {
         return "linux";
     return "windows";
 }
-function downloadAndCacheSdk(versionSpec, channel, arch, downloadUrl) {
+function downloadAndCacheSdk(versionSpec, arch, downloadUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         // 1. Download SDK archive
         task.debug(`Starting download archive from '${downloadUrl}'`);
@@ -86,7 +96,7 @@ function downloadAndCacheSdk(versionSpec, channel, arch, downloadUrl) {
 }
 function findLatestSdkVersion(channel, arch, version) {
     return __awaiter(this, void 0, void 0, function* () {
-        var releasesUrl = `https://storage.googleapis.com/flutter_infra/releases/releases_${arch}.json`;
+        var releasesUrl = `https://storage.googleapis.com/flutter_infra_release/releases/releases_${arch}.json`;
         task.debug(`Finding version '${version}' from '${releasesUrl}'`);
         var body = yield request.get(releasesUrl);
         var json = JSON.parse(body);

@@ -9,10 +9,31 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 41
+        "Patch": 42
     },
     "instanceNameFormat": "Flutter Install",
     "inputs": [
+        {
+            "name": "mode",
+            "type": "pickList",
+            "label": "Release Url Mode",
+            "defaultValue": "auto",
+            "required": true,
+            "helpMarkDown": "The release url to install Flutter SDK from (https://flutter.dev/docs/development/tools/sdk/releases?tab=windows).",
+            "options": {
+                "auto": "Auto",
+                "custom": "Custom"
+            }
+        },
+        {
+            "name": "customUrl",
+            "type": "string",
+            "label": "Custom (Flutter SDK Install Url)",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule": "mode = custom",
+            "helpMarkDown": "Url of the Flutter SDK File (https://flutter.dev/docs/development/tools/sdk/releases?tab=windows). Example URL : 'https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_2.2.1-stable.zip'."
+        },
         {
             "name": "channel",
             "type": "pickList",
@@ -24,7 +45,8 @@
                 "stable": "Stable",
                 "beta": "Beta",
                 "dev": "Dev"
-            }
+            },
+            "visibleRule": "mode = auto"
         },
         {
             "name": "version",
@@ -36,7 +58,8 @@
             "options": {
                 "latest": "Latest",
                 "custom": "Custom version"
-            }
+            },
+            "visibleRule": "mode = auto"
         },
         {
             "name": "customVersion",
@@ -45,7 +68,7 @@
             "defaultValue": "",
             "required": true,
             "helpMarkDown": "The version of the SDK to use like '1.17' or 'v1.12+3.9', etc (in a <M>.<m>.<p> semver format, from (https://flutter.io/sdk-archive/).",
-            "visibleRule": "version = custom"
+            "visibleRule": "mode = auto && version = custom"
         }
     ],
     "execution": {

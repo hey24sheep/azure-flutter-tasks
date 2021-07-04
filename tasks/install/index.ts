@@ -18,12 +18,20 @@ async function main(): Promise<void> {
 	let arch = findArchitecture();
 
 	// 2. Building version spec
-	let channel = task.getInput('channel', true);
-	let version = task.getInput('version', true);
-
-	let versionData = await findLatestSdkVersion(channel, arch, version);
-	let versionSpec = versionData.version;
-	let downloadUrl = versionData.downloadUrl;
+	let mode = task.getInput('mode', true);
+	let versionSpec = '';
+	let downloadUrl = '';
+	if (mode === 'auto') {
+		let channel = task.getInput('channel', true);
+		let version = task.getInput('version', true);
+		let versionData = await findLatestSdkVersion(channel, arch, version);
+		versionSpec = versionData.version;
+		downloadUrl = versionData.downloadUrl;
+	} else {
+		downloadUrl = task.getInput('customUrl', true);
+		let urlSplits = downloadUrl.split('/');
+		versionSpec = urlSplits[urlSplits.length - 1];
+	}
 
 	// 3. Check if already available
 	task.debug(`Trying to get (${FLUTTER_TOOL_NAME},${versionSpec}, ${arch}) tool from local cache`);
@@ -31,7 +39,7 @@ async function main(): Promise<void> {
 
 	if (!toolPath) {
 		// 4.1. Downloading SDK
-		await downloadAndCacheSdk(versionSpec, channel, arch, downloadUrl);
+		await downloadAndCacheSdk(versionSpec, arch, downloadUrl);
 
 		// 4.2. Verifying that tool is now available
 		task.debug(`Trying again to get (${FLUTTER_TOOL_NAME},${versionSpec}, ${arch}) tool from local cache`);
@@ -42,17 +50,16 @@ async function main(): Promise<void> {
 	let fullFlutterPath: string = path.join(toolPath, FLUTTER_EXE_RELATIVEPATH);
 	task.debug(`Set ${FLUTTER_TOOL_PATH_ENV_VAR} with '${fullFlutterPath}'`);
 	task.setVariable(FLUTTER_TOOL_PATH_ENV_VAR, fullFlutterPath);
-	
+
 	// 5.1 Create flutter pub-cache environment variable
 	let fullPubCachePath: string = path.join(toolPath, FLUTTER_PUB_CACHE_RELATIVEPATH);
 	task.debug(`Set ${DART_TOOL_PATH_ENV_VAR} with '${fullPubCachePath}'`);
 	task.setVariable(FLUTTER_PUBCACHE_PATH_ENV_VAR, fullPubCachePath);
-	
+
 	// 5.2 Create dart environment variable
 	let fullDartPath: string = path.join(fullFlutterPath, DART_EXE_RELATIVEPATH);
 	task.debug(`Set ${DART_TOOL_PATH_ENV_VAR} with '${fullDartPath}'`);
 	task.setVariable(DART_TOOL_PATH_ENV_VAR, fullDartPath);
-	
 
 	task.setResult(task.TaskResult.Succeeded, "Installed");
 }
@@ -65,7 +72,7 @@ function findArchitecture() {
 	return "windows";
 }
 
-async function downloadAndCacheSdk(versionSpec: string, channel: string, arch: string, downloadUrl: string): Promise<void> {
+async function downloadAndCacheSdk(versionSpec: string, arch: string, downloadUrl: string): Promise<void> {
 	// 1. Download SDK archive
 	task.debug(`Starting download archive from '${downloadUrl}'`);
 	var bundleArchive = await tool.downloadTool(downloadUrl);
@@ -90,7 +97,7 @@ async function downloadAndCacheSdk(versionSpec: string, channel: string, arch: s
 }
 
 async function findLatestSdkVersion(channel: string, arch: string, version: string): Promise<{ downloadUrl: string, version: string }> {
-	var releasesUrl = `https://storage.googleapis.com/flutter_infra/releases/releases_${arch}.json`;
+	var releasesUrl = `https://storage.googleapis.com/flutter_infra_release/releases/releases_${arch}.json`;
 	task.debug(`Finding version '${version}' from '${releasesUrl}'`);
 	var body = await request.get(releasesUrl);
 	var json = JSON.parse(body);

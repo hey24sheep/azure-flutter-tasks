@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "flutter",
-    "version": "0.2.52",
+    "version": "0.2.53",
     "name": "Flutter Tasks",
     "description": "Flutter extension for Azure DevOps. Active-Updated Fork of aloisdeniel/vsts-flutter-tasks",
     "publisher": "hey24sheep",

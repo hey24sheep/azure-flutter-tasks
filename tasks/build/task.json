@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 43
+        "Patch": 44
     },
     "groups": [],
     "instanceNameFormat": "Flutter Build $(target)",
