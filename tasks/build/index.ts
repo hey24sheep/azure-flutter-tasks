@@ -36,7 +36,9 @@ async function main(): Promise<void> {
     // 5. Builds
     if (target === "all"
         || target === "mobile"
-        || target === "ios") {
+        || target === "ios"
+        || target === "ipa") {
+        let isIPA = target === "ipa";
         let targetPlatform = task.getInput('iosTargetPlatform', false);
         let codesign = task.getBoolInput('iosCodesign', false);
         await buildIpa(
@@ -50,7 +52,8 @@ async function main(): Promise<void> {
             entryPoint,
             dartDefine,
             isVerbose,
-            extraArgs);
+            extraArgs,
+            isIPA);
     }
 
     if (target === "all"
@@ -242,12 +245,16 @@ async function buildIpa(
     entryPoint?: string,
     dartDefine?: string,
     isVerbose?: boolean,
-    extraArgs?: string) {
+    extraArgs?: string,
+    isIPA?: boolean) {
 
-    var args = [
-        "build",
-        "ios"
-    ];
+    var args = ["build"];
+
+    if (isIPA) {
+        args.push("ipa");
+    } else {
+        args.push("ios");
+    }
 
     if (debugMode) {
         args.push("--debug");

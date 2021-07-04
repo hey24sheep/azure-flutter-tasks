@@ -42,10 +42,12 @@ function main() {
         // 5. Builds
         if (target === "all"
             || target === "mobile"
-            || target === "ios") {
+            || target === "ios"
+            || target === "ipa") {
+            let isIPA = target === "ipa";
             let targetPlatform = task.getInput('iosTargetPlatform', false);
             let codesign = task.getBoolInput('iosCodesign', false);
-            yield buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs);
+            yield buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs, isIPA);
         }
         if (target === "all"
             || target === "mobile"
@@ -64,17 +66,17 @@ function main() {
         if (target === "all"
             || target === "desktop"
             || target === "windows") {
-            yield buildDesktop(flutterPath, "windows", isVerbose, extraArgs);
+            yield buildDesktop(flutterPath, "windows", isVerbose, entryPoint, extraArgs);
         }
         if (target === "all"
             || target === "desktop"
             || target === "macos") {
-            yield buildDesktop(flutterPath, "macos", isVerbose, extraArgs);
+            yield buildDesktop(flutterPath, "macos", isVerbose, entryPoint, extraArgs);
         }
         if (target === "all"
             || target === "desktop"
             || target === "linux") {
-            yield buildDesktop(flutterPath, "linux", isVerbose, extraArgs);
+            yield buildDesktop(flutterPath, "linux", isVerbose, entryPoint, extraArgs);
         }
         task.setResult(task.TaskResult.Succeeded, "Application built");
     });
@@ -157,12 +159,15 @@ function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entr
         }
     });
 }
-function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs) {
+function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs, isIPA) {
     return __awaiter(this, void 0, void 0, function* () {
-        var args = [
-            "build",
-            "ios"
-        ];
+        var args = ["build"];
+        if (isIPA) {
+            args.push("ipa");
+        }
+        else {
+            args.push("ios");
+        }
         if (debugMode) {
             args.push("--debug");
         }
@@ -225,7 +230,7 @@ function buildWeb(flutter, isVerbose, extraArgs) {
         }
     });
 }
-function buildDesktop(flutter, os, isVerbose, extraArgs) {
+function buildDesktop(flutter, os, isVerbose, entryPoint, extraArgs) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -233,6 +238,9 @@ function buildDesktop(flutter, os, isVerbose, extraArgs) {
         ];
         if (isVerbose) {
             args.push("--verbose");
+        }
+        if (entryPoint) {
+            args.push("--target=" + entryPoint);
         }
         if (extraArgs) {
             args.push(extraArgs);

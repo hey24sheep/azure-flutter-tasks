@@ -29,6 +29,7 @@
                 "mobile": "All Mobile Platform Only",
                 "desktop": "All Desktop Platform Only",
                 "ios": "iOS",
+                "ipa": "iOS (IPA)",
                 "apk": "Android (apk)",
                 "aab": "Android (aab)",
                 "web": "Web",
