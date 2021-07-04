@@ -93,19 +93,19 @@ async function main(): Promise<void> {
     if (target === "all"
         || target === "desktop"
         || target === "windows") {
-        await buildDesktop(flutterPath, "windows", isVerbose, extraArgs);
+        await buildDesktop(flutterPath, "windows", isVerbose, entryPoint, extraArgs);
     }
 
     if (target === "all"
         || target === "desktop"
         || target === "macos") {
-        await buildDesktop(flutterPath, "macos", isVerbose, extraArgs);
+        await buildDesktop(flutterPath, "macos", isVerbose, entryPoint, extraArgs);
     }
 
     if (target === "all"
         || target === "desktop"
         || target === "linux") {
-        await buildDesktop(flutterPath, "linux", isVerbose, extraArgs);
+        await buildDesktop(flutterPath, "linux", isVerbose, entryPoint, extraArgs);
     }
 
     task.setResult(task.TaskResult.Succeeded, "Application built");
@@ -332,6 +332,7 @@ async function buildDesktop(
     flutter: string,
     os: string,
     isVerbose?: boolean,
+    entryPoint?: string,
     extraArgs?: string) {
 
     var args = [
@@ -341,6 +342,9 @@ async function buildDesktop(
 
     if (isVerbose) {
         args.push("--verbose");
+    }
+    if (entryPoint) {
+        args.push("--target=" + entryPoint);
     }
 
     if (extraArgs) {
