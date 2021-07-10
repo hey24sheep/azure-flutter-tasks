@@ -6,6 +6,10 @@ Initially a [fork](https://github.com/hey24sheep/vsts-flutter-tasks) maintained/
 
 NOTE : I will no longer maintain my fork instead this repository will be updated.
 
+## Support
+
+Don't forget to star this repo, thanks.
+
 <p>
 <a href="https://www.buymeacoffee.com/hey24sheep" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174">
 </a>
