@@ -1,9 +1,9 @@
 {
     "manifestVersion": 1,
     "id": "flutter",
-    "version": "0.2.53",
+    "version": "0.2.54",
     "name": "Flutter Tasks",
-    "description": "Flutter extension for Azure DevOps. Active-Updated Fork of aloisdeniel/vsts-flutter-tasks",
+    "description": "Flutter extension for Azure DevOps. Install, build, analyze and command tasks for easier Flutter DevOps.",
     "publisher": "hey24sheep",
     "public": true,
     "targets": [
@@ -28,12 +28,12 @@
     },
     "links": {
         "support": {
-            "uri": "https://github.com/aloisdeniel/vsts-flutter-tasks/issues"
+            "uri": "https://github.com/hey24sheep/azure-flutter-tasks/issues"
         }
     },
     "repository": {
         "type": "git",
-        "uri": "https://github.com/hey24sheep/vsts-flutter-tasks"
+        "uri": "https://github.com/hey24sheep/azure-flutter-tasks"
     },
     "tags": [
         "flutter",

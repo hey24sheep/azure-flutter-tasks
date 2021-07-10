@@ -1,9 +1,10 @@
-# Flutter for Azure DevOps 
+# Flutter Extension for Azure DevOps 
 
-[Flutter](http://flutter.io) build task for [Azure DevOps](https://azure.microsoft.com/en-gb/services/devops/).
+Latest [Flutter](http://flutter.io) tasks for [Azure DevOps](https://azure.microsoft.com/en-gb/services/devops/).
 
-All credit goes to the original author for his awesome work.
-This extension is a custom/updated/maintained fork of Alois Deniel's extension [Github](https://github.com/aloisdeniel/vsts-flutter-tasks)
+Initially a [fork](https://github.com/hey24sheep/vsts-flutter-tasks) maintained/updated by me of the awesome work done by original author [Github](https://github.com/aloisdeniel/vsts-flutter-tasks). As per people's request, This is now a separate repo as this is now an advanced/latest extension. 
+
+NOTE : I will no longer maintain my fork instead this repository will be updated.
 
 <p>
 <a href="https://www.buymeacoffee.com/hey24sheep" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174">
@@ -16,7 +17,9 @@ Installation can be done using [Visual Studio MarketPlace](https://marketplace.v
 
 ## Source Code
 
-Source code can be found on [Github](https://github.com/hey24sheep/vsts-flutter-tasks).
+Source code can be found on [Github](https://github.com/hey24sheep/azure-flutter-tasks).
+
+Previous fork : [Github](https://github.com/hey24sheep/vsts-flutter-tasks)
 
 Original repo : [Github](https://github.com/aloisdeniel/vsts-flutter-tasks).
 

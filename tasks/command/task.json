@@ -3,7 +3,7 @@
     "name": "FlutterCommand",
     "friendlyName": "Flutter Command Task",
     "description": "Launch a custom Flutter command with custom arguments.",
-    "helpMarkDown": "Don't forget to insert a 'Flutter Install' task before. [More Information](https://github.com/hey24sheep/vsts-flutter-tasks)",
+    "helpMarkDown": "Don't forget to insert a 'Flutter Install' task before. [More Information](https://github.com/hey24sheep/azure-flutter-tasks)",
     "category": "Tool",
     "author": "Hey24sheep",
     "version": {

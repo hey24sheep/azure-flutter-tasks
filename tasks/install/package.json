@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hey24sheep/vsts-flutter-tasks.git"
+    "url": "git+https://github.com/hey24sheep/azure-flutter-tasks.git"
   },
   "author": "Hey24sheep",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hey24sheep/vsts-flutter-tasks/issues"
+    "url": "https://github.com/hey24sheep/azure-flutter-tasks/issues"
   },
-  "homepage": "https://github.com/hey24sheep/vsts-flutter-tasks#readme",
+  "homepage": "https://github.com/hey24sheep/azure-flutter-tasks#readme",
   "dependencies": {
     "azure-pipelines-tool-lib": "0.13.2",
     "request-promise": "*",
