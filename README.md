@@ -2,9 +2,10 @@
 
 Latest [Flutter](http://flutter.io) tasks for [Azure DevOps](https://azure.microsoft.com/en-gb/services/devops/).
 
-Initially a [fork](https://github.com/hey24sheep/vsts-flutter-tasks) maintained/updated by me of the awesome work done by original author [Github](https://github.com/aloisdeniel/vsts-flutter-tasks). As per people's request, This is now a separate repo as this is now an advanced/latest extension with more features. 
+Initially a [fork](https://github.com/hey24sheep/vsts-flutter-tasks) maintained by me of the awesome work done by original author [Github](https://github.com/aloisdeniel/vsts-flutter-tasks). As per people's request, this is now a separate repo as this is now an advanced/latest extension with more features. 
 
-NOTE : I will no longer maintain my fork instead this repository will be updated as the fork is way ahead and with more features than the original repo.
+> NOTE : I will no longer maintain my fork instead this repository will be updated, as this has developed into a lot more than the original extension.
+
 
 ## Support
 
@@ -15,21 +16,15 @@ Don't forget to star this repo, thanks.
 </a>
 </p>
 
-## Installation
+<br/>
 
-Installation can be done using [Visual Studio MarketPlace](https://marketplace.visualstudio.com/items?itemName=hey24sheep.flutter).
+## Installation & Usage
 
-## Source Code
+Installation can be done using [Visual Studio MarketPlace](https://marketplace.visualstudio.com/items?itemName=hey24sheep.flutter). Add the tasks to your build definition.
 
-Source code can be found on [Github](https://github.com/hey24sheep/azure-flutter-tasks).
+<br/>
 
-Previous fork : [Github](https://github.com/hey24sheep/vsts-flutter-tasks)
-
-Original repo : [Github](https://github.com/aloisdeniel/vsts-flutter-tasks).
-
-## Usage
-
-Add the tasks to your build definition.
+# Pipeline Tasks
 
 ### Install
 
@@ -99,7 +94,30 @@ Launch a Flutter command with custom arguments.
 * Select the `projectDirectory` that contains the `pubspec.yaml` file.
 * _(Optional)_. Set `flutterDirectory` to set path to the Flutter SDK if you were not using `Flutter Install` task before this one
 
-## FAQ
+### Env
+
+![](images/step_env.png)
+
+Task to create the environment variables `FlutterToolPath`, `FlutterPubCachePath` and `DartToolPath`.
+
+* Pick the `Flutter path from` either to `Custom Path` or `File Path`.
+* Select the `Custom Path` to give a path string like "`$(Agent.ToolsDirectory)/<yourPath>/flutter`"
+* Select the `File Path` to set path to the Flutter SDK
+
+> NOTE :  Do not give path to 'bin' folder
+
+<br/>
+
+# Environment Variables
+Environment variables created by the `Install` or `Env` tasks are :
+
+* `$(FlutterToolPath)` - can be used as "`$(FlutterToolPath)/flutter packages get`"
+* `$(FlutterPubCachePath)` can be used as "`$(FlutterPubCachePath)/pubver set $(Version)`"
+* `$(DartToolPath)` - can be used as "`$(DartToolPath)/dart prog.dart arg1`"
+
+<br/>
+
+# FAQ
 
 
 > Flutter command isn't recognized ?
@@ -108,15 +126,27 @@ Make sure that you have a `Flutter Install` at the beginning of your definition.
 
 > Can I run a custom Flutter command ?
 
-Yes, right after the `Flutter Install` task, a `FlutterToolPath` environment variable points to the `bin` of the Flutter SDK directory. You just have to use `$(FlutterToolPath)` in your following tasks. Example: "$(FlutterToolPath)/flutter packages get"
+Yes, right after the `Flutter Install` task, a `FlutterToolPath` environment variable points to the `bin` of the Flutter SDK directory. You just have to use `$(FlutterToolPath)` in your following tasks. Example: "`$(FlutterToolPath)/flutter packages get`"
 
 > Can I run Dart program ?
 
-Yes, right after the `Flutter Install` task, a `DartToolPath` environment variable points to the `bin` of the Dart SDK directory. You just have to use `$(DartToolPath)` in your following tasks. Example: "$(DartToolPath)/dart program.dart arg1 arg2"
+Yes, right after the `Flutter Install` task, a `DartToolPath` environment variable points to the `bin` of the Dart SDK directory. You just have to use `$(DartToolPath)` in your following tasks. Example: "`$(DartToolPath)/dart program.dart arg1 arg2`"
 
 > Can I access Flutter's pub-cache ?
 
-Yes, right after the `Flutter Install` task, a `FlutterPubCachePath` environment variable points to the `pub-cache` directory that Flutter installs all depdencies. You just have to use `$(FlutterPubCachePath)` in your following tasks. Example: "$(FlutterPubCachePath)/pubver set $(Version)"
+Yes, right after the `Flutter Install` task, a `FlutterPubCachePath` environment variable points to the `pub-cache` directory that Flutter installs all depdencies. You just have to use `$(FlutterPubCachePath)` in your following tasks. Example: "`$(FlutterPubCachePath)/pubver set $(Version)`"
+
+<br/>
+
+## Source Code
+
+Source code can be found on [Github](https://github.com/hey24sheep/azure-flutter-tasks).
+
+Previous fork : [Github](https://github.com/hey24sheep/vsts-flutter-tasks)
+
+Original repo : [Github](https://github.com/aloisdeniel/vsts-flutter-tasks).
+
+<br/>
 
 ## License
 

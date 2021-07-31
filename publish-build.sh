@@ -9,6 +9,8 @@ cd ../analyze
 tsc 
 cd ../command
 tsc 
+cd ../env
+tsc 
 cd ../../
 
 # Create extension

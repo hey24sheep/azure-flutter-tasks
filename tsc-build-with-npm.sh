@@ -15,4 +15,7 @@ tsc
 cd ../command
 npm install
 tsc 
+cd ../env
+npm install
+tsc 
 cd ../../

@@ -1,0 +1,52 @@
+{
+    "id": "8c3e9995-7831-4d41-8d3e-bbc1a45224cf",
+    "name": "FlutterEnv",
+    "friendlyName": "Flutter Env Task",
+    "description": "Setup the Flutter environment variables from custom Flutter directory path.",
+    "helpMarkdown": "For more information, take a look at the Flutter [documentation](https://flutter.io)",
+    "category": "Tool",
+    "author": "Hey24sheep",
+    "version": {
+        "Major": 0,
+        "Minor": 2,
+        "Patch": 43
+    },
+    "instanceNameFormat": "Flutter Env",
+    "inputs": [
+        {
+            "name": "pathType",
+            "type": "pickList",
+            "label": "Flutter path from",
+            "defaultValue": "customPath",
+            "helpMarkDown": "Type of flutter path input.",
+            "required": true,
+            "options": {
+                "customPath": "Custom Path",
+                "flutterDirectory": "File Path"
+            }
+        },
+        {
+            "name": "customPath",
+            "type": "string",
+            "label": "Custom Path to Flutter directory",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Path to Flutter SDK like '$(Agent.ToolsDirectory)/<yourPath>/flutter'. Do not give path to 'bin' folder.",
+            "visibleRule": "pathType = customPath"
+        },
+        {
+            "name": "flutterDirectory",
+            "type": "filePath",
+            "label": "Path to the Flutter SDK",
+            "defaultValue": "",
+            "helpMarkDown": "The path to the Flutter SDK. Do not give path to 'bin' folder.",
+            "required": true,
+            "visibleRule": "pathType = flutterDirectory"
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": "index.js"
+        }
+    }
+}

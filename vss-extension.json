@@ -1,9 +1,9 @@
 {
     "manifestVersion": 1,
     "id": "flutter",
-    "version": "0.2.54",
+    "version": "0.2.55",
     "name": "Flutter Tasks",
-    "description": "Flutter extension for Azure DevOps. Install, build, analyze and command tasks for easier Flutter DevOps.",
+    "description": "Flutter extension for Azure DevOps. Install, build, analyze, command and env tasks for easier Flutter DevOps.",
     "publisher": "hey24sheep",
     "public": true,
     "targets": [
@@ -59,6 +59,9 @@
             "path": "tasks/command"
         },
         {
+            "path": "tasks/env"
+        },
+        {
             "path": "images",
             "addressable": true
         }
@@ -112,6 +115,16 @@
             ],
             "properties": {
                 "name": "tasks/command"
+            }
+        },
+        {
+            "id": "flutter-env",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/env"
             }
         }
     ]
