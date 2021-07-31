@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "flutter",
-    "version": "0.2.56",
+    "version": "0.2.57",
     "name": "Flutter Tasks",
     "description": "Flutter extension for Azure DevOps. Install, build, analyze, command and env tasks for easier Flutter DevOps.",
     "publisher": "hey24sheep",
@@ -24,11 +24,23 @@
         },
         "license": {
             "path": "LICENSE"
+        },
+        "privacy": {
+            "path": "PRIVACY.md"
         }
     },
     "links": {
+        "getstarted": {
+            "uri": "https://github.com/hey24sheep/azure-flutter-tasks"
+        },
         "support": {
             "uri": "https://github.com/hey24sheep/azure-flutter-tasks/issues"
+        },
+        "license": {
+            "uri": "https://github.com/hey24sheep/azure-flutter-tasks/LICENSE.md"
+        },
+        "privacypolicy": {
+            "uri": "https://github.com/hey24sheep/azure-flutter-tasks/PRIVACY.md"
         }
     },
     "repository": {
