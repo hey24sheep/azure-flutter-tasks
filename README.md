@@ -2,9 +2,9 @@
 
 Latest [Flutter](http://flutter.io) tasks for [Azure DevOps](https://azure.microsoft.com/en-gb/services/devops/).
 
-Initially a [fork](https://github.com/hey24sheep/vsts-flutter-tasks) maintained/updated by me of the awesome work done by original author [Github](https://github.com/aloisdeniel/vsts-flutter-tasks). As per people's request, This is now a separate repo as this is now an advanced/latest extension. 
+Initially a [fork](https://github.com/hey24sheep/vsts-flutter-tasks) maintained/updated by me of the awesome work done by original author [Github](https://github.com/aloisdeniel/vsts-flutter-tasks). As per people's request, This is now a separate repo as this is now an advanced/latest extension with more features. 
 
-NOTE : I will no longer maintain my fork instead this repository will be updated.
+NOTE : I will no longer maintain my fork instead this repository will be updated as the fork is way ahead and with more features than the original repo.
 
 ## Support
 
