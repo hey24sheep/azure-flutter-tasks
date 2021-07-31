@@ -13,10 +13,15 @@ const DART_TOOL_PATH_ENV_VAR: string = 'DartToolPath';
 
 async function main(): Promise<void> {
 	// 1. Get where to get the path from
-    let pathType = task.getInput('pathType', true);
+	let pathType = task.getInput('pathType', true);
+	var flutterDir = '';
 
 	// 1.1 Getting path
-	var flutterDir = task.getInput(pathType, true);
+	if (pathType === 'customPath') {
+		flutterDir = task.getInput('customPath', true);
+	} else {
+		flutterDir = task.getPathInput('flutterDirectory', true);
+	}
 
 	// 2. Creating flutter environment variable
 	let fullFlutterPath: string = path.join(flutterDir, FLUTTER_EXE_RELATIVEPATH);
