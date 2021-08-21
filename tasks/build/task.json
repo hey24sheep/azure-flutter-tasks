@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 45
+        "Patch": 46
     },
     "groups": [],
     "instanceNameFormat": "Flutter Build $(target)",
@@ -144,6 +144,15 @@
             "required": false,
             "helpMarkDown": "Indicates whether the application bundle should be codesigned. **Warning: you must install a valid certificate before build with the `Install an Apple Certificate`task**",
             "visibleRule": "target = ios"
+        },
+        {
+            "name": "exportOptionsPlist",
+            "type": "string",
+            "label": "Export Options Plist path",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "--export-options-plist=path/to/ExportOptions.plist. This flag cannot be combined with '--split-debug-info'. Optionally export an IPA with these options. See 'xcodebuild -h' for available exportOptionsPlist keys",
+            "visibleRule": "target = ipa"
         },
         {
             "name": "dartDefine",

@@ -47,7 +47,8 @@ function main() {
             let isIPA = target === "ipa";
             let targetPlatform = task.getInput('iosTargetPlatform', false);
             let codesign = task.getBoolInput('iosCodesign', false);
-            yield buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs, isIPA);
+            let exportOptionsPlist = task.getInput('exportOptionsPlist', false);
+            yield buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs, isIPA, exportOptionsPlist);
         }
         if (target === "all"
             || target === "mobile"
@@ -159,7 +160,7 @@ function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entr
         }
     });
 }
-function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs, isIPA) {
+function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs, isIPA, exportOptionsPlist) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = ["build"];
         if (isIPA) {
@@ -171,17 +172,19 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
         if (debugMode) {
             args.push("--debug");
         }
-        if (simulator) {
-            args.push("--simulator");
-            if (!debugMode) {
-                args.push("--debug"); // simulator can only be built in debug
+        if (!isIPA) {
+            if (simulator) {
+                args.push("--simulator");
+                if (!debugMode) {
+                    args.push("--debug"); // simulator can only be built in debug
+                }
             }
-        }
-        else if (codesign) {
-            args.push("--codesign");
-        }
-        else {
-            args.push("--no-codesign");
+            else if (codesign) {
+                args.push("--codesign");
+            }
+            else {
+                args.push("--no-codesign");
+            }
         }
         if (buildName) {
             args.push("--build-name=" + buildName);
@@ -202,6 +205,9 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
         }
         if (isVerbose) {
             args.push("--verbose");
+        }
+        if (isIPA && exportOptionsPlist) {
+            args.push("--export-options-plist=" + exportOptionsPlist);
         }
         if (extraArgs) {
             args.push(extraArgs);

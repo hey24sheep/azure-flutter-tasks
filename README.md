@@ -1,5 +1,10 @@
 # Flutter Extension for Azure DevOps 
 
+![](https://img.shields.io/visual-studio-marketplace/release-date/hey24sheep.flutter?color=green&style=flat-square)
+![](https://img.shields.io/visual-studio-marketplace/azure-devops/installs/total/hey24sheep.flutter?style=flat-square)
+![](https://img.shields.io/visual-studio-marketplace/last-updated/hey24sheep.flutter?style=flat-square)
+![](https://img.shields.io/visual-studio-marketplace/r/hey24sheep.flutter?color=green&style=flat-square)
+
 Latest [Flutter](http://flutter.io) tasks for [Azure DevOps](https://azure.microsoft.com/en-gb/services/devops/).
 
 Initially a [fork](https://github.com/hey24sheep/vsts-flutter-tasks) maintained by me of the awesome work done by original author [Github](https://github.com/aloisdeniel/vsts-flutter-tasks). As per people's request, this is now a separate repo as this is now an advanced/latest extension with more features. 
@@ -63,6 +68,7 @@ Build the given mobile application project. You must call the `Flutter Install` 
 * __(Android)__._(Optional)_. Set the build mode `splitPerAbi` to compile the code into an APK per target ABI. Otherwise the build will result in a single APK.
 * __(iOS)__._(Optional)_. Set `iosTargetPlatform` for the iOS target: `device` (default), `simulator`.
 * __(iOS)__._(Optional)_. Set `iosCodesign` to configure whenever the bundle odesign the application bundle (only available on device builds, and activated by default). **Warning: you must install a valid certificate before build with the `Install an Apple Certificate`task**
+* __(ipa)__._(Optional)_. Set the path of your `path/to/ExportOptions.plist` to configure `--export-options-plist`. This flag cannot be combined with '--split-debug-info'. Optionally export an IPA with these options. See 'xcodebuild -h' for available exportOptionsPlist keys.
 
 ### Test
 

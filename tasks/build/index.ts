@@ -41,6 +41,8 @@ async function main(): Promise<void> {
         let isIPA = target === "ipa";
         let targetPlatform = task.getInput('iosTargetPlatform', false);
         let codesign = task.getBoolInput('iosCodesign', false);
+        let exportOptionsPlist = task.getInput('exportOptionsPlist', false);
+
         await buildIpa(
             flutterPath,
             targetPlatform == "simulator",
@@ -53,7 +55,8 @@ async function main(): Promise<void> {
             dartDefine,
             isVerbose,
             extraArgs,
-            isIPA);
+            isIPA,
+            exportOptionsPlist);
     }
 
     if (target === "all"
@@ -246,7 +249,8 @@ async function buildIpa(
     dartDefine?: string,
     isVerbose?: boolean,
     extraArgs?: string,
-    isIPA?: boolean) {
+    isIPA?: boolean,
+    exportOptionsPlist?: string) {
 
     var args = ["build"];
 
@@ -260,18 +264,20 @@ async function buildIpa(
         args.push("--debug");
     }
 
-    if (simulator) {
-        args.push("--simulator");
+    if (!isIPA) {
+        if (simulator) {
+            args.push("--simulator");
 
-        if (!debugMode) {
-            args.push("--debug"); // simulator can only be built in debug
+            if (!debugMode) {
+                args.push("--debug"); // simulator can only be built in debug
+            }
         }
-    }
-    else if (codesign) {
-        args.push("--codesign");
-    }
-    else {
-        args.push("--no-codesign");
+        else if (codesign) {
+            args.push("--codesign");
+        }
+        else {
+            args.push("--no-codesign");
+        }
     }
 
     if (buildName) {
@@ -298,6 +304,10 @@ async function buildIpa(
 
     if (isVerbose) {
         args.push("--verbose");
+    }
+
+    if (isIPA && exportOptionsPlist) {
+        args.push("--export-options-plist=" + exportOptionsPlist);
     }
 
     if (extraArgs) {
