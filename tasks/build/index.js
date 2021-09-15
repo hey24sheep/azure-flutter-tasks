@@ -54,6 +54,12 @@ function main() {
             || target === "mobile"
             || target === "apk") {
             let targetPlatform = task.getInput('apkTargetPlatform', false);
+            if (targetPlatform === 'custom') {
+                targetPlatform = task.getInput('customApkTargetPlatform', true);
+            }
+            else if (targetPlatform === 'default') {
+                targetPlatform = null; // let flutter handle defaults
+            }
             yield buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, isVerbose, extraArgs);
         }
         if (target === "all"
@@ -91,6 +97,7 @@ function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, bu
         if (debugMode) {
             args.push("--debug");
         }
+        // if null, flutter will set defaults
         if (targetPlatform) {
             args.push("--target-platform=" + targetPlatform);
         }

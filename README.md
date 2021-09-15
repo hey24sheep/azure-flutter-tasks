@@ -64,7 +64,8 @@ Build the given mobile application project. You must call the `Flutter Install` 
 * _(Optional)_. Set `debugMode` if you wish to override the default release mode for the build. Default is `false`.
 * _(Optional)_. Set `dartDefine` compile-time variables. Example: "Some_Var=Some_val --dart-define=Some_Var2=Val"
 * _(Optional)_. Set `extraArgs` if you want to pass more official/custom command arguments. Example: "--no-tree-shake-icons --publish-to-play"
-* __(Android)__._(Optional)_. Set `apkTargetPlatform` for the Android platform architecture target: `android-arm` (default), `android-arm64`.
+* __(Android)__._(Optional)_. Set `apkTargetPlatform` for the Android platform architecture target: `default` __(default set by Flutter sdk)__ `android-arm` , `android-arm64`, `android-x86`, `android-x64`, `custom`.
+* __(Android)__._(Optional)_. Set `customApkTargetPosition` for the `custom` target platform architecture, provide your own combination (comma separated) of valid values. _Example_ like `android-arm,android-arm64,android-x64`
 * __(Android)__._(Optional)_. Set the build mode `splitPerAbi` to compile the code into an APK per target ABI. Otherwise the build will result in a single APK.
 * __(iOS)__._(Optional)_. Set `iosTargetPlatform` for the iOS target: `device` (default), `simulator`.
 * __(iOS)__._(Optional)_. Set `iosCodesign` to configure whenever the bundle odesign the application bundle (only available on device builds, and activated by default). **Warning: you must install a valid certificate before build with the `Install an Apple Certificate`task**

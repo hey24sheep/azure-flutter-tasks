@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 46
+        "Patch": 47
     },
     "groups": [],
     "instanceNameFormat": "Flutter Build $(target)",
@@ -114,14 +114,27 @@
             "name": "apkTargetPlatform",
             "type": "pickList",
             "label": "Target platform architecture",
-            "defaultValue": "android-arm",
+            "defaultValue": "default",
             "required": false,
             "helpMarkDown": "Sets the target android platform architecture",
             "visibleRule": "target = apk",
             "options": {
+                "default" : "Default (set by Flutter)",
                 "android-arm": "Arm",
-                "android-arm64": "Arm64"
+                "android-arm64": "Arm64",
+                "android-x86": "Android-X86", 
+                "android-x64": "Android-X64",
+                "custom": "Custom"
             }
+        },
+        {
+            "name": "customApkTargetPlatform",
+            "type": "string",
+            "label": "Custom target platform architecutre",
+            "defaultValue": "",
+            "required": true,
+            "visibleRule":"apkTargetPlatform = custom",
+            "helpMarkDown": "Enter your --target-platform in here like android-arm,android-arm64,android-x64 (comma separated)"
         },
         {
             "name": "iosTargetPlatform",

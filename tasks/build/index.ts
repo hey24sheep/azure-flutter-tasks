@@ -63,6 +63,11 @@ async function main(): Promise<void> {
         || target === "mobile"
         || target === "apk") {
         let targetPlatform = task.getInput('apkTargetPlatform', false);
+        if (targetPlatform === 'custom') {
+            targetPlatform = task.getInput('customApkTargetPlatform', true);
+        } else if (targetPlatform === 'default') {
+            targetPlatform = null; // let flutter handle defaults
+        }
         await buildApk(
             flutterPath,
             targetPlatform,
@@ -139,6 +144,7 @@ async function buildApk(
         args.push("--debug");
     }
 
+    // if null, flutter will set defaults
     if (targetPlatform) {
         args.push("--target-platform=" + targetPlatform);
     }
