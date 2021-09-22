@@ -33,9 +33,13 @@ function main() {
         let debugMode = task.getBoolInput('debugMode', false);
         let buildName = task.getInput('buildName', false);
         let buildNumber = task.getInput('buildNumber', false);
-        let buildNumberSplits = buildNumber.split('.');
-        // handle decimal, if buildNumber is like "1234.1"
-        buildNumber = buildNumberSplits[0];
+        if (buildNumber) {
+            let buildNumberSplits = buildNumber.split('.');
+            if (buildNumberSplits) {
+                // handle decimal, if buildNumber is like "1234.1"
+                buildNumber = buildNumberSplits[0];
+            }
+        }
         let buildFlavour = task.getInput('buildFlavour', false);
         let entryPoint = task.getInput('entryPoint', false);
         let dartDefine = task.getInput('dartDefine', false);
