@@ -57,7 +57,7 @@ Build the given mobile application project. You must call the `Flutter Install` 
 * Select the `target` platform. Options are: `apk` (default), `aab`, `ios`, `ipa`, `web`, `all mobile` (all mobile platforms only), `desktop (windows)`, `desktop (macos)`, `desktop (linux)`, `all desktop` (all desktop platforms only) , `all` (all platforms).
 * _(Optional)_. Set `flutterDirectory` to set path to the Flutter SDK if you were not using `Flutter Install` task before this one
 * _(Optional)_. Set `buildName` (like `1.2.3`) that will override the manifest's one.
-* _(Optional)_. Set `buildNumber` (like `12`) that will override the manifest's one.
+* _(Optional)_. Set `buildNumber` (like `12`) that will override the manifest's one. Use `$(Build.BuildNumber)` to use build number as auto incremental number.
 * _(Optional)_. Set `buildFlavour` (like `development`) to specify a build flavour. Must match Android Gradle flavor definition or XCode scheme.
 * _(Optional)_. Set `entryPoint` to override the main entry point file of the application. Default is 'lib/main.dart'.
 * _(Optional)_. Set `verboseMode` if you wish to get detailed verbose log output for diagnoses purposes. Default is `false`.

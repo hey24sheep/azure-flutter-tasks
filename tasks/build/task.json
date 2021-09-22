@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 47
+        "Patch": 48
     },
     "groups": [],
     "instanceNameFormat": "Flutter Build $(target)",
@@ -90,7 +90,7 @@
             "name": "buildNumber",
             "type": "string",
             "label": "Package build number",
-            "defaultValue": "$(Build.BuildNumber)",
+            "defaultValue": "",
             "required": false,
             "helpMarkDown": "An identifier used as an internal version number. Each build must have a unique identifier to differentiate it from previous builds."
         },
