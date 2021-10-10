@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 2,
-        "Patch": 37
+        "Patch": 38
     },
     "instanceNameFormat": "Flutter Test",
     "inputs": [
@@ -67,6 +67,14 @@
             "label": "Publish Test Results",
             "defaultValue": true,
             "required": false
+        },
+        {
+            "name": "extraArgs",
+            "type": "string",
+            "label": "Extra command arguments",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Extra command arguments like '--no-sound-null-safety'. Comma Separated"
         }
     ],
     "execution": {

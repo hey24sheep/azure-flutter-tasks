@@ -26,6 +26,7 @@ async function main(): Promise<void> {
     let concurrency = task.getInput('concurrency', false);
     let canPublishTests = task.getInput('publishTests', false);
     let canGenerateCodeCoverage = task.getBoolInput("generateCodeCoverageReport", false);
+    let extraArgs = task.getDelimitedInput('extraArgs', ',', false);
 
     // 5. Running tests
     var results = await runTests(
@@ -34,7 +35,8 @@ async function main(): Promise<void> {
         updateGoldens,
         testName,
         testPlainName,
-        canGenerateCodeCoverage);
+        canGenerateCodeCoverage,
+        extraArgs);
 
     // 6. Publishing tests
     if (canPublishTests) {
@@ -70,7 +72,8 @@ async function runTests(flutter: string,
     updateGoldens?: boolean,
     name?: string,
     plainName?: string,
-    canGenerateCodeCoverage?: boolean) {
+    canGenerateCodeCoverage?: boolean,
+    extraArgs?: string[]) {
     let testRunner = task.tool(flutter);
     testRunner.arg(['test', '--pub']);
 
@@ -92,6 +95,10 @@ async function runTests(flutter: string,
 
     if (concurrency) {
         testRunner.arg("--concurrency=" + concurrency);
+    }
+
+    if (extraArgs && extraArgs.length > 0) {
+        testRunner.arg(extraArgs);
     }
 
     var currentSuite: any = null;

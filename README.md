@@ -63,7 +63,7 @@ Build the given mobile application project. You must call the `Flutter Install` 
 * _(Optional)_. Set `verboseMode` if you wish to get detailed verbose log output for diagnoses purposes. Default is `false`.
 * _(Optional)_. Set `debugMode` if you wish to override the default release mode for the build. Default is `false`.
 * _(Optional)_. Set `dartDefine` compile-time variables. Example: "Some_Var=Some_val --dart-define=Some_Var2=Val"
-* _(Optional)_. Set `extraArgs` if you want to pass more official/custom command arguments. Example: "--no-tree-shake-icons --publish-to-play"
+* _(Optional)_. Set `extraArgs` if you want to pass more official/custom command arguments, `Space Separated`. Example: "--no-tree-shake-icons --publish-to-play"
 * __(Android)__._(Optional)_. Set `apkTargetPlatform` for the Android platform architecture target: `default` __(default set by Flutter sdk)__ `android-arm` , `android-arm64`, `android-x86`, `android-x64`, `custom`.
 * __(Android)__._(Optional)_. Set `customApkTargetPosition` for the `custom` target platform architecture, provide your own combination (comma separated) of valid values. _Example_ like `android-arm,android-arm64,android-x64`
 * __(Android)__._(Optional)_. Set the build mode `splitPerAbi` to compile the code into an APK per target ABI. Otherwise the build will result in a single APK.
@@ -83,6 +83,7 @@ Launch tests and publish a report as build test results.
 * _(Optional)_. Set `updateGoldens`: whether `matchesGoldenFile()` calls within your test methods should update the golden files rather than test for an existing match.
 * _(Optional)_. Set `generateCodeCoverageReport` to generate code coverage report based on tests in the project. The report file is located in the specified `projectDirectory` in `coverage/lcov.info`.
 * _(Optional)_. Set `concurrency` to specify the number of concurrent test processes to run. Default is `6`.
+* _(Optional)_. Set `extraArgs` if you want to pass more official/custom command arguments, `Comma Separated`. Example: "--no-sound-null-safety,--dart-define=<foo=bar>"
 
 ### Analyze
 
