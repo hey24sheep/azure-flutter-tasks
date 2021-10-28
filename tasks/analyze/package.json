@@ -1,6 +1,6 @@
 {
   "name": "flutteranalyze",
-  "version": "0.2.36",
+  "version": "0.2.37",
   "description": "Flutter Analyze Task",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/hey24sheep/azure-flutter-tasks#readme",
   "dependencies": {
-    "azure-pipelines-task-lib": "^2.7.0",
+    "azure-pipelines-task-lib": "^2.12.2",
     "vsts-task-tool-lib": "*"
   }
 }
