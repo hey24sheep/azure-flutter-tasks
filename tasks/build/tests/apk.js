@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const path = require("path");
-const fs = require("fs");
 const mr = require("azure-pipelines-task-lib/mock-run");
+const fs = require("fs");
+const path = require("path");
 const taskPath = path.join(__dirname, "../index.js");
 var runner = new mr.TaskMockRunner(taskPath);
 function assertDirectory(path) {
@@ -24,7 +24,7 @@ assertDirectory(process.env["AGENT_TOOLSDIRECTORY"] = path.join(agentPath, "tool
 assertDirectory(process.env["AGENT_TEMPDIRECTORY"] = path.join(agentPath, "temp"));
 assertDirectory(process.env["AGENT_BUILDDIRECTORY"] = path.join(agentPath, "build"));
 // Run install tests
-process.env["FlutterToolPath"] = path.join(agentPath, "tools", "Flutter", "0.9.6-dev", "macos", "flutter", "bin");
+process.env["FlutterToolPath"] = path.join(agentPath, "tools", "Flutter", "2.5.3-stable", "windows", "flutter", "bin");
 runner.setInput("target", "apk");
 runner.setInput("buildName", "com.hey24sheep.vsts");
 runner.setInput("buildNumber", "12");

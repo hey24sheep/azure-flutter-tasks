@@ -1,12 +1,12 @@
-import * as path from 'path';
+import * as mr from 'azure-pipelines-task-lib/mock-run';
 import * as fs from 'fs';
-import * as mr from 'vsts-task-lib/mock-run';
+import * as path from 'path';
 
 const taskPath = path.join(__dirname, "../index.js");
 var runner = new mr.TaskMockRunner(taskPath);
 
 function assertDirectory(path: string) {
-    if (!fs.existsSync(path)){
+    if (!fs.existsSync(path)) {
         fs.mkdirSync(path);
     }
 }
@@ -25,7 +25,8 @@ assertDirectory(process.env["AGENT_BUILDDIRECTORY"] = path.join(agentPath, "buil
 //let tmr = require('vsts-task-lib/mock-toolrunner');
 //runner.registerMock('vsts-task-lib/toolrunner', tmr);
 
-runner.setInput("channel", "beta");
+runner.setInput("mode", "auto");
+runner.setInput("channel", "stable");
 runner.setInput("version", "latest");
 
 runner.run(true);

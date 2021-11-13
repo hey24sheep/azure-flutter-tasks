@@ -177,7 +177,11 @@ async function buildApk(
     }
 
     if (dartDefine) {
-        args.push("--dart-define=" + dartDefine);
+        var splitted = dartDefine.split(" ");
+        if (splitted && splitted.length > 0) {
+            args.push("--dart-define=" + splitted[0]);
+            args.push(...splitted.splice(1));
+        }
     }
 
     if (isVerbose) {
@@ -185,7 +189,8 @@ async function buildApk(
     }
 
     if (extraArgs) {
-        args.push(extraArgs);
+        var splitted = extraArgs.split(" ");
+        args.push(...splitted);
     }
 
     var result = await task.exec(flutter, args);
@@ -240,7 +245,8 @@ async function buildAab(
     }
 
     if (extraArgs) {
-        args.push(extraArgs);
+        var splitted = extraArgs.split(" ");
+        args.push(...splitted);
     }
 
     var result = await task.exec(flutter, args);
@@ -324,7 +330,8 @@ async function buildIpa(
     }
 
     if (extraArgs) {
-        args.push(extraArgs);
+        var splitted = extraArgs.split(" ");
+        args.push(...splitted);
     }
 
     var result = await task.exec(flutter, args);
@@ -348,7 +355,8 @@ async function buildWeb(
     }
 
     if (extraArgs) {
-        args.push(extraArgs);
+        var splitted = extraArgs.split(" ");
+        args.push(...splitted);
     }
 
     var result = await task.exec(flutter, args);
@@ -378,7 +386,8 @@ async function buildDesktop(
     }
 
     if (extraArgs) {
-        args.push(extraArgs);
+        var splitted = extraArgs.split(" ");
+        args.push(...splitted);
     }
 
     var result = await task.exec(flutter, args);

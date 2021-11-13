@@ -21,7 +21,7 @@ async function main(): Promise<void> {
 
 	// 3. Get common input
 	let pubGet = task.getBoolInput('pubGet', false);
-    let extraArgs = task.getInput('extraArgs', false);
+	let extraArgs = task.getInput('extraArgs', false);
 
 	// 4. Builds
 	await runAnalyze(flutterPath, pubGet, extraArgs);
@@ -41,7 +41,7 @@ async function runAnalyze(flutter: string, pubGet?: boolean,
 	} else {
 		args.push("--no-pub");
 	}
-	
+
 	if (extraArgs) {
 		args.push(extraArgs);
 	}

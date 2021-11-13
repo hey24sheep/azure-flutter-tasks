@@ -1,4 +1,4 @@
-import * as task from "azure-pipelines-task-lib";
+import * as task from "azure-pipelines-task-lib/task";
 import * as path from 'path';
 
 // paths

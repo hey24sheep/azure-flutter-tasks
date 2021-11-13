@@ -11,8 +11,8 @@
     "author": "Hey24sheep",
     "version": {
         "Major": 0,
-        "Minor": 2,
-        "Patch": 49
+        "Minor": 3,
+        "Patch": 0
     },
     "groups": [],
     "instanceNameFormat": "Flutter Build $(target)",
@@ -185,7 +185,7 @@
         }
     ],
     "execution": {
-        "Node": {
+        "Node10": {
             "target": "index.js"
         }
     }

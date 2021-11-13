@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const path = require("path");
-const os = require("os");
-const request = require("request-promise");
-const task = require("azure-pipelines-task-lib");
+const task = require("azure-pipelines-task-lib/task");
 const tool = require("azure-pipelines-tool-lib/tool");
+const os = require("os");
+const path = require("path");
+const request = require("request-promise");
 const FLUTTER_TOOL_NAME = 'Flutter';
 const FLUTTER_EXE_RELATIVEPATH = 'flutter/bin';
 const DART_EXE_RELATIVEPATH = 'cache/dart-sdk/bin';

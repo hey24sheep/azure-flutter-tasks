@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const path = require("path");
+const mr = require("azure-pipelines-task-lib/mock-run");
 const fs = require("fs");
-const mr = require("vsts-task-lib/mock-run");
+const path = require("path");
 const taskPath = path.join(__dirname, "../index.js");
 var runner = new mr.TaskMockRunner(taskPath);
 function assertDirectory(path) {

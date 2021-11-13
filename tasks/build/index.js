@@ -124,13 +124,18 @@ function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, bu
             args.push("--split-per-abi");
         }
         if (dartDefine) {
-            args.push("--dart-define=" + dartDefine);
+            var splitted = dartDefine.split(" ");
+            if (splitted && splitted.length > 0) {
+                args.push("--dart-define=" + splitted[0]);
+                args.push(...splitted.splice(1));
+            }
         }
         if (isVerbose) {
             args.push("--verbose");
         }
         if (extraArgs) {
-            args.push(extraArgs);
+            var splitted = extraArgs.split(" ");
+            args.push(...splitted);
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
@@ -166,7 +171,8 @@ function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entr
             args.push("--verbose");
         }
         if (extraArgs) {
-            args.push(extraArgs);
+            var splitted = extraArgs.split(" ");
+            args.push(...splitted);
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
@@ -224,7 +230,8 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
             args.push("--export-options-plist=" + exportOptionsPlist);
         }
         if (extraArgs) {
-            args.push(extraArgs);
+            var splitted = extraArgs.split(" ");
+            args.push(...splitted);
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
@@ -242,7 +249,8 @@ function buildWeb(flutter, isVerbose, extraArgs) {
             args.push("--verbose");
         }
         if (extraArgs) {
-            args.push(extraArgs);
+            var splitted = extraArgs.split(" ");
+            args.push(...splitted);
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
@@ -263,7 +271,8 @@ function buildDesktop(flutter, os, isVerbose, entryPoint, extraArgs) {
             args.push("--target=" + entryPoint);
         }
         if (extraArgs) {
-            args.push(extraArgs);
+            var splitted = extraArgs.split(" ");
+            args.push(...splitted);
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {

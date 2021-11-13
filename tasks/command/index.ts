@@ -1,5 +1,5 @@
-import * as path from "path";
 import * as task from "azure-pipelines-task-lib/task";
+import * as path from "path";
 
 const FLUTTER_TOOL_PATH_ENV_VAR: string = 'FlutterToolPath';
 

@@ -1,9 +1,8 @@
-import * as path from 'path';
-import * as os from 'os';
-
-import * as request from 'request-promise';
-import * as task from "azure-pipelines-task-lib";
+import * as task from "azure-pipelines-task-lib/task";
 import * as tool from 'azure-pipelines-tool-lib/tool';
+import * as os from 'os';
+import * as path from 'path';
+import * as request from 'request-promise';
 
 const FLUTTER_TOOL_NAME: string = 'Flutter';
 const FLUTTER_EXE_RELATIVEPATH = 'flutter/bin';

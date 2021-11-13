@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const task = require("azure-pipelines-task-lib/task");
 const path = require("path");
 const xml2js = require("xml2js");
-const task = require("azure-pipelines-task-lib/task");
 const FLUTTER_TOOL_PATH_ENV_VAR = 'FlutterToolPath';
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -60,7 +60,7 @@ function publishTests(results) {
         var xmlPath = path.join(task.cwd(), "junit.xml");
         task.writeFile(xmlPath, xml);
         // 2. Publishing to task
-        publisher.publish([xmlPath], false, "", "", "", true, "VSTS - Flutter");
+        publisher.publish([xmlPath], "false", "", "", "VSTS - Flutter", "true", "");
     });
 }
 function runTests(flutter, concurrency, updateGoldens, name, plainName, canGenerateCodeCoverage, extraArgs) {

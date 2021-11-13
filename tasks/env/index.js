@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const task = require("azure-pipelines-task-lib");
+const task = require("azure-pipelines-task-lib/task");
 const path = require("path");
 // paths
 const FLUTTER_EXE_RELATIVEPATH = 'bin';

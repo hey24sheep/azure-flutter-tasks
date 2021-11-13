@@ -6,13 +6,13 @@
 ![](https://img.shields.io/visual-studio-marketplace/azure-devops/installs/total/hey24sheep.flutter?style=flat-square)
 ![](https://img.shields.io/visual-studio-marketplace/last-updated/hey24sheep.flutter?style=flat-square)
 ![](https://img.shields.io/visual-studio-marketplace/r/hey24sheep.flutter?color=green&style=flat-square)
+![](https://img.shields.io/visual-studio-marketplace/v/hey24sheep.flutter?label=current%20version&style=flat-square)
 
 Latest [Flutter](http://flutter.io) tasks for [Azure DevOps](https://azure.microsoft.com/en-gb/services/devops/).
 
 Initially a [fork](https://github.com/hey24sheep/vsts-flutter-tasks) maintained by me of the awesome work done by original author [Github](https://github.com/aloisdeniel/vsts-flutter-tasks). As per people's request, this is now a separate repo as this is now an advanced/latest extension with more features. 
 
 > NOTE : I will no longer maintain my fork instead this repository will be updated, as this has developed into a lot more than the original extension.
-
 
 ## Support
 <p>

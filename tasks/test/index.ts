@@ -1,6 +1,6 @@
+import * as task from "azure-pipelines-task-lib/task";
 import * as path from "path";
 import * as xml2js from "xml2js";
-import * as task from "azure-pipelines-task-lib/task";
 
 const FLUTTER_TOOL_PATH_ENV_VAR: string = 'FlutterToolPath';
 
@@ -64,7 +64,7 @@ async function publishTests(results: any) {
     task.writeFile(xmlPath, xml);
 
     // 2. Publishing to task
-    publisher.publish([xmlPath], false, "", "", "", true, "VSTS - Flutter");
+    publisher.publish([xmlPath], "false", "", "", "VSTS - Flutter", "true", "");
 }
 
 async function runTests(flutter: string,

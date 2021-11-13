@@ -8,8 +8,8 @@
     "author": "Hey24sheep",
     "version": {
         "Major": 0,
-        "Minor": 2,
-        "Patch": 38
+        "Minor": 3,
+        "Patch": 0
     },
     "instanceNameFormat": "Flutter Test",
     "inputs": [
@@ -78,7 +78,7 @@
         }
     ],
     "execution": {
-        "Node": {
+        "Node10": {
             "target": "index.js"
         }
     }
