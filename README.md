@@ -155,7 +155,8 @@ Yes, right after the `Flutter Install` task, a `FlutterPubCachePath` environment
 Read this issue [#16](https://github.com/hey24sheep/azure-flutter-tasks/issues/16) for solution or this [stackoverflow](https://stackoverflow.com/questions/60404457/no-version-of-ndk-matched-the-requested-version/65698078#65698078)
 
 > How to run "Integeration Tests" ?
-Read this [wiki](https://github.com/hey24sheep/azure-flutter-tasks/wiki/Integeration-Test-Support) for steps, thanks to [@maksymgendin](https://github.com/maksymgendin).
+
+Read this [wiki](https://github.com/hey24sheep/azure-flutter-tasks/wiki/Integeration-Test-Support) for steps, thanks to [@maksymgendin](https://github.com/maksymgendin) for the help.
 
 <br/>
 
