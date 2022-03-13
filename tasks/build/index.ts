@@ -36,6 +36,7 @@ async function main(): Promise<void> {
     let buildFlavour = task.getInput('buildFlavour', false);
     let entryPoint = task.getInput('entryPoint', false);
     let dartDefine = task.getInput('dartDefine', false);
+    let dartDefineMulti = task.getInput('dartDefineMulti', false);
     let splitPerAbi = task.getBoolInput('splitPerAbi', false);
     let isVerbose = task.getBoolInput('verboseMode', false);
     let extraArgs = task.getInput('extraArgs', false);
@@ -60,6 +61,7 @@ async function main(): Promise<void> {
             buildFlavour,
             entryPoint,
             dartDefine,
+            dartDefineMulti,
             isVerbose,
             extraArgs,
             isIPA,
@@ -85,6 +87,7 @@ async function main(): Promise<void> {
             entryPoint,
             splitPerAbi,
             dartDefine,
+            dartDefineMulti,
             isVerbose,
             extraArgs);
     }
@@ -100,6 +103,7 @@ async function main(): Promise<void> {
             buildFlavour,
             entryPoint,
             dartDefine,
+            dartDefineMulti,
             isVerbose,
             extraArgs);
     }
@@ -139,6 +143,7 @@ async function buildApk(
     entryPoint?: string,
     splitPerAbi?: boolean,
     dartDefine?: string,
+    dartDefineMulti?: string,
     isVerbose?: boolean,
     extraArgs?: string) {
 
@@ -184,6 +189,15 @@ async function buildApk(
         }
     }
 
+    if (dartDefineMulti) {
+        // should be like key1=val1 key2=val2
+        var splitted = dartDefineMulti.split(" ");
+        var dartDefineArgs = splitted.map((i)=>{
+            // single split val should be like key1=val1
+            args.push('--dart-define='+i);
+        });
+    }
+
     if (isVerbose) {
         args.push("--verbose");
     }
@@ -208,6 +222,7 @@ async function buildAab(
     buildFlavour?: string,
     entryPoint?: string,
     dartDefine?: string,
+    dartDefineMulti?: string,
     isVerbose?: boolean,
     extraArgs?: string) {
 
@@ -237,7 +252,20 @@ async function buildAab(
     }
 
     if (dartDefine) {
-        args.push("--dart-define=" + dartDefine);
+        var splitted = dartDefine.split(" ");
+        if (splitted && splitted.length > 0) {
+            args.push("--dart-define=" + splitted[0]);
+            args.push(...splitted.splice(1));
+        }
+    }
+
+    if (dartDefineMulti) {
+        // should be like key1=val1 key2=val2
+        var splitted = dartDefineMulti.split(" ");
+        var dartDefineArgs = splitted.map((i)=>{
+            // single split val should be like key1=val1
+            args.push('--dart-define='+i);
+        });
     }
 
     if (isVerbose) {
@@ -266,6 +294,7 @@ async function buildIpa(
     buildFlavour?: string,
     entryPoint?: string,
     dartDefine?: string,
+    dartDefineMulti?: string,
     isVerbose?: boolean,
     extraArgs?: string,
     isIPA?: boolean,
@@ -318,7 +347,20 @@ async function buildIpa(
     }
 
     if (dartDefine) {
-        args.push("--dart-define=" + dartDefine);
+        var splitted = dartDefine.split(" ");
+        if (splitted && splitted.length > 0) {
+            args.push("--dart-define=" + splitted[0]);
+            args.push(...splitted.splice(1));
+        }
+    }
+
+    if (dartDefineMulti) {
+        // should be like key1=val1 key2=val2
+        var splitted = dartDefineMulti.split(" ");
+        var dartDefineArgs = splitted.map((i)=>{
+            // single split val should be like key1=val1
+            args.push('--dart-define='+i);
+        });
     }
 
     if (isVerbose) {

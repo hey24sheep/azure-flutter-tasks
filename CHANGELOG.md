@@ -1,3 +1,11 @@
+## [0.3.1] - 13 March 2022
+- Extension Version update to 0.3.1
+- *Build Task* version update to "0.3.1"
+- *Build Task* : Fixed `dartDefine` not working for IOS and AAB
+- *Build Task* : Added new `dartDefineMulti` for multiple "dart-define" arguments, (space separated) use as key1=val1 foo=bar
+- FAQ update
+- Readme update
+
 ## [0.3.0] - 13 Nov 2021 
 - Minor version bump across to "0.3.0" for easy maintainance
 - Migrate to Node10 as per Microsoft [deperication notice](https://aka.ms/migrateTaskNode10)

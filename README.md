@@ -64,7 +64,8 @@ Build the given mobile application project. You must call the `Flutter Install` 
 * _(Optional)_. Set `entryPoint` to override the main entry point file of the application. Default is 'lib/main.dart'.
 * _(Optional)_. Set `verboseMode` if you wish to get detailed verbose log output for diagnoses purposes. Default is `false`.
 * _(Optional)_. Set `debugMode` if you wish to override the default release mode for the build. Default is `false`.
-* _(Optional)_. Set `dartDefine` compile-time variables. Example: "Some_Var=Some_val --dart-define=Some_Var2=Val"
+* _(Optional)_. Set `dartDefine` compile-time variables, use as : `foo=bar` (use 'dartDefineMulti' for multiple args)"
+* _(Optional)_. Set `dartDefineMulti` compile-time variables, use as (space separated) : `foo=bar key1=val1 key2=val2` (use for multiple --dart-define arguments)"
 * _(Optional)_. Set `extraArgs` if you want to pass more official/custom command arguments, `Space Separated`. Example: "--no-tree-shake-icons --publish-to-play"
 * __(Android)__._(Optional)_. Set `apkTargetPlatform` for the Android platform architecture target: `default` __(default set by Flutter sdk)__ `android-arm` , `android-arm64`, `android-x86`, `android-x64`, `custom`.
 * __(Android)__._(Optional)_. Set `customApkTargetPosition` for the `custom` target platform architecture, provide your own combination (comma separated) of valid values. _Example_ like `android-arm,android-arm64,android-x64`
@@ -158,7 +159,23 @@ Read this issue [#16](https://github.com/hey24sheep/azure-flutter-tasks/issues/1
 
 Read this [wiki](https://github.com/hey24sheep/azure-flutter-tasks/wiki/Integeration-Test-Support) for steps, thanks to [@maksymgendin](https://github.com/maksymgendin) for the help.
 
+> IOS build fail "Provisional Profile Errors" ?
+
+Read this [#35](https://github.com/hey24sheep/azure-flutter-tasks/issues/35#issuecomment-1063794699) for help
+
+
 <br/>
+
+## Improve
+
+Help me by reporting bugs, creating PRs, **submit new ideas** for features or anything else that you want to share.
+
+- Just [write an issue](https://github.com/hey24sheep/azure-flutter-tasks/issues) on GitHub. ✏️
+
+## More
+
+Check out my other useful **Flutter** packages on [pub.dev](https://pub.dev/publishers/hey24sheep.com/packages) 
+    or more **DevOps** extensions on [marketplace](https://marketplace.visualstudio.com/publishers/Hey24sheep)
 
 ## Source Code
 

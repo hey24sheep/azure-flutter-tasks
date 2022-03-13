@@ -43,6 +43,7 @@ function main() {
         let buildFlavour = task.getInput('buildFlavour', false);
         let entryPoint = task.getInput('entryPoint', false);
         let dartDefine = task.getInput('dartDefine', false);
+        let dartDefineMulti = task.getInput('dartDefineMulti', false);
         let splitPerAbi = task.getBoolInput('splitPerAbi', false);
         let isVerbose = task.getBoolInput('verboseMode', false);
         let extraArgs = task.getInput('extraArgs', false);
@@ -55,7 +56,7 @@ function main() {
             let targetPlatform = task.getInput('iosTargetPlatform', false);
             let codesign = task.getBoolInput('iosCodesign', false);
             let exportOptionsPlist = task.getInput('exportOptionsPlist', false);
-            yield buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs, isIPA, exportOptionsPlist);
+            yield buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs, isIPA, exportOptionsPlist);
         }
         if (target === "all"
             || target === "mobile"
@@ -67,12 +68,12 @@ function main() {
             else if (targetPlatform === 'default') {
                 targetPlatform = null; // let flutter handle defaults
             }
-            yield buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, isVerbose, extraArgs);
+            yield buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, dartDefineMulti, isVerbose, extraArgs);
         }
         if (target === "all"
             || target === "mobile"
             || target === "aab") {
-            yield buildAab(flutterPath, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs);
+            yield buildAab(flutterPath, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs);
         }
         if (target === "all" || target === "web") {
             yield buildWeb(flutterPath, isVerbose, extraArgs);
@@ -95,7 +96,7 @@ function main() {
         task.setResult(task.TaskResult.Succeeded, "Application built");
     });
 }
-function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, isVerbose, extraArgs) {
+function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, dartDefineMulti, isVerbose, extraArgs) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -130,6 +131,14 @@ function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, bu
                 args.push(...splitted.splice(1));
             }
         }
+        if (dartDefineMulti) {
+            // should be like key1=val1 key2=val2
+            var splitted = dartDefineMulti.split(" ");
+            var dartDefineArgs = splitted.map((i) => {
+                // single split val should be like key1=val1
+                args.push('--dart-define=' + i);
+            });
+        }
         if (isVerbose) {
             args.push("--verbose");
         }
@@ -143,7 +152,7 @@ function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, bu
         }
     });
 }
-function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs) {
+function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -165,7 +174,19 @@ function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entr
             args.push("--target=" + entryPoint);
         }
         if (dartDefine) {
-            args.push("--dart-define=" + dartDefine);
+            var splitted = dartDefine.split(" ");
+            if (splitted && splitted.length > 0) {
+                args.push("--dart-define=" + splitted[0]);
+                args.push(...splitted.splice(1));
+            }
+        }
+        if (dartDefineMulti) {
+            // should be like key1=val1 key2=val2
+            var splitted = dartDefineMulti.split(" ");
+            var dartDefineArgs = splitted.map((i) => {
+                // single split val should be like key1=val1
+                args.push('--dart-define=' + i);
+            });
         }
         if (isVerbose) {
             args.push("--verbose");
@@ -180,7 +201,7 @@ function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entr
         }
     });
 }
-function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, isVerbose, extraArgs, isIPA, exportOptionsPlist) {
+function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs, isIPA, exportOptionsPlist) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = ["build"];
         if (isIPA) {
@@ -221,7 +242,19 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
             }
         }
         if (dartDefine) {
-            args.push("--dart-define=" + dartDefine);
+            var splitted = dartDefine.split(" ");
+            if (splitted && splitted.length > 0) {
+                args.push("--dart-define=" + splitted[0]);
+                args.push(...splitted.splice(1));
+            }
+        }
+        if (dartDefineMulti) {
+            // should be like key1=val1 key2=val2
+            var splitted = dartDefineMulti.split(" ");
+            var dartDefineArgs = splitted.map((i) => {
+                // single split val should be like key1=val1
+                args.push('--dart-define=' + i);
+            });
         }
         if (isVerbose) {
             args.push("--verbose");

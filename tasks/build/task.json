@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 3,
-        "Patch": 0
+        "Patch": 1
     },
     "groups": [],
     "instanceNameFormat": "Flutter Build $(target)",
@@ -170,10 +170,18 @@
         {
             "name": "dartDefine",
             "type": "string",
-            "label": "Parameter value for --dart-define",
+            "label": "key=val single pair for single --dart-define arg",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "Parameter passed to --dart-define, example : 'Some_Var=Some_val --dart-define=Some_Var2=Val'"
+            "helpMarkDown": "Parameter passed to --dart-define, use as : 'foo=bar' (use 'dartDefineMulti' for multiple args)"
+        },
+        {
+            "name": "dartDefineMulti",
+            "type": "string",
+            "label": "key=value pairs (space separated) for multiple --dart-define args",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Parameters passed to multiple --dart-define, use as : 'foo=bar key1=val1 key2=val2'"
         },
         {
             "name": "extraArgs",
