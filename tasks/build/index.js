@@ -81,7 +81,7 @@ function main() {
         if (target === "all"
             || target === "desktop"
             || target === "windows") {
-            yield buildDesktop(flutterPath, "windows", isVerbose, entryPoint, extraArgs);
+            yield buildDesktop(flutterPath, "windows", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti);
         }
         if (target === "all"
             || target === "desktop"
@@ -134,7 +134,7 @@ function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, bu
         if (dartDefineMulti) {
             // should be like key1=val1 key2=val2
             var splitted = dartDefineMulti.split(" ");
-            var dartDefineArgs = splitted.map((i) => {
+            splitted.map((i) => {
                 // single split val should be like key1=val1
                 args.push('--dart-define=' + i);
             });
@@ -183,7 +183,7 @@ function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entr
         if (dartDefineMulti) {
             // should be like key1=val1 key2=val2
             var splitted = dartDefineMulti.split(" ");
-            var dartDefineArgs = splitted.map((i) => {
+            splitted.map((i) => {
                 // single split val should be like key1=val1
                 args.push('--dart-define=' + i);
             });
@@ -251,7 +251,7 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
         if (dartDefineMulti) {
             // should be like key1=val1 key2=val2
             var splitted = dartDefineMulti.split(" ");
-            var dartDefineArgs = splitted.map((i) => {
+            splitted.map((i) => {
                 // single split val should be like key1=val1
                 args.push('--dart-define=' + i);
             });
@@ -272,7 +272,7 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
         }
     });
 }
-function buildWeb(flutter, isVerbose, extraArgs) {
+function buildWeb(flutter, isVerbose, extraArgs, dartDefine, dartDefineMulti) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -285,13 +285,28 @@ function buildWeb(flutter, isVerbose, extraArgs) {
             var splitted = extraArgs.split(" ");
             args.push(...splitted);
         }
+        if (dartDefine) {
+            var splitted = dartDefine.split(" ");
+            if (splitted && splitted.length > 0) {
+                args.push("--dart-define=" + splitted[0]);
+                args.push(...splitted.splice(1));
+            }
+        }
+        if (dartDefineMulti) {
+            // should be like key1=val1 key2=val2
+            var splitted = dartDefineMulti.split(" ");
+            splitted.map((i) => {
+                // single split val should be like key1=val1
+                args.push('--dart-define=' + i);
+            });
+        }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
             throw new Error("web build failed");
         }
     });
 }
-function buildDesktop(flutter, os, isVerbose, entryPoint, extraArgs) {
+function buildDesktop(flutter, os, isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -302,6 +317,21 @@ function buildDesktop(flutter, os, isVerbose, entryPoint, extraArgs) {
         }
         if (entryPoint) {
             args.push("--target=" + entryPoint);
+        }
+        if (dartDefine) {
+            var splitted = dartDefine.split(" ");
+            if (splitted && splitted.length > 0) {
+                args.push("--dart-define=" + splitted[0]);
+                args.push(...splitted.splice(1));
+            }
+        }
+        if (dartDefineMulti) {
+            // should be like key1=val1 key2=val2
+            var splitted = dartDefineMulti.split(" ");
+            splitted.map((i) => {
+                // single split val should be like key1=val1
+                args.push('--dart-define=' + i);
+            });
         }
         if (extraArgs) {
             var splitted = extraArgs.split(" ");

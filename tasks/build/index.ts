@@ -115,7 +115,7 @@ async function main(): Promise<void> {
     if (target === "all"
         || target === "desktop"
         || target === "windows") {
-        await buildDesktop(flutterPath, "windows", isVerbose, entryPoint, extraArgs);
+        await buildDesktop(flutterPath, "windows", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti,);
     }
 
     if (target === "all"
@@ -192,9 +192,9 @@ async function buildApk(
     if (dartDefineMulti) {
         // should be like key1=val1 key2=val2
         var splitted = dartDefineMulti.split(" ");
-        var dartDefineArgs = splitted.map((i)=>{
+        splitted.map((i) => {
             // single split val should be like key1=val1
-            args.push('--dart-define='+i);
+            args.push('--dart-define=' + i);
         });
     }
 
@@ -262,9 +262,9 @@ async function buildAab(
     if (dartDefineMulti) {
         // should be like key1=val1 key2=val2
         var splitted = dartDefineMulti.split(" ");
-        var dartDefineArgs = splitted.map((i)=>{
+        splitted.map((i) => {
             // single split val should be like key1=val1
-            args.push('--dart-define='+i);
+            args.push('--dart-define=' + i);
         });
     }
 
@@ -357,9 +357,9 @@ async function buildIpa(
     if (dartDefineMulti) {
         // should be like key1=val1 key2=val2
         var splitted = dartDefineMulti.split(" ");
-        var dartDefineArgs = splitted.map((i)=>{
+        splitted.map((i) => {
             // single split val should be like key1=val1
-            args.push('--dart-define='+i);
+            args.push('--dart-define=' + i);
         });
     }
 
@@ -385,7 +385,9 @@ async function buildIpa(
 async function buildWeb(
     flutter: string,
     isVerbose?: boolean,
-    extraArgs?: string) {
+    extraArgs?: string,
+    dartDefine?: string,
+    dartDefineMulti?: string,) {
 
     var args = [
         "build",
@@ -401,6 +403,23 @@ async function buildWeb(
         args.push(...splitted);
     }
 
+    if (dartDefine) {
+        var splitted = dartDefine.split(" ");
+        if (splitted && splitted.length > 0) {
+            args.push("--dart-define=" + splitted[0]);
+            args.push(...splitted.splice(1));
+        }
+    }
+
+    if (dartDefineMulti) {
+        // should be like key1=val1 key2=val2
+        var splitted = dartDefineMulti.split(" ");
+        splitted.map((i) => {
+            // single split val should be like key1=val1
+            args.push('--dart-define=' + i);
+        });
+    }
+
     var result = await task.exec(flutter, args);
 
     if (result !== 0) {
@@ -413,7 +432,9 @@ async function buildDesktop(
     os: string,
     isVerbose?: boolean,
     entryPoint?: string,
-    extraArgs?: string) {
+    extraArgs?: string,
+    dartDefine?: string,
+    dartDefineMulti?: string,) {
 
     var args = [
         "build",
@@ -425,6 +446,23 @@ async function buildDesktop(
     }
     if (entryPoint) {
         args.push("--target=" + entryPoint);
+    }
+
+    if (dartDefine) {
+        var splitted = dartDefine.split(" ");
+        if (splitted && splitted.length > 0) {
+            args.push("--dart-define=" + splitted[0]);
+            args.push(...splitted.splice(1));
+        }
+    }
+
+    if (dartDefineMulti) {
+        // should be like key1=val1 key2=val2
+        var splitted = dartDefineMulti.split(" ");
+        splitted.map((i) => {
+            // single split val should be like key1=val1
+            args.push('--dart-define=' + i);
+        });
     }
 
     if (extraArgs) {

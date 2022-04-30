@@ -1,3 +1,8 @@
+## [0.3.2] - 30 April 2022
+- Extension version update to 0.3.2
+- *Build Task* version update to "0.3.2"
+- *Build Task* Adds `dart-define` to Web and Desktop build
+
 ## [0.3.1] - 13 March 2022
 - Extension Version update to 0.3.1
 - *Build Task* version update to "0.3.1"
