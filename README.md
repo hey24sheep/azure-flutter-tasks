@@ -163,6 +163,8 @@ Read this [wiki](https://github.com/hey24sheep/azure-flutter-tasks/wiki/Integera
 
 Read this [#35](https://github.com/hey24sheep/azure-flutter-tasks/issues/35#issuecomment-1063794699) for help
 
+> Any IOS or Android Examples (Setup Guide/YAML config)
+Read this issue [#37](https://github.com/hey24sheep/azure-flutter-tasks/issues/37) and this [wiki](https://github.com/hey24sheep/azure-flutter-tasks/wiki/IOS-Example)
 
 <br/>
 
