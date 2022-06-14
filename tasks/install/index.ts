@@ -102,7 +102,8 @@ async function findLatestSdkVersion(channel: string, arch: string, version: stri
 	var json = JSON.parse(body);
 
 	var currentHash = json.current_release[channel];
-	var current = json.releases.find((item) => item.hash === currentHash && item.channel == channel && item.dart_sdk_arch = os.arch());
+	var arch = os.arch();
+	var current = json.releases.find((item) => item.hash === currentHash && item.channel == channel && item.dart_sdk_arch == arch);
 
 	// if user selected custom
 	if (version.toLowerCase() !== 'latest') {
