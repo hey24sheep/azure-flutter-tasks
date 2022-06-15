@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 3,
-        "Patch": 0
+        "Patch": 1
     },
     "instanceNameFormat": "Flutter Install",
     "inputs": [
@@ -69,6 +69,14 @@
             "required": true,
             "helpMarkDown": "The version of the SDK to use like '1.17' or 'v1.12+3.9', etc (in a <M>.<m>.<p> semver format, from (https://flutter.io/sdk-archive/).",
             "visibleRule": "mode = auto && version = custom"
+        },
+        {
+            "name": "customArch",
+            "type": "string",
+            "label": "Custom Arch",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "The 'dart_sdk_arch' of the SDK to use like 'x64' or 'arm64'. Use this link, (replace 'platform') https://storage.googleapis.com/flutter_infra_release/releases/releases_{platform}.json for example https://storage.googleapis.com/flutter_infra_release/releases/releases_macos.json."
         }
     ],
     "execution": {

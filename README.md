@@ -48,6 +48,7 @@ Installs the [Flutter SDK](https://flutter.io/sdk-archive/) onto the running age
 * Select the `version` of the SDK to install:  `latest` (default), `custom`. If `custom` is specified, a `customVersion` must be set.
 * _(Optional)_. Set the `customVersion` (in a `<M>.<m>.<p>` semver format) if needed.
 * _(Optional)_. Set the `Custom (Flutter SDK Install Url)` to release install url like `https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_2.2.1-stable.zip` or any other available on (https://flutter.dev/docs/development/tools/sdk/releases?tab=windows).
+* _(Optional)_. Set the `customArch` (example 'arm64') if needed.
 
 ### Build
 

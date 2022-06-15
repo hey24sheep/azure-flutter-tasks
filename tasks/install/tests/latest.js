@@ -25,4 +25,7 @@ assertDirectory(process.env["AGENT_BUILDDIRECTORY"] = path.join(agentPath, "buil
 runner.setInput("mode", "auto");
 runner.setInput("channel", "stable");
 runner.setInput("version", "latest");
+// to test custom url
+// runner.setInput("mode", "custom");
+// runner.setInput("customUrl", "https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flutter_windows_3.0.2-stable.zip");
 runner.run(true);

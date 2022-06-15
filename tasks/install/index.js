@@ -95,19 +95,31 @@ function downloadAndCacheSdk(versionSpec, arch, downloadUrl) {
     });
 }
 function findLatestSdkVersion(channel, arch, version) {
+    var arch;
     return __awaiter(this, void 0, void 0, function* () {
         var releasesUrl = `https://storage.googleapis.com/flutter_infra_release/releases/releases_${arch}.json`;
         task.debug(`Finding version '${version}' from '${releasesUrl}'`);
         var body = yield request.get(releasesUrl);
         var json = JSON.parse(body);
         var currentHash = json.current_release[channel];
-        var arch = os.arch();
-        var current = json.releases.find((item) => item.hash === currentHash && item.channel == channel && item.arch == arch);
+        arch = os.arch();
+        // if user gave custom arch type, use that
+        let customArch = task.getInput('customArch', false);
+        if (customArch && customArch.trim() !== '') {
+            arch = customArch.trim();
+        }
+        task.debug(`Using Arch type '${arch}'`);
+        var current = json.releases.find((item) => item.hash === currentHash && item.channel == channel && item.dart_sdk_arch == arch);
         // if user selected custom
         if (version.toLowerCase() !== 'latest') {
             // fetch custom version
             version = task.getInput('customVersion', false);
-            current = json.releases.find((item) => item.channel == channel && uniformizeVersion(item.version) == uniformizeVersion(version));
+            if (customArch && customArch.trim() !== '') {
+                current = json.releases.find((item) => item.channel == channel && uniformizeVersion(item.version) == uniformizeVersion(version) && item.dart_sdk_arch == customArch);
+            }
+            else {
+                current = json.releases.find((item) => item.channel == channel && uniformizeVersion(item.version) == uniformizeVersion(version));
+            }
         }
         task.debug(`Found version hash '${current.hash}'`);
         return {

@@ -103,13 +103,25 @@ async function findLatestSdkVersion(channel: string, arch: string, version: stri
 
 	var currentHash = json.current_release[channel];
 	var arch = os.arch();
+
+	// if user gave custom arch type, use that
+	let customArch = task.getInput('customArch', false);
+	if (customArch && customArch.trim() !== '') {
+		arch = customArch.trim();
+	}
+	task.debug(`Using Arch type '${arch}'`);
 	var current = json.releases.find((item) => item.hash === currentHash && item.channel == channel && item.dart_sdk_arch == arch);
 
 	// if user selected custom
 	if (version.toLowerCase() !== 'latest') {
 		// fetch custom version
 		version = task.getInput('customVersion', false);
-		current = json.releases.find((item) => item.channel == channel && uniformizeVersion(item.version) == uniformizeVersion(version));
+
+		if (customArch && customArch.trim() !== '') {
+			current = json.releases.find((item) => item.channel == channel && uniformizeVersion(item.version) == uniformizeVersion(version) && item.dart_sdk_arch == customArch);
+		} else {
+			current = json.releases.find((item) => item.channel == channel && uniformizeVersion(item.version) == uniformizeVersion(version));
+		}
 	}
 
 	task.debug(`Found version hash '${current.hash}'`);
