@@ -1,3 +1,8 @@
+## [0.3.4] - 15 June 2022
+- Extension version update to 0.3.4
+- *Install Task* version update to "0.3.2"
+- *Install Task* now parses version info from `customUrl`, fixes bug [#46](https://github.com/hey24sheep/azure-flutter-tasks/issues/46)
+
 ## [0.3.3] - 15 June 2022
 - Extension version update to 0.3.3
 - *Install Task* version update to "0.3.1"

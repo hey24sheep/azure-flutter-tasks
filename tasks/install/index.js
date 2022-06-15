@@ -39,7 +39,12 @@ function main() {
         else {
             downloadUrl = task.getInput('customUrl', true);
             let urlSplits = downloadUrl.split('/');
-            versionSpec = urlSplits[urlSplits.length - 1];
+            let fragSplits = urlSplits[urlSplits.length - 1].split('_'); // str is flutter_windows_3.0.2-stable.zip
+            fragSplits = fragSplits.pop().split('-'); // str is 3.0.2-stable.zip
+            fragSplits.pop(); // remove the last stable.zip part
+            versionSpec = fragSplits.join('-');
+            versionSpec = versionSpec.trim();
+            task.debug(`Parsed version '${versionSpec}' from custom url`);
         }
         // 3. Check if already available
         task.debug(`Trying to get (${FLUTTER_TOOL_NAME},${versionSpec}, ${arch}) tool from local cache`);
