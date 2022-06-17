@@ -135,6 +135,7 @@ Environment variables created by the `Install` or `Env` tasks are :
 
 # FAQ
 
+First, please read the [WIKI](https://github.com/hey24sheep/azure-flutter-tasks/wiki) and then [FAQs](https://github.com/hey24sheep/azure-flutter-tasks#faq) before opening any new issues.
 
 > Flutter command isn't recognized ?
 
@@ -172,6 +173,7 @@ Read this issue [#37](https://github.com/hey24sheep/azure-flutter-tasks/issues/3
 
 ## Improve
 
+First, please read the [WIKI](https://github.com/hey24sheep/azure-flutter-tasks/wiki) and then [FAQs](https://github.com/hey24sheep/azure-flutter-tasks#faq) before opening any new issues.
 Help me by reporting bugs, creating PRs, **submit new ideas** for features or anything else that you want to share.
 
 - Just [write an issue](https://github.com/hey24sheep/azure-flutter-tasks/issues) on GitHub. ✏️
