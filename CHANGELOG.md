@@ -1,3 +1,8 @@
+## [0.3.6] - 17 June 2022
+- Extension version update to 0.3.6
+- *Install Task* version update to "0.3.4"
+- *Install Task* fixes `customVersion` arch type won't apply edge case bug
+
 ## [0.3.5] - 17 June 2022
 - Extension version update to 0.3.5
 - *Install Task* version update to "0.3.3"

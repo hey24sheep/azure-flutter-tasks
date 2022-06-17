@@ -29,6 +29,12 @@ runner.setInput("mode", "auto");
 runner.setInput("channel", "stable");
 runner.setInput("version", "latest");
 
+// uncomment to test custom version without "dart_sdk_arch" type
+// runner.setInput("version", "custom");
+// runner.setInput("customVersion", "1.22.6");
+// runner.setInput("customVersion", "3.0.2");
+// runner.setInput("customArch", "arm64");
+
 // to test custom url
 // runner.setInput("mode", "custom");
 // runner.setInput("customUrl", "https://storage.googleapis.com/flutter_infra_release/releases/beta/macos/flutter_macos_arm64_3.1.0-9.0.pre-beta.zip");

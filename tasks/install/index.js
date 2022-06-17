@@ -119,12 +119,23 @@ function findLatestSdkVersion(channel, arch, version) {
         if (version.toLowerCase() !== 'latest') {
             // fetch custom version
             version = task.getInput('customVersion', false);
-            if (customArch && customArch.trim() !== '') {
-                current = json.releases.find((item) => item.channel == channel && uniformizeVersion(item.version) == uniformizeVersion(version) && item.dart_sdk_arch == customArch);
+            // filter based on custom version given
+            let filtered = json.releases.filter((item) => item.channel == channel && uniformizeVersion(item.version) == uniformizeVersion(version));
+            // if more than 1 release found, that means it has multiple dart_sdk_arch like x64, arm64
+            if (filtered.length > 1) {
+                for (var i of filtered) {
+                    // filter releases based on arch type
+                    if (i.dart_sdk_arch && i.dart_sdk_arch === arch) {
+                        current = i;
+                        break;
+                    }
+                    current = i;
+                }
             }
             else {
-                current = json.releases.find((item) => item.channel == channel && uniformizeVersion(item.version) == uniformizeVersion(version));
+                current = filtered[0];
             }
+            task.debug(`Found custom version '${current.version}'`);
         }
         task.debug(`Found version hash '${current.hash}'`);
         return {
