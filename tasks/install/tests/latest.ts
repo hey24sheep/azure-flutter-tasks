@@ -25,13 +25,13 @@ assertDirectory(process.env["AGENT_BUILDDIRECTORY"] = path.join(agentPath, "buil
 //let tmr = require('vsts-task-lib/mock-toolrunner');
 //runner.registerMock('vsts-task-lib/toolrunner', tmr);
 
-// runner.setInput("mode", "auto");
-// runner.setInput("channel", "stable");
-// runner.setInput("version", "latest");
+runner.setInput("mode", "auto");
+runner.setInput("channel", "stable");
+runner.setInput("version", "latest");
 
 // to test custom url
-runner.setInput("mode", "custom");
+// runner.setInput("mode", "custom");
 // runner.setInput("customUrl", "https://storage.googleapis.com/flutter_infra_release/releases/beta/macos/flutter_macos_arm64_3.1.0-9.0.pre-beta.zip");
-runner.setInput("customUrl", "https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flutter_windows_3.0.2-stable.zip");
+// runner.setInput("customUrl", "https://storage.googleapis.com/flutter_infra_release/releases/stable/windows/flutter_windows_3.0.2-stable.zip");
 
 runner.run(true);

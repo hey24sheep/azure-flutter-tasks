@@ -33,7 +33,7 @@ function main() {
             let channel = task.getInput('channel', true);
             let version = task.getInput('version', true);
             let versionData = yield findLatestSdkVersion(channel, arch, version);
-            versionSpec = versionData.version;
+            versionSpec = versionData.semverVersion;
             downloadUrl = versionData.downloadUrl;
         }
         else {
@@ -130,6 +130,7 @@ function findLatestSdkVersion(channel, arch, version) {
         return {
             version: current.version + '-' + channel,
             downloadUrl: json.base_url + '/' + current.archive,
+            semverVersion: current.version
         };
     });
 }

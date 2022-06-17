@@ -1,3 +1,8 @@
+## [0.3.5] - 17 June 2022
+- Extension version update to 0.3.5
+- *Install Task* version update to "0.3.3"
+- *Install Task* fixes cache issue where version key should be valid semver
+
 ## [0.3.4] - 15 June 2022
 - Extension version update to 0.3.4
 - *Install Task* version update to "0.3.2"

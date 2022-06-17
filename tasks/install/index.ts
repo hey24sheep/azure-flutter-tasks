@@ -24,7 +24,7 @@ async function main(): Promise<void> {
 		let channel = task.getInput('channel', true);
 		let version = task.getInput('version', true);
 		let versionData = await findLatestSdkVersion(channel, arch, version);
-		versionSpec = versionData.version;
+		versionSpec = versionData.semverVersion;
 		downloadUrl = versionData.downloadUrl;
 	} else {
 		downloadUrl = task.getInput('customUrl', true);
@@ -100,7 +100,7 @@ async function downloadAndCacheSdk(versionSpec: string, arch: string, downloadUr
 	tool.cacheDir(bundleDir, FLUTTER_TOOL_NAME, versionSpec, arch);
 }
 
-async function findLatestSdkVersion(channel: string, arch: string, version: string): Promise<{ downloadUrl: string, version: string }> {
+async function findLatestSdkVersion(channel: string, arch: string, version: string): Promise<{ downloadUrl: string, version: string, semverVersion: string }> {
 	var releasesUrl = `https://storage.googleapis.com/flutter_infra_release/releases/releases_${arch}.json`;
 	task.debug(`Finding version '${version}' from '${releasesUrl}'`);
 	var body = await request.get(releasesUrl);
@@ -133,6 +133,7 @@ async function findLatestSdkVersion(channel: string, arch: string, version: stri
 	return {
 		version: current.version + '-' + channel,
 		downloadUrl: json.base_url + '/' + current.archive,
+		semverVersion: current.version
 	};
 }
 
