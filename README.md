@@ -167,7 +167,7 @@ Read this [#35](https://github.com/hey24sheep/azure-flutter-tasks/issues/35#issu
 
 > Any IOS or Android Examples (Setup Guide/YAML config)
 
-Read this issue [#37](https://github.com/hey24sheep/azure-flutter-tasks/issues/37) and this [wiki setup](https://github.com/hey24sheep/azure-flutter-tasks/wiki/IOS-Example)
+Read this issue [#37](https://github.com/hey24sheep/azure-flutter-tasks/issues/37) and this [wiki setup](https://github.com/hey24sheep/azure-flutter-tasks/wiki/IOS-&-Android-Example-Setup-Guide)
 
 <br/>
 
