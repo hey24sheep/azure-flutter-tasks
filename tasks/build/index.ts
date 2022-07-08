@@ -109,25 +109,25 @@ async function main(): Promise<void> {
     }
 
     if (target === "all" || target === "web") {
-        await buildWeb(flutterPath, isVerbose, extraArgs);
+        await buildWeb(flutterPath, isVerbose, extraArgs, dartDefine, dartDefineMulti);
     }
 
     if (target === "all"
         || target === "desktop"
         || target === "windows") {
-        await buildDesktop(flutterPath, "windows", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti,);
+        await buildDesktop(flutterPath, "windows", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti);
     }
 
     if (target === "all"
         || target === "desktop"
         || target === "macos") {
-        await buildDesktop(flutterPath, "macos", isVerbose, entryPoint, extraArgs);
+        await buildDesktop(flutterPath, "macos", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti);
     }
 
     if (target === "all"
         || target === "desktop"
         || target === "linux") {
-        await buildDesktop(flutterPath, "linux", isVerbose, entryPoint, extraArgs);
+        await buildDesktop(flutterPath, "linux", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti);
     }
 
     task.setResult(task.TaskResult.Succeeded, "Application built");
