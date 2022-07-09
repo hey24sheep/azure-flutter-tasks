@@ -1,7 +1,7 @@
-## [0.3.7] - 8 July 2022
+## [0.3.7] - 9 July 2022
 - Extension version update to 0.3.7
 - *Build Task* version update to "0.3.3"
-- *Build Task* fixes `dartDefine` and `dartDefineMulti` not being passed to the command
+- *Build Task* fixes `dartDefine` and `dartDefineMulti` not being passed to the desktop builds
 
 ## [0.3.6] - 17 June 2022
 - Extension version update to 0.3.6
