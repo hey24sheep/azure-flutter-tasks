@@ -76,7 +76,7 @@ function main() {
             yield buildAab(flutterPath, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs);
         }
         if (target === "all" || target === "web") {
-            yield buildWeb(flutterPath, isVerbose, extraArgs);
+            yield buildWeb(flutterPath, isVerbose, extraArgs, dartDefine, dartDefineMulti);
         }
         if (target === "all"
             || target === "desktop"
@@ -86,12 +86,12 @@ function main() {
         if (target === "all"
             || target === "desktop"
             || target === "macos") {
-            yield buildDesktop(flutterPath, "macos", isVerbose, entryPoint, extraArgs);
+            yield buildDesktop(flutterPath, "macos", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti);
         }
         if (target === "all"
             || target === "desktop"
             || target === "linux") {
-            yield buildDesktop(flutterPath, "linux", isVerbose, entryPoint, extraArgs);
+            yield buildDesktop(flutterPath, "linux", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti);
         }
         task.setResult(task.TaskResult.Succeeded, "Application built");
     });
