@@ -1,3 +1,8 @@
+## [0.3.8] - 12 August 2022
+- Extension version update to 0.3.8
+- *Env Task* version update to "0.3.1"
+- *Env Task* fixes pub cache path and debug output
+
 ## [0.3.7] - 9 July 2022
 - Extension version update to 0.3.7
 - *Build Task* version update to "0.3.3"

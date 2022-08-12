@@ -81,4 +81,6 @@ typings/
 
 temp
 
+mintty.exe.stackdump
+
 *.vsix
