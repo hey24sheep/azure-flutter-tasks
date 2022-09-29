@@ -31,6 +31,7 @@ function main() {
         task.debug(`Project's directory : ${task.cwd()}`);
         // 4. Get common input
         let debugMode = task.getBoolInput('debugMode', false);
+        let profileMode = task.getBoolInput('profileMode', false);
         let buildName = task.getInput('buildName', false);
         let buildNumber = task.getInput('buildNumber', false);
         if (buildNumber) {
@@ -56,7 +57,7 @@ function main() {
             let targetPlatform = task.getInput('iosTargetPlatform', false);
             let codesign = task.getBoolInput('iosCodesign', false);
             let exportOptionsPlist = task.getInput('exportOptionsPlist', false);
-            yield buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs, isIPA, exportOptionsPlist);
+            yield buildIpa(flutterPath, targetPlatform == "simulator", codesign, buildName, buildNumber, debugMode, profileMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs, isIPA, exportOptionsPlist);
         }
         if (target === "all"
             || target === "mobile"
@@ -68,12 +69,12 @@ function main() {
             else if (targetPlatform === 'default') {
                 targetPlatform = null; // let flutter handle defaults
             }
-            yield buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, dartDefineMulti, isVerbose, extraArgs);
+            yield buildApk(flutterPath, targetPlatform, buildName, buildNumber, debugMode, profileMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, dartDefineMulti, isVerbose, extraArgs);
         }
         if (target === "all"
             || target === "mobile"
             || target === "aab") {
-            yield buildAab(flutterPath, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs);
+            yield buildAab(flutterPath, buildName, buildNumber, debugMode, profileMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs);
         }
         if (target === "all" || target === "web") {
             yield buildWeb(flutterPath, isVerbose, extraArgs, dartDefine, dartDefineMulti);
@@ -96,7 +97,7 @@ function main() {
         task.setResult(task.TaskResult.Succeeded, "Application built");
     });
 }
-function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, dartDefineMulti, isVerbose, extraArgs) {
+function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, profileMode, buildFlavour, entryPoint, splitPerAbi, dartDefine, dartDefineMulti, isVerbose, extraArgs) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -104,6 +105,9 @@ function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, bu
         ];
         if (debugMode) {
             args.push("--debug");
+        }
+        if (profileMode) {
+            args.push("--profile");
         }
         // if null, flutter will set defaults
         if (targetPlatform) {
@@ -152,7 +156,7 @@ function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, bu
         }
     });
 }
-function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs) {
+function buildAab(flutter, buildName, buildNumber, debugMode, profileMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -160,6 +164,9 @@ function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entr
         ];
         if (debugMode) {
             args.push("--debug");
+        }
+        if (profileMode) {
+            args.push("--profile");
         }
         if (buildName) {
             args.push("--build-name=" + buildName);
@@ -201,7 +208,7 @@ function buildAab(flutter, buildName, buildNumber, debugMode, buildFlavour, entr
         }
     });
 }
-function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs, isIPA, exportOptionsPlist) {
+function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMode, profileMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs, isIPA, exportOptionsPlist) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = ["build"];
         if (isIPA) {
@@ -212,6 +219,9 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
         }
         if (debugMode) {
             args.push("--debug");
+        }
+        if (profileMode) {
+            args.push("--profile");
         }
         if (!isIPA) {
             if (simulator) {
