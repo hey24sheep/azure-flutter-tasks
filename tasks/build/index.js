@@ -77,22 +77,22 @@ function main() {
             yield buildAab(flutterPath, buildName, buildNumber, debugMode, profileMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs);
         }
         if (target === "all" || target === "web") {
-            yield buildWeb(flutterPath, isVerbose, extraArgs, dartDefine, dartDefineMulti);
+            yield buildWeb(flutterPath, isVerbose, debugMode, profileMode, extraArgs, dartDefine, dartDefineMulti);
         }
         if (target === "all"
             || target === "desktop"
             || target === "windows") {
-            yield buildDesktop(flutterPath, "windows", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti);
+            yield buildDesktop(flutterPath, "windows", isVerbose, debugMode, profileMode, entryPoint, extraArgs, dartDefine, dartDefineMulti);
         }
         if (target === "all"
             || target === "desktop"
             || target === "macos") {
-            yield buildDesktop(flutterPath, "macos", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti);
+            yield buildDesktop(flutterPath, "macos", isVerbose, debugMode, profileMode, entryPoint, extraArgs, dartDefine, dartDefineMulti);
         }
         if (target === "all"
             || target === "desktop"
             || target === "linux") {
-            yield buildDesktop(flutterPath, "linux", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti);
+            yield buildDesktop(flutterPath, "linux", isVerbose, debugMode, profileMode, entryPoint, extraArgs, dartDefine, dartDefineMulti);
         }
         task.setResult(task.TaskResult.Succeeded, "Application built");
     });
@@ -105,8 +105,7 @@ function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, pr
         ];
         if (debugMode) {
             args.push("--debug");
-        }
-        if (profileMode) {
+        } else if (profileMode) {
             args.push("--profile");
         }
         // if null, flutter will set defaults
@@ -164,8 +163,7 @@ function buildAab(flutter, buildName, buildNumber, debugMode, profileMode, build
         ];
         if (debugMode) {
             args.push("--debug");
-        }
-        if (profileMode) {
+        } else if (profileMode) {
             args.push("--profile");
         }
         if (buildName) {
@@ -219,8 +217,7 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
         }
         if (debugMode) {
             args.push("--debug");
-        }
-        if (profileMode) {
+        } else if (profileMode) {
             args.push("--profile");
         }
         if (!isIPA) {
@@ -282,7 +279,7 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
         }
     });
 }
-function buildWeb(flutter, isVerbose, extraArgs, dartDefine, dartDefineMulti) {
+function buildWeb(flutter, isVerbose, profileMode, extraArgs, dartDefine, dartDefineMulti) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -290,6 +287,9 @@ function buildWeb(flutter, isVerbose, extraArgs, dartDefine, dartDefineMulti) {
         ];
         if (isVerbose) {
             args.push("--verbose");
+        }
+        if (profileMode) {
+            args.push("--profile");
         }
         if (extraArgs) {
             var splitted = extraArgs.split(" ");
@@ -316,7 +316,7 @@ function buildWeb(flutter, isVerbose, extraArgs, dartDefine, dartDefineMulti) {
         }
     });
 }
-function buildDesktop(flutter, os, isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti) {
+function buildDesktop(flutter, os, isVerbose, debugMode, profileMode, entryPoint, extraArgs, dartDefine, dartDefineMulti) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -324,6 +324,11 @@ function buildDesktop(flutter, os, isVerbose, entryPoint, extraArgs, dartDefine,
         ];
         if (isVerbose) {
             args.push("--verbose");
+        }
+        if (debugMode) {
+            args.push("--debug");
+        } else if (profileMode) {
+            args.push("--profile");
         }
         if (entryPoint) {
             args.push("--target=" + entryPoint);
