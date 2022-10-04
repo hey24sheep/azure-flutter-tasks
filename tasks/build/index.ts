@@ -24,6 +24,7 @@ async function main(): Promise<void> {
 
     // 4. Get common input
     let debugMode = task.getBoolInput('debugMode', false);
+    let profileMode = task.getBoolInput('profileMode', false);
     let buildName = task.getInput('buildName', false);
     let buildNumber = task.getInput('buildNumber', false);
     if (buildNumber) {
@@ -58,6 +59,7 @@ async function main(): Promise<void> {
             buildName,
             buildNumber,
             debugMode,
+            profileMode,
             buildFlavour,
             entryPoint,
             dartDefine,
@@ -83,6 +85,7 @@ async function main(): Promise<void> {
             buildName,
             buildNumber,
             debugMode,
+            profileMode,
             buildFlavour,
             entryPoint,
             splitPerAbi,
@@ -100,6 +103,7 @@ async function main(): Promise<void> {
             buildName,
             buildNumber,
             debugMode,
+            profileMode,
             buildFlavour,
             entryPoint,
             dartDefine,
@@ -109,25 +113,55 @@ async function main(): Promise<void> {
     }
 
     if (target === "all" || target === "web") {
-        await buildWeb(flutterPath, isVerbose, extraArgs, dartDefine, dartDefineMulti);
+        await buildWeb(
+            flutterPath, 
+            isVerbose, 
+            profileMode,
+            extraArgs, 
+            dartDefine, 
+            dartDefineMulti);
     }
 
     if (target === "all"
         || target === "desktop"
         || target === "windows") {
-        await buildDesktop(flutterPath, "windows", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti);
+        await buildDesktop(
+            flutterPath,
+            "windows",
+            isVerbose,
+            profileMode,
+            entryPoint,
+            extraArgs,
+            dartDefine,
+            dartDefineMulti);
     }
 
     if (target === "all"
         || target === "desktop"
         || target === "macos") {
-        await buildDesktop(flutterPath, "macos", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti);
+        await buildDesktop(
+            flutterPath,
+            "macos",
+            isVerbose,
+            profileMode,
+            entryPoint,
+            extraArgs,
+            dartDefine,
+            dartDefineMulti);
     }
 
     if (target === "all"
         || target === "desktop"
         || target === "linux") {
-        await buildDesktop(flutterPath, "linux", isVerbose, entryPoint, extraArgs, dartDefine, dartDefineMulti);
+        await buildDesktop(
+            flutterPath,
+            "linux",
+            isVerbose,
+            profileMode,
+            entryPoint,
+            extraArgs,
+            dartDefine,
+            dartDefineMulti);
     }
 
     task.setResult(task.TaskResult.Succeeded, "Application built");
@@ -139,6 +173,7 @@ async function buildApk(
     buildName?: string,
     buildNumber?: string,
     debugMode?: boolean,
+    profileMode?: boolean,
     buildFlavour?: string,
     entryPoint?: string,
     splitPerAbi?: boolean,
@@ -154,6 +189,8 @@ async function buildApk(
 
     if (debugMode) {
         args.push("--debug");
+    } else if (profileMode) {
+        args.push("--profile");
     }
 
     // if null, flutter will set defaults
@@ -219,6 +256,7 @@ async function buildAab(
     buildName?: string,
     buildNumber?: string,
     debugMode?: boolean,
+    profileMode?: boolean,
     buildFlavour?: string,
     entryPoint?: string,
     dartDefine?: string,
@@ -233,6 +271,8 @@ async function buildAab(
 
     if (debugMode) {
         args.push("--debug");
+    } else if (profileMode) {
+        args.push("--profile");
     }
 
     if (buildName) {
@@ -291,6 +331,7 @@ async function buildIpa(
     buildName?: string,
     buildNumber?: string,
     debugMode?: boolean,
+    profileMode?: boolean,
     buildFlavour?: string,
     entryPoint?: string,
     dartDefine?: string,
@@ -310,6 +351,8 @@ async function buildIpa(
 
     if (debugMode) {
         args.push("--debug");
+    } else if (profileMode) {
+        args.push("--profile");
     }
 
     if (!isIPA) {
@@ -385,6 +428,7 @@ async function buildIpa(
 async function buildWeb(
     flutter: string,
     isVerbose?: boolean,
+    profileMode?: boolean,
     extraArgs?: string,
     dartDefine?: string,
     dartDefineMulti?: string,) {
@@ -396,6 +440,10 @@ async function buildWeb(
 
     if (isVerbose) {
         args.push("--verbose");
+    }
+
+    if (profileMode) {
+        args.push("--profile");
     }
 
     if (extraArgs) {
@@ -431,6 +479,7 @@ async function buildDesktop(
     flutter: string,
     os: string,
     isVerbose?: boolean,
+    profileMode?: boolean,
     entryPoint?: string,
     extraArgs?: string,
     dartDefine?: string,
@@ -443,6 +492,9 @@ async function buildDesktop(
 
     if (isVerbose) {
         args.push("--verbose");
+    }
+    if (profileMode) {
+        args.push("--profile")
     }
     if (entryPoint) {
         args.push("--target=" + entryPoint);
