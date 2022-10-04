@@ -77,22 +77,22 @@ function main() {
             yield buildAab(flutterPath, buildName, buildNumber, debugMode, profileMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs);
         }
         if (target === "all" || target === "web") {
-            yield buildWeb(flutterPath, isVerbose, profileMode, extraArgs, dartDefine, dartDefineMulti);
+            yield buildWeb(flutterPath, isVerbose, debugMode, profileMode, extraArgs, dartDefine, dartDefineMulti);
         }
         if (target === "all"
             || target === "desktop"
             || target === "windows") {
-            yield buildDesktop(flutterPath, "windows", isVerbose, profileMode, entryPoint, extraArgs, dartDefine, dartDefineMulti);
+            yield buildDesktop(flutterPath, "windows", isVerbose, debugMode, profileMode, entryPoint, extraArgs, dartDefine, dartDefineMulti);
         }
         if (target === "all"
             || target === "desktop"
             || target === "macos") {
-            yield buildDesktop(flutterPath, "macos", isVerbose, profileMode, entryPoint, extraArgs, dartDefine, dartDefineMulti);
+            yield buildDesktop(flutterPath, "macos", isVerbose, debugMode, profileMode, entryPoint, extraArgs, dartDefine, dartDefineMulti);
         }
         if (target === "all"
             || target === "desktop"
             || target === "linux") {
-            yield buildDesktop(flutterPath, "linux", isVerbose, profileMode, entryPoint, extraArgs, dartDefine, dartDefineMulti);
+            yield buildDesktop(flutterPath, "linux", isVerbose, debugMode, profileMode, entryPoint, extraArgs, dartDefine, dartDefineMulti);
         }
         task.setResult(task.TaskResult.Succeeded, "Application built");
     });
@@ -282,7 +282,7 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
         }
     });
 }
-function buildWeb(flutter, isVerbose, profileMode, extraArgs, dartDefine, dartDefineMulti) {
+function buildWeb(flutter, isVerbose, debugMode, profileMode, extraArgs, dartDefine, dartDefineMulti) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -291,7 +291,10 @@ function buildWeb(flutter, isVerbose, profileMode, extraArgs, dartDefine, dartDe
         if (isVerbose) {
             args.push("--verbose");
         }
-        if (profileMode) {
+        if (debugMode) {
+            args.push("--debug");
+        }
+        else if (profileMode) {
             args.push("--profile");
         }
         if (extraArgs) {
@@ -319,7 +322,7 @@ function buildWeb(flutter, isVerbose, profileMode, extraArgs, dartDefine, dartDe
         }
     });
 }
-function buildDesktop(flutter, os, isVerbose, profileMode, entryPoint, extraArgs, dartDefine, dartDefineMulti) {
+function buildDesktop(flutter, os, isVerbose, debugMode, profileMode, entryPoint, extraArgs, dartDefine, dartDefineMulti) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -328,7 +331,10 @@ function buildDesktop(flutter, os, isVerbose, profileMode, entryPoint, extraArgs
         if (isVerbose) {
             args.push("--verbose");
         }
-        if (profileMode) {
+        if (debugMode) {
+            args.push("--debug");
+        }
+        else if (profileMode) {
             args.push("--profile");
         }
         if (entryPoint) {
