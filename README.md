@@ -64,7 +64,7 @@ Build the given mobile application project. You must call the `Flutter Install` 
 * _(Optional)_. Set `buildFlavour` (like `development`) to specify a build flavour. Must match Android Gradle flavor definition or XCode scheme.
 * _(Optional)_. Set `entryPoint` to override the main entry point file of the application. Default is 'lib/main.dart'.
 * _(Optional)_. Set `verboseMode` if you wish to get detailed verbose log output for diagnoses purposes. Default is `false`.
-* _(Optional)_. Set `debugMode` if you wish to override the default release mode for the build. Default is `false`.
+* _(Optional)_. Set `debugMode` if you wish to override the default release mode for the build. Default is `false`. This flag cannot be combined with `profileMode=true`.
 * _(Optional)_. Set `profileMode` if you wish to add the `--profile` flag to the build. Default is `false`. This flag cannot be combined with `debugMode=true`.
 * _(Optional)_. Set `dartDefine` compile-time variables, use as : `foo=bar` (use 'dartDefineMulti' for multiple args)"
 * _(Optional)_. Set `dartDefineMulti` compile-time variables, use as (space separated) : `foo=bar key1=val1 key2=val2` (use for multiple --dart-define arguments)"
@@ -75,6 +75,8 @@ Build the given mobile application project. You must call the `Flutter Install` 
 * __(iOS)__._(Optional)_. Set `iosTargetPlatform` for the iOS target: `device` (default), `simulator`.
 * __(iOS)__._(Optional)_. Set `iosCodesign` to configure whenever the bundle odesign the application bundle (only available on device builds, and activated by default). **Warning: you must install a valid certificate before build with the `Install an Apple Certificate`task**
 * __(ipa)__._(Optional)_. Set `exportOptionsPlist` to the path of your `ExportOptions.plist` to configure `--export-options-plist`. This flag cannot be combined with '--split-debug-info'. Optionally export an IPA with these options. See 'xcodebuild -h' for available exportOptionsPlist keys.
+
+> NOTE : for `--release` builds, pass `debugMode=false` and `profileMode=false`
 
 ### Test
 

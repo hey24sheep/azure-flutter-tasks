@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 3,
-        "Patch": 4
+        "Patch": 5
     },
     "instanceNameFormat": "Flutter Install",
     "inputs": [
@@ -43,8 +43,7 @@
             "helpMarkDown": "The build release channels (https://github.com/flutter/flutter/wiki/Flutter-build-release-channels).",
             "options": {
                 "stable": "Stable",
-                "beta": "Beta",
-                "dev": "Dev"
+                "beta": "Beta"
             },
             "visibleRule": "mode = auto"
         },

@@ -1,3 +1,11 @@
+## [0.3.9] - 4 October 2022
+- Extension version update to 0.3.9
+- *Build Task* version update to "0.3.4"
+- *Build Task* adds new build target `--profile`
+- *Build Task* fixes missing build target `--debug` from `web` & `desktop` builds
+- *Install Task* version update to "0.3.5"
+- *Install Task* removes 'dev' channel, (has been retired by Google)
+
 ## [0.3.8] - 12 August 2022
 - Extension version update to 0.3.8
 - *Env Task* version update to "0.3.1"

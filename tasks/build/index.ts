@@ -116,6 +116,7 @@ async function main(): Promise<void> {
         await buildWeb(
             flutterPath, 
             isVerbose, 
+            debugMode,
             profileMode,
             extraArgs, 
             dartDefine, 
@@ -129,6 +130,7 @@ async function main(): Promise<void> {
             flutterPath,
             "windows",
             isVerbose,
+            debugMode,
             profileMode,
             entryPoint,
             extraArgs,
@@ -143,6 +145,7 @@ async function main(): Promise<void> {
             flutterPath,
             "macos",
             isVerbose,
+            debugMode,
             profileMode,
             entryPoint,
             extraArgs,
@@ -157,6 +160,7 @@ async function main(): Promise<void> {
             flutterPath,
             "linux",
             isVerbose,
+            debugMode,
             profileMode,
             entryPoint,
             extraArgs,
@@ -428,6 +432,7 @@ async function buildIpa(
 async function buildWeb(
     flutter: string,
     isVerbose?: boolean,
+    debugMode?: boolean,
     profileMode?: boolean,
     extraArgs?: string,
     dartDefine?: string,
@@ -442,7 +447,9 @@ async function buildWeb(
         args.push("--verbose");
     }
 
-    if (profileMode) {
+    if (debugMode) {
+        args.push("--debug");
+    } else if (profileMode) {
         args.push("--profile");
     }
 
@@ -479,6 +486,7 @@ async function buildDesktop(
     flutter: string,
     os: string,
     isVerbose?: boolean,
+    debugMode?: boolean,
     profileMode?: boolean,
     entryPoint?: string,
     extraArgs?: string,
@@ -493,9 +501,13 @@ async function buildDesktop(
     if (isVerbose) {
         args.push("--verbose");
     }
-    if (profileMode) {
-        args.push("--profile")
+
+    if (debugMode) {
+        args.push("--debug");
+    } else if (profileMode) {
+        args.push("--profile");
     }
+
     if (entryPoint) {
         args.push("--target=" + entryPoint);
     }

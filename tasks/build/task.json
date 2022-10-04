@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 3,
-        "Patch": 3
+        "Patch": 4
     },
     "groups": [],
     "instanceNameFormat": "Flutter Build $(target)",
@@ -67,8 +67,18 @@
             "type": "boolean",
             "label": "Debug",
             "defaultValue": false,
-            "helpMarkDown": "Force build type to be Debug instead of Release.",
-            "required": false
+            "helpMarkDown": "Force build type to be Debug instead of Release. For release builds, do not select any of the Debug or Profile mode. This flag cannot be combined with `profileMode=true`",
+            "required": false,
+            "visibleRule": "profileMode = false"
+        },
+        {
+            "name": "profileMode",
+            "type": "boolean",
+            "label": "Profile",
+            "defaultValue": false,
+            "helpMarkDown": "Force build type to be Profile. This flag cannot be combined with `debugMode=true`",
+            "required": false,
+            "visibleRule": "debugMode = false"
         },
         {
             "name": "splitPerAbi",
