@@ -1,3 +1,7 @@
+## [0.3.10] - 4 October 2022
+- Extension version bump to 0.3.10
+- *Build Task* version bump to "0.3.5"
+
 ## [0.3.9] - 4 October 2022
 - Extension version update to 0.3.9
 - *Build Task* version update to "0.3.4"
