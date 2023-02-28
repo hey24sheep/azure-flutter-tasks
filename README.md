@@ -172,7 +172,17 @@ Read this [#35](https://github.com/hey24sheep/azure-flutter-tasks/issues/35#issu
 
 Read this issue [#37](https://github.com/hey24sheep/azure-flutter-tasks/issues/37) and this [wiki setup](https://github.com/hey24sheep/azure-flutter-tasks/wiki/IOS-&-Android-Example-Setup-Guide)
 
+> iOS build fails with: "Xcode couldn't find any iOS App Development provisioning profiles matching..."
+
+Read this issue [#49](https://github.com/hey24sheep/azure-flutter-tasks/issues/49)
+
 <br/>
+
+## Sample Build Pipeline Config (3rd Party)
+
+> Disclaimer : These are 3rd Party YAML config, please use them on your own discretion
+
+- [xeladu - Flutter Build Pipeline](https://github.com/xeladu/flutter_build_pipeline)
 
 ## Improve
 
