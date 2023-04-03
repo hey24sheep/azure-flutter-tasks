@@ -77,7 +77,7 @@ function main() {
             yield buildAab(flutterPath, buildName, buildNumber, debugMode, profileMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs);
         }
         if (target === "all" || target === "web") {
-            yield buildWeb(flutterPath, isVerbose, debugMode, profileMode, extraArgs, dartDefine, dartDefineMulti);
+            yield buildWeb(flutterPath, isVerbose, debugMode, profileMode, extraArgs, dartDefine, dartDefineMulti, entryPoint);
         }
         if (target === "all"
             || target === "desktop"
@@ -282,7 +282,7 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
         }
     });
 }
-function buildWeb(flutter, isVerbose, debugMode, profileMode, extraArgs, dartDefine, dartDefineMulti) {
+function buildWeb(flutter, isVerbose, debugMode, profileMode, extraArgs, dartDefine, dartDefineMulti, entryPoint) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -315,6 +315,9 @@ function buildWeb(flutter, isVerbose, debugMode, profileMode, extraArgs, dartDef
                 // single split val should be like key1=val1
                 args.push('--dart-define=' + i);
             });
+        }
+        if (entryPoint) {
+            args.push("--target=" + entryPoint);
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
