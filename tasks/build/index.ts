@@ -120,7 +120,8 @@ async function main(): Promise<void> {
             profileMode,
             extraArgs, 
             dartDefine, 
-            dartDefineMulti);
+            dartDefineMulti,
+            entryPoint);
     }
 
     if (target === "all"
@@ -436,7 +437,8 @@ async function buildWeb(
     profileMode?: boolean,
     extraArgs?: string,
     dartDefine?: string,
-    dartDefineMulti?: string,) {
+    dartDefineMulti?: string,
+    entryPoint?: string,) {
 
     var args = [
         "build",
@@ -475,6 +477,10 @@ async function buildWeb(
         });
     }
 
+    if (entryPoint) {
+        args.push("--target=" + entryPoint);
+    }
+        
     var result = await task.exec(flutter, args);
 
     if (result !== 0) {
