@@ -1,3 +1,9 @@
+## [0.3.11] - 15 April 2023
+- Extension version bump to 0.3.11
+- *Build Task* version bump to "0.3.6"
+- *Build Task* added `--target` to `web` build
+- *Build Task* added `--build-name` & `--build-number` to `desktop` builds
+
 ## [0.3.10] - 4 October 2022
 - Extension version bump to 0.3.10
 - *Build Task* version bump to "0.3.5"
