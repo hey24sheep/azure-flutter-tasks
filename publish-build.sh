@@ -13,6 +13,9 @@ cd ../env
 tsc 
 cd ../../
 
+# install tfx
+npm install -g tfx-cli
+
 # Create extension
 tfx extension create --manifest-globs vss-extension.json
 
