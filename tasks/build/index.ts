@@ -114,12 +114,12 @@ async function main(): Promise<void> {
 
     if (target === "all" || target === "web") {
         await buildWeb(
-            flutterPath, 
-            isVerbose, 
+            flutterPath,
+            isVerbose,
             debugMode,
             profileMode,
-            extraArgs, 
-            dartDefine, 
+            extraArgs,
+            dartDefine,
             dartDefineMulti,
             entryPoint);
     }
@@ -136,7 +136,9 @@ async function main(): Promise<void> {
             entryPoint,
             extraArgs,
             dartDefine,
-            dartDefineMulti);
+            dartDefineMulti,
+            buildName,
+            buildNumber,);
     }
 
     if (target === "all"
@@ -151,7 +153,9 @@ async function main(): Promise<void> {
             entryPoint,
             extraArgs,
             dartDefine,
-            dartDefineMulti);
+            dartDefineMulti,
+            buildName,
+            buildNumber,);
     }
 
     if (target === "all"
@@ -166,7 +170,9 @@ async function main(): Promise<void> {
             entryPoint,
             extraArgs,
             dartDefine,
-            dartDefineMulti);
+            dartDefineMulti,
+            buildName,
+            buildNumber,);
     }
 
     task.setResult(task.TaskResult.Succeeded, "Application built");
@@ -480,7 +486,7 @@ async function buildWeb(
     if (entryPoint) {
         args.push("--target=" + entryPoint);
     }
-        
+
     var result = await task.exec(flutter, args);
 
     if (result !== 0) {
@@ -497,7 +503,9 @@ async function buildDesktop(
     entryPoint?: string,
     extraArgs?: string,
     dartDefine?: string,
-    dartDefineMulti?: string,) {
+    dartDefineMulti?: string,
+    buildName?: string,
+    buildNumber?: string,) {
 
     var args = [
         "build",
@@ -512,6 +520,14 @@ async function buildDesktop(
         args.push("--debug");
     } else if (profileMode) {
         args.push("--profile");
+    }
+
+    if (buildName) {
+        args.push("--build-name=" + buildName);
+    }
+
+    if (buildNumber) {
+        args.push("--build-number=" + buildNumber);
     }
 
     if (entryPoint) {
