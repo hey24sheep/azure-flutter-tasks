@@ -54,16 +54,19 @@ async function main(): Promise<void> {
 	let fullFlutterPath: string = path.join(toolPath, FLUTTER_EXE_RELATIVEPATH);
 	task.debug(`Set ${FLUTTER_TOOL_PATH_ENV_VAR} with '${fullFlutterPath}'`);
 	task.setVariable(FLUTTER_TOOL_PATH_ENV_VAR, fullFlutterPath);
+	task.prependPath(fullFlutterPath);
 
 	// 5.1 Create flutter pub-cache environment variable
 	let fullPubCachePath: string = path.join(toolPath, FLUTTER_PUB_CACHE_RELATIVEPATH);
 	task.debug(`Set ${DART_TOOL_PATH_ENV_VAR} with '${fullPubCachePath}'`);
 	task.setVariable(FLUTTER_PUBCACHE_PATH_ENV_VAR, fullPubCachePath);
+	task.prependPath(fullPubCachePath);
 
 	// 5.2 Create dart environment variable
 	let fullDartPath: string = path.join(fullFlutterPath, DART_EXE_RELATIVEPATH);
 	task.debug(`Set ${DART_TOOL_PATH_ENV_VAR} with '${fullDartPath}'`);
 	task.setVariable(DART_TOOL_PATH_ENV_VAR, fullDartPath);
+	task.prependPath(fullDartPath);
 
 	task.setResult(task.TaskResult.Succeeded, "Installed");
 }

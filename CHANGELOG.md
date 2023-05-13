@@ -1,3 +1,10 @@
+## [0.3.12] - 13 May 2023
+- Extension version bump to 0.3.12
+- *Install Task* version bump to "0.3.6"
+- *Install Task* prepends path of "Flutter", "FlutterPubCache", "Dart" to main path 
+- *Env Task* version bump to "0.3.2"
+- *Env Task* now prepends path of "Flutter", "FlutterPubCache", "Dart" to main path 
+
 ## [0.3.11] - 15 April 2023
 - Extension version bump to 0.3.11
 - *Build Task* version bump to "0.3.6"
