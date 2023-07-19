@@ -124,7 +124,7 @@ async function runTests(flutter: string,
                 results.suites.push(newSuite);
             }
         }
-        else {
+        else if (currentSuite) {
             createTestCase(currentSuite, line);
         }
     });
