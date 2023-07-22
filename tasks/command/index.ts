@@ -20,15 +20,16 @@ async function main(): Promise<void> {
     task.debug(`Project's directory : ${task.cwd()}`);
 
     let args = task.getInput('arguments', false);
-    let splittedArgs = args.split(' ')
-        .map(function (x) {
-            return x.trim();
-        })
-        .filter(function (x) {
-            return x.length;
-        });
 
-    var result = await task.exec(flutterPath, splittedArgs);
+    // let splittedArgs = args.split(' ')
+    //     .map(function (x) {
+    //         return x.trim();
+    //     })
+    //     .filter(function (x) {
+    //         return x.length;
+    //     });
+
+    var result = await task.exec(flutterPath, args);
 
     if (result !== 0) {
         task.setResult(task.TaskResult.Failed, "Command execution failed");

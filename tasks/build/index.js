@@ -129,26 +129,29 @@ function buildApk(flutter, targetPlatform, buildName, buildNumber, debugMode, pr
             args.push("--split-per-abi");
         }
         if (dartDefine) {
-            var splitted = dartDefine.split(" ");
-            if (splitted && splitted.length > 0) {
-                args.push("--dart-define=" + splitted[0]);
-                args.push(...splitted.splice(1));
-            }
+            // var splitted = dartDefine.split(" ");
+            // if (splitted && splitted.length > 0) {
+            //     args.push("--dart-define=" + splitted[0]);
+            //     args.push(...splitted.splice(1));
+            // }
+            args.push('--dart-define=' + dartDefine.trim());
         }
         if (dartDefineMulti) {
-            // should be like key1=val1 key2=val2
-            var splitted = dartDefineMulti.split(" ");
-            splitted.map((i) => {
-                // single split val should be like key1=val1
-                args.push('--dart-define=' + i);
-            });
+            // // should be like key1=val1 key2=val2
+            // var splitted = dartDefineMulti.split(" ");
+            // splitted.map((i) => {
+            //     // single split val should be like key1=val1
+            //     args.push('--dart-define=' + i);
+            // });
+            args.push('--dart-define=' + dartDefineMulti.trim());
         }
         if (isVerbose) {
             args.push("--verbose");
         }
         if (extraArgs) {
-            var splitted = extraArgs.split(" ");
-            args.push(...splitted);
+            // var splitted = extraArgs.split(" ");
+            // args.push(...splitted);
+            args.push(extraArgs);
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
@@ -181,26 +184,29 @@ function buildAab(flutter, buildName, buildNumber, debugMode, profileMode, build
             args.push("--target=" + entryPoint);
         }
         if (dartDefine) {
-            var splitted = dartDefine.split(" ");
-            if (splitted && splitted.length > 0) {
-                args.push("--dart-define=" + splitted[0]);
-                args.push(...splitted.splice(1));
-            }
+            // var splitted = dartDefine.split(" ");
+            // if (splitted && splitted.length > 0) {
+            //     args.push("--dart-define=" + splitted[0]);
+            //     args.push(...splitted.splice(1));
+            // }
+            args.push('--dart-define=' + dartDefine.trim());
         }
         if (dartDefineMulti) {
-            // should be like key1=val1 key2=val2
-            var splitted = dartDefineMulti.split(" ");
-            splitted.map((i) => {
-                // single split val should be like key1=val1
-                args.push('--dart-define=' + i);
-            });
+            // // should be like key1=val1 key2=val2
+            // var splitted = dartDefineMulti.split(" ");
+            // splitted.map((i) => {
+            //     // single split val should be like key1=val1
+            //     args.push('--dart-define=' + i);
+            // });
+            args.push('--dart-define=' + dartDefineMulti.trim());
         }
         if (isVerbose) {
             args.push("--verbose");
         }
         if (extraArgs) {
-            var splitted = extraArgs.split(" ");
-            args.push(...splitted);
+            // var splitted = extraArgs.split(" ");
+            // args.push(...splitted);
+            args.push(extraArgs.trim());
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
@@ -252,19 +258,21 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
             }
         }
         if (dartDefine) {
-            var splitted = dartDefine.split(" ");
-            if (splitted && splitted.length > 0) {
-                args.push("--dart-define=" + splitted[0]);
-                args.push(...splitted.splice(1));
-            }
+            // var splitted = dartDefine.split(" ");
+            // if (splitted && splitted.length > 0) {
+            //     args.push("--dart-define=" + splitted[0]);
+            //     args.push(...splitted.splice(1));
+            // }
+            args.push('--dart-define=' + dartDefine.trim());
         }
         if (dartDefineMulti) {
-            // should be like key1=val1 key2=val2
-            var splitted = dartDefineMulti.split(" ");
-            splitted.map((i) => {
-                // single split val should be like key1=val1
-                args.push('--dart-define=' + i);
-            });
+            // // should be like key1=val1 key2=val2
+            // var splitted = dartDefineMulti.split(" ");
+            // splitted.map((i) => {
+            //     // single split val should be like key1=val1
+            //     args.push('--dart-define=' + i);
+            // });
+            args.push('--dart-define=' + dartDefineMulti.trim());
         }
         if (isVerbose) {
             args.push("--verbose");
@@ -273,8 +281,9 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
             args.push("--export-options-plist=" + exportOptionsPlist);
         }
         if (extraArgs) {
-            var splitted = extraArgs.split(" ");
-            args.push(...splitted);
+            // var splitted = extraArgs.split(" ");
+            // args.push(...splitted);
+            args.push(extraArgs.trim());
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
@@ -298,23 +307,26 @@ function buildWeb(flutter, isVerbose, debugMode, profileMode, extraArgs, dartDef
             args.push("--profile");
         }
         if (extraArgs) {
-            var splitted = extraArgs.split(" ");
-            args.push(...splitted);
+            // var splitted = extraArgs.split(" ");
+            // args.push(...splitted);
+            args.push(extraArgs.trim());
         }
         if (dartDefine) {
-            var splitted = dartDefine.split(" ");
-            if (splitted && splitted.length > 0) {
-                args.push("--dart-define=" + splitted[0]);
-                args.push(...splitted.splice(1));
-            }
+            // var splitted = dartDefine.split(" ");
+            // if (splitted && splitted.length > 0) {
+            //     args.push("--dart-define=" + splitted[0]);
+            //     args.push(...splitted.splice(1));
+            // }
+            args.push('--dart-define=' + dartDefine.trim());
         }
         if (dartDefineMulti) {
-            // should be like key1=val1 key2=val2
-            var splitted = dartDefineMulti.split(" ");
-            splitted.map((i) => {
-                // single split val should be like key1=val1
-                args.push('--dart-define=' + i);
-            });
+            // // should be like key1=val1 key2=val2
+            // var splitted = dartDefineMulti.split(" ");
+            // splitted.map((i) => {
+            //     // single split val should be like key1=val1
+            //     args.push('--dart-define=' + i);
+            // });
+            args.push('--dart-define=' + dartDefineMulti.trim());
         }
         if (entryPoint) {
             args.push("--target=" + entryPoint);
@@ -350,23 +362,26 @@ function buildDesktop(flutter, os, isVerbose, debugMode, profileMode, entryPoint
             args.push("--target=" + entryPoint);
         }
         if (dartDefine) {
-            var splitted = dartDefine.split(" ");
-            if (splitted && splitted.length > 0) {
-                args.push("--dart-define=" + splitted[0]);
-                args.push(...splitted.splice(1));
-            }
+            // var splitted = dartDefine.split(" ");
+            // if (splitted && splitted.length > 0) {
+            //     args.push("--dart-define=" + splitted[0]);
+            //     args.push(...splitted.splice(1));
+            // }
+            args.push('--dart-define=' + dartDefine);
         }
         if (dartDefineMulti) {
             // should be like key1=val1 key2=val2
-            var splitted = dartDefineMulti.split(" ");
-            splitted.map((i) => {
-                // single split val should be like key1=val1
-                args.push('--dart-define=' + i);
-            });
+            // var splitted = dartDefineMulti.split(" ");
+            // splitted.map((i) => {
+            //     // single split val should be like key1=val1
+            //     args.push('--dart-define=' + i);
+            // });
+            args.push('--dart-define=' + dartDefineMulti.trim());
         }
         if (extraArgs) {
-            var splitted = extraArgs.split(" ");
-            args.push(...splitted);
+            // var splitted = extraArgs.split(" ");
+            // args.push(...splitted);
+            args.push(extraArgs);
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {

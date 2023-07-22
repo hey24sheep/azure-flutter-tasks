@@ -1,3 +1,13 @@
+## [0.3.13] - 22 July 2023
+- Extension version bump to 0.3.13
+- *Test Task* version bump to "0.3.1"
+- *Test Task* added a null check, probably fixes [#83](https://github.com/hey24sheep/azure-flutter-tasks/issues/83)
+- *Command Task* version bump to "0.3.1"
+- *Command Task* changes to how `arguments` input param are passed for execution
+- *Build Task* version bump to "0.3.7"
+- *Build Task* changes to how `dartDefine`, `dartDefineMulti` and `extraArgs` input param are passed for execution
+- **NOTE: These multi argument input params are now handled in a different way to fix this bug [#89](https://github.com/hey24sheep/azure-flutter-tasks/issues/89)**
+
 ## [0.3.12] - 13 May 2023
 - Extension version bump to 0.3.12
 - *Install Task* version bump to "0.3.6"

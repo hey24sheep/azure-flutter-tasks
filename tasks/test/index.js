@@ -106,7 +106,7 @@ function runTests(flutter, concurrency, updateGoldens, name, plainName, canGener
                     results.suites.push(newSuite);
                 }
             }
-            else {
+            else if (currentSuite) {
                 createTestCase(currentSuite, line);
             }
         });
