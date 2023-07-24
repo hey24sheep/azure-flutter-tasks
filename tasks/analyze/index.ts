@@ -23,14 +23,21 @@ async function main(): Promise<void> {
 	let pubGet = task.getBoolInput('pubGet', false);
 	let extraArgs = task.getInput('extraArgs', false);
 
+	let extraArgSep = task.getInput('extraArgsSeparator', false);
+
+	if (!extraArgSep || extraArgSep === '') {
+		extraArgSep = " ";
+	}
+
 	// 4. Builds
-	await runAnalyze(flutterPath, pubGet, extraArgs);
+	await runAnalyze(flutterPath, pubGet, extraArgs, extraArgSep);
 
 	task.setResult(task.TaskResult.Succeeded, "Analyze succeeded");
 }
 
 async function runAnalyze(flutter: string, pubGet?: boolean,
-	extraArgs?: string) {
+	extraArgs?: string,
+	extraArgSep?: string) {
 
 	var args = [
 		"analyze",
@@ -41,9 +48,10 @@ async function runAnalyze(flutter: string, pubGet?: boolean,
 	} else {
 		args.push("--no-pub");
 	}
-
+	
 	if (extraArgs) {
-		args.push(extraArgs);
+		var splitted = extraArgs.split(extraArgSep);
+		args.push(...splitted);
 	}
 
 	var result = await task.exec(flutter, args);

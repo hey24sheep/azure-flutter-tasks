@@ -30,12 +30,16 @@ function main() {
         // 3. Get common input
         let pubGet = task.getBoolInput('pubGet', false);
         let extraArgs = task.getInput('extraArgs', false);
+        let extraArgSep = task.getInput('extraArgsSeparator', false);
+        if (!extraArgSep || extraArgSep === '') {
+            extraArgSep = " ";
+        }
         // 4. Builds
-        yield runAnalyze(flutterPath, pubGet, extraArgs);
+        yield runAnalyze(flutterPath, pubGet, extraArgs, extraArgSep);
         task.setResult(task.TaskResult.Succeeded, "Analyze succeeded");
     });
 }
-function runAnalyze(flutter, pubGet, extraArgs) {
+function runAnalyze(flutter, pubGet, extraArgs, extraArgSep) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "analyze",
@@ -47,7 +51,8 @@ function runAnalyze(flutter, pubGet, extraArgs) {
             args.push("--no-pub");
         }
         if (extraArgs) {
-            args.push(extraArgs);
+            var splitted = extraArgs.split(extraArgSep);
+            args.push(...splitted);
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {

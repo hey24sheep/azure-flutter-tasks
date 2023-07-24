@@ -28,14 +28,18 @@ function main() {
         }
         task.debug(`Project's directory : ${task.cwd()}`);
         let args = task.getInput('arguments', false);
-        // let splittedArgs = args.split(' ')
-        //     .map(function (x) {
-        //         return x.trim();
-        //     })
-        //     .filter(function (x) {
-        //         return x.length;
-        //     });
-        var result = yield task.exec(flutterPath, args);
+        let argSep = task.getInput('argSeparator', false);
+        if (!argSep || argSep === '') {
+            argSep = " ";
+        }
+        let splittedArgs = args.split(argSep)
+            .map(function (x) {
+            return x.trim();
+        })
+            .filter(function (x) {
+            return x.length;
+        });
+        var result = yield task.exec(flutterPath, splittedArgs);
         if (result !== 0) {
             task.setResult(task.TaskResult.Failed, "Command execution failed");
         }

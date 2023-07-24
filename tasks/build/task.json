@@ -12,7 +12,7 @@
     "version": {
         "Major": 0,
         "Minor": 3,
-        "Patch": 7
+        "Patch": 8
     },
     "groups": [],
     "instanceNameFormat": "Flutter Build $(target)",
@@ -193,12 +193,28 @@
             "helpMarkDown": "Parameters passed to multiple --dart-define, use as : 'foo=bar key1=val1 key2=val2'"
         },
         {
+            "name": "dartDefineMultiArgSeparator",
+            "type": "string",
+            "label": "Dart Define (Multi `dartDefineMulti`) argument separator. Default: single space (' ')",
+            "defaultValue": " ",
+            "required": false,
+            "helpMarkDown": "Separator used in params passed to `dartDefineMulti`. Default is single space (' ')"
+        },
+        {
             "name": "extraArgs",
             "type": "string",
             "label": "Extra command arguments",
             "defaultValue": "",
             "required": false,
             "helpMarkDown": "Extra command arguments like --no-tree-shake-icons. Space separated"
+        },
+        {
+            "name": "extraArgsSeparator",
+            "type": "string",
+            "label": "Extra (`extraArgs`) argument separator. Default: single space (' ')",
+            "defaultValue": " ",
+            "required": false,
+            "helpMarkDown": "Separator used in params passed to `extraArgs`. Default is single space (' ')"
         }
     ],
     "execution": {

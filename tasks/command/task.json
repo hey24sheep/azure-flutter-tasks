@@ -37,6 +37,14 @@
             "required": false,
             "defaultValue": "",
             "helpMarkDown": "Arguments passed to the flutter command."
+        },
+        {
+            "name": "argSeparator",
+            "type": "string",
+            "label": "Arguments (`arguments`) separator. Default: single space (' ')",
+            "defaultValue": " ",
+            "required": false,
+            "helpMarkDown": "Separator used in params passed to `arguments`. Default is single space (' ')"
         }
     ],
     "execution": {
