@@ -68,7 +68,9 @@ Build the given mobile application project. You must call the `Flutter Install` 
 * _(Optional)_. Set `profileMode` if you wish to add the `--profile` flag to the build. Default is `false`. This flag cannot be combined with `debugMode=true`.
 * _(Optional)_. Set `dartDefine` compile-time variables, use as : `foo=bar` (use 'dartDefineMulti' for multiple args)"
 * _(Optional)_. Set `dartDefineMulti` compile-time variables, use as (space separated) : `foo=bar key1=val1 key2=val2` (use for multiple --dart-define arguments)"
+* _(Optional)_. Set `dartDefineMultiArgSeparator` Separator used in params passed to `dartDefineMulti`. Default is single space (' ')
 * _(Optional)_. Set `extraArgs` if you want to pass more official/custom command arguments, `Space Separated`. Example: "--no-tree-shake-icons --publish-to-play"
+* _(Optional)_. Set `extraArgsSeparator` Separator used in params passed to `extraArgs`. Default is single space (' ')
 * __(Android)__._(Optional)_. Set `apkTargetPlatform` for the Android platform architecture target: `default` __(default set by Flutter sdk)__ `android-arm` , `android-arm64`, `android-x86`, `android-x64`, `custom`.
 * __(Android)__._(Optional)_. Set `customApkTargetPosition` for the `custom` target platform architecture, provide your own combination (comma separated) of valid values. _Example_ like `android-arm,android-arm64,android-x64`
 * __(Android)__._(Optional)_. Set the build mode `splitPerAbi` to compile the code into an APK per target ABI. Otherwise the build will result in a single APK.
@@ -101,6 +103,7 @@ Launch analyze on flutter directory.
 * Select the `projectDirectory` that contains the `pubspec.yaml` file.
 * _(Optional)_. Set `pubGet` if you wish to run `pub get` command before analyze. Default is `true`.
 * _(Optional)_. Set `extraArgs` if you want to pass more official/custom command arguments. Example: "--fatal-infos --fatal-warnings"
+* _(Optional)_. Set `extraArgsSeparator` Separator used in params passed to `extraArgs`. Default is single space (' ')
 
 
 ### Command
@@ -112,6 +115,7 @@ Launch a Flutter command with custom arguments.
 * Set the `arguments` to your custom valid flutter command.
 * Select the `projectDirectory` that contains the `pubspec.yaml` file.
 * _(Optional)_. Set `flutterDirectory` to set path to the Flutter SDK if you were not using `Flutter Install` task before this one
+* _(Optional)_. Set `argSeparator` Separator used in params passed to `extraArgs`. Default is single space (' ')
 
 ### Env
 

@@ -1,3 +1,9 @@
+## [0.3.14] - 24 July 2023
+- Extension version bump to 0.3.14
+- **Common** a new separator input parameter is added to *Build*, *Command* & *Analyze* task
+    - Please refer to the updated `Readme` for the argument names and how to guide
+- **NOTE: this update fixes the previous build fails by adding a different way to handle multiple values in extra args or dart define inputs**
+
 ## [0.3.13] - 22 July 2023
 - Extension version bump to 0.3.13
 - *Test Task* version bump to "0.3.1"
