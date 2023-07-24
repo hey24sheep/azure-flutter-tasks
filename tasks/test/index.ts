@@ -108,11 +108,11 @@ async function runTests(flutter: string,
     };
 
     testRunner.on('stdout', line => {
-        const testSuiteRegex = /\s*\d\d:\d\d (\+\d+)?(\s+\-\d+)?:\s*loading\s*(.*\.dart)\s*/;
-        let loadingMatch = testSuiteRegex.exec(line);
-        if (loadingMatch) {
+        const testSuiteRegex = /\s*\d\d:\d\d (\+\d+)?(\s+\-\d+)?:\s*(?<title>.*\.dart):\s*\(setUpAll\)/;
+        let setUpMatch = testSuiteRegex.exec(line);
+        if (setUpMatch) {
             var newSuite = {
-                title: path.basename(loadingMatch[3], ".dart"),
+                title: path.basename(setUpMatch.groups.title, ".dart"),
                 isSuccess: false,
                 succeeded: 0,
                 failed: 0,
