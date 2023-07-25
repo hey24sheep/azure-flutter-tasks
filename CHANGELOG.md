@@ -1,3 +1,12 @@
+## [0.3.15] - 25 July 2023
+- Extension version bump to 0.3.15
+- *Build Task* version bump to "0.3.9"
+- *Build Task* fixes the `extraArgs` handling in `buildWeb`
+- *Test Task* version bump to "0.3.2"
+- *Test Task* fixes task failing with null error and failing to publish results in simillar cases 
+- Added a `Testing-Readme` guide for easier test setup
+- Sample project updated to latest Flutter
+
 ## [0.3.14] - 24 July 2023
 - Extension version bump to 0.3.14
 - **Common** a new separator input parameter is added to *Build*, *Command* & *Analyze* task
