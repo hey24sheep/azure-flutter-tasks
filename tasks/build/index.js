@@ -308,7 +308,6 @@ function buildWeb(flutter, isVerbose, debugMode, profileMode, extraArgs, dartDef
         if (extraArgs) {
             var splitted = extraArgs.split(extraArgSep);
             args.push(...splitted);
-            args.push(extraArgs.trim());
         }
         if (dartDefine) {
             var splitted = dartDefine.split(" ");

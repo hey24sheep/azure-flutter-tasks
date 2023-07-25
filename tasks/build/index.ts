@@ -497,7 +497,6 @@ async function buildWeb(
     if (extraArgs) {
         var splitted = extraArgs.split(extraArgSep);
         args.push(...splitted);
-        args.push(extraArgs.trim());
     }
 
     if (dartDefine) {
