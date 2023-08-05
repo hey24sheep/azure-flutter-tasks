@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <testsuites>
-  <testsuite name="other_test.dart" timestamp="2023-08-05T07:45:37.659Z" errors="0" skipped="0" failures="0" tests="0"/>
-  <testsuite name="widget_test.dart" timestamp="2023-08-05T07:45:37.659Z" errors="0" skipped="0" failures="0" tests="3">
-    <testcase name="D:/hey24sheep/work/my_github/azure-flutter-tasks/sample_project/test/widget_test.dart: Counter increments smoke test" classname="D:/hey24sheep/work/my_github/azure-flutter-tasks/sample_project/test/widget_test.dart: Counter increments smoke test" time="0.103"/>
+  <testsuite name="api_dummy_test.dart" timestamp="2023-08-05T09:56:09.886Z" errors="0" skipped="0" failures="1" tests="3">
+    <testcase name="D:/hey24sheep/work/my_github/azure-flutter-tasks/sample_project/test/api_dummy_test.dart: Api Dummy Test" classname="D:/hey24sheep/work/my_github/azure-flutter-tasks/sample_project/test/api_dummy_test.dart: Api Dummy Test" time="0.299"/>
+  </testsuite>
+  <testsuite timestamp="2023-08-05T09:56:09.886Z" errors="0" skipped="0" failures="0" tests="1">
+    <testcase name="All tests passed!" classname="All tests passed!" time="0"/>
+  </testsuite>
+  <testsuite name="widget_test.dart" timestamp="2023-08-05T09:56:09.886Z" errors="0" skipped="0" failures="0" tests="4">
+    <testcase name="D:/hey24sheep/work/my_github/azure-flutter-tasks/sample_project/test/widget_test.dart: Counter increments smoke test" classname="D:/hey24sheep/work/my_github/azure-flutter-tasks/sample_project/test/widget_test.dart: Counter increments smoke test" time="0.203"/>
     <testcase name="D:/hey24sheep/work/my_github/azure-flutter-tasks/sample_project/test/widget_test.dart: Other test" classname="D:/hey24sheep/work/my_github/azure-flutter-tasks/sample_project/test/widget_test.dart: Other test" time="0.01"/>
     <testcase name="D:/hey24sheep/work/my_github/azure-flutter-tasks/sample_project/test/widget_test.dart: And another test" classname="D:/hey24sheep/work/my_github/azure-flutter-tasks/sample_project/test/widget_test.dart: And another test" time="0"/>
-  </testsuite>
-  <testsuite timestamp="2023-08-05T07:45:37.659Z" errors="0" skipped="0" failures="0" tests="4">
-    <testcase name="All tests passed!" classname="All tests passed!" time="0"/>
   </testsuite>
 </testsuites>
