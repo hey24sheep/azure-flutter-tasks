@@ -140,7 +140,9 @@ async function main(): Promise<void> {
             dartDefineMulti,
             entryPoint,
             dartDefineMultiArgSep,
-            extraArgSep);
+            extraArgSep,
+            buildName,
+            buildNumber,);
     }
 
     if (target === "all"
@@ -477,7 +479,9 @@ async function buildWeb(
     dartDefineMulti?: string,
     entryPoint?: string,
     dartDefineMultiArgSep?: string,
-    extraArgSep?: string) {
+    extraArgSep?: string,
+    buildName?: string,
+    buildNumber?: string,) {
 
     var args = [
         "build",
@@ -518,6 +522,14 @@ async function buildWeb(
 
     if (entryPoint) {
         args.push("--target=" + entryPoint);
+    }
+
+    if (buildName) {
+        args.push("--build-name=" + buildName);
+    }
+
+    if (buildNumber) {
+        args.push("--build-number=" + buildNumber);
     }
 
     var result = await task.exec(flutter, args);
