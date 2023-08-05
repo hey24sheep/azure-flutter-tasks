@@ -85,7 +85,7 @@ function main() {
             yield buildAab(flutterPath, buildName, buildNumber, debugMode, profileMode, buildFlavour, entryPoint, dartDefine, dartDefineMulti, isVerbose, extraArgs, dartDefineMultiArgSep, extraArgSep);
         }
         if (target === "all" || target === "web") {
-            yield buildWeb(flutterPath, isVerbose, debugMode, profileMode, extraArgs, dartDefine, dartDefineMulti, entryPoint, dartDefineMultiArgSep, extraArgSep);
+            yield buildWeb(flutterPath, isVerbose, debugMode, profileMode, extraArgs, dartDefine, dartDefineMulti, entryPoint, dartDefineMultiArgSep, extraArgSep, buildName, buildNumber);
         }
         if (target === "all"
             || target === "desktop"
@@ -290,7 +290,7 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
         }
     });
 }
-function buildWeb(flutter, isVerbose, debugMode, profileMode, extraArgs, dartDefine, dartDefineMulti, entryPoint, dartDefineMultiArgSep, extraArgSep) {
+function buildWeb(flutter, isVerbose, debugMode, profileMode, extraArgs, dartDefine, dartDefineMulti, entryPoint, dartDefineMultiArgSep, extraArgSep, buildName, buildNumber) {
     return __awaiter(this, void 0, void 0, function* () {
         var args = [
             "build",
@@ -326,6 +326,12 @@ function buildWeb(flutter, isVerbose, debugMode, profileMode, extraArgs, dartDef
         }
         if (entryPoint) {
             args.push("--target=" + entryPoint);
+        }
+        if (buildName) {
+            args.push("--build-name=" + buildName);
+        }
+        if (buildNumber) {
+            args.push("--build-number=" + buildNumber);
         }
         var result = yield task.exec(flutter, args);
         if (result !== 0) {
