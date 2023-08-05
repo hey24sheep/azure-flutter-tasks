@@ -1,3 +1,10 @@
+## [0.3.16] - 05 August 2023
+- Extension version bump to 0.3.16
+- *Build Task* version bump to "0.3.10"
+- *Build Task* Added `buildName` and `buildNumber` to `buildWeb`
+- *Test Task* version bump to "0.3.3"
+- *Test Task* re-written the test suite & case processing and creation
+
 ## [0.3.15] - 25 July 2023
 - Extension version bump to 0.3.15
 - *Build Task* version bump to "0.3.9"
