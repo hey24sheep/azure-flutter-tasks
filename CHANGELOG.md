@@ -1,3 +1,7 @@
+## [0.3.17] - 12 October 2023
+- Extension version bump to 0.3.17
+- Updated support links in readme
+
 ## [0.3.16] - 05 August 2023
 - Extension version bump to 0.3.16
 - *Build Task* version bump to "0.3.10"
