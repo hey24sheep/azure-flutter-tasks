@@ -172,7 +172,8 @@ function createTestCase(suite: any, output: string, globalFailure: number) {
     const testRunRegex = /\s*\d\d:\d\d (\+\d+)?(\s+\-\d+)?:\s*(.*)/;
     let match = testRunRegex.exec(output);
     if (match) {
-        var title = match[3];
+        var tSplits = match[3].split(': ');
+        var title = tSplits[tSplits.length - 1];
         var successes = Number(match[1]);
         var failures = match[2] ? -Number(match[2]) : suite.failed;
 
@@ -201,6 +202,9 @@ function createTestCase(suite: any, output: string, globalFailure: number) {
             // handles initial test, as it is always empty with everything as 0 or empty 
             // index in test starts with 0
             // everything is 0 meaning it's a new case
+            newCase.isSuccess = true;
+            hasNewCase = true;
+        } else {
             newCase.isSuccess = true;
             hasNewCase = true;
         }

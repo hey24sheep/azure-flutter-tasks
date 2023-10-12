@@ -1,3 +1,8 @@
+## [0.3.18] - 12 October 2023
+- Extension version bump to 0.3.18
+- *Test Task* version bump to "0.3.4"
+- *Test Task* logic change to fix false negative test case
+
 ## [0.3.17] - 12 October 2023
 - Extension version bump to 0.3.17
 - Updated support links in readme
