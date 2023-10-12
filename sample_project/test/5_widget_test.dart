@@ -10,7 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sample_project/main.dart';
 
 void main() {
-  testWidgets('Api Dummy Test', (WidgetTester tester) async {
+  testWidgets('5_widget_t1', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(new MyApp());
 
@@ -25,9 +25,5 @@ void main() {
     // Verify that our counter has incremented.
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
-  });
-
-  testWidgets('failure api dummy test', (WidgetTester tester) async {
-    // throw Error();
   });
 }

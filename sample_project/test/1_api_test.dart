@@ -10,9 +10,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:sample_project/main.dart';
 
 void main() {
-  test('services test', () {
-    expect(true, true);
+  test('1_api_t1', () {
+    expect('1', '1');
   });
 
-  testWidgets('mock', (WidgetTester tester) async {});
+  test('1_api_t2', () {
+    expect('1', '1');
+  });
+
+  test('1_api_t3', () {
+    assert(true, true);
+  });
+
+  test('1_api_fail_t4', () {
+    expect('1', '2');
+  });
 }
