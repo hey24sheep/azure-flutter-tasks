@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <testsuites>
-  <testsuite name="1_api_test.dart" timestamp="2023-10-12T08:10:12.560Z" errors="0" skipped="0" failures="1" tests="4">
-    <testcase name="1_api_t1" classname="1_api_t1" time="0.024"/>
-    <testcase name="1_api_t2" classname="1_api_t2" time="0.011"/>
-    <testcase name="1_api_t3" classname="1_api_t3" time="0.083"/>
-    <testcase name="1_api_fail_t4 [E]" classname="1_api_fail_t4 [E]" time="0">
-      <failure type="FlutterError"/>
-    </testcase>
-  </testsuite>
-  <testsuite name="2_api_test.dart" timestamp="2023-10-12T08:10:12.560Z" errors="0" skipped="0" failures="0" tests="1">
-    <testcase name="2_api_t1" classname="2_api_t1" time="0"/>
-  </testsuite>
-  <testsuite name="3_services_test.dart" timestamp="2023-10-12T08:10:12.560Z" errors="0" skipped="0" failures="0" tests="2">
-    <testcase name="3_service_t1" classname="3_service_t1" time="0.022"/>
-    <testcase name="3_service_t2" classname="3_service_t2" time="0"/>
-  </testsuite>
-  <testsuite name="4_widget_test.dart" timestamp="2023-10-12T08:10:12.560Z" errors="0" skipped="0" failures="0" tests="1">
-    <testcase name="4_widget_t1" classname="4_widget_t1" time="0"/>
-  </testsuite>
-  <testsuite timestamp="2023-10-12T08:10:12.560Z" errors="0" skipped="0" failures="0" tests="1">
+  <testsuite timestamp="2024-09-15T08:48:45.195Z" errors="0" skipped="0" failures="0" tests="1">
     <testcase name="Some tests failed." classname="Some tests failed." time="0"/>
   </testsuite>
-  <testsuite name="5_widget_test.dart" timestamp="2023-10-12T08:10:12.560Z" errors="0" skipped="0" failures="0" tests="3">
-    <testcase name="5_widget_t1" classname="5_widget_t1" time="0.069"/>
+  <testsuite name="3_services_test.dart" timestamp="2024-09-15T08:48:45.195Z" errors="0" skipped="0" failures="0" tests="2">
+    <testcase name="3_service_t1" classname="3_service_t1" time="0.039"/>
+    <testcase name="3_service_t2" classname="3_service_t2" time="0"/>
+  </testsuite>
+  <testsuite name="2_api_test.dart" timestamp="2024-09-15T08:48:45.195Z" errors="0" skipped="0" failures="0" tests="1">
+    <testcase name="2_api_t1" classname="2_api_t1" time="0"/>
+  </testsuite>
+  <testsuite name="1_api_test.dart" timestamp="2024-09-15T08:48:45.195Z" errors="0" skipped="0" failures="0" tests="5">
+    <testcase name="1_api_t1" classname="1_api_t1" time="0.014"/>
+    <testcase name="1_api_t2" classname="1_api_t2" time="0.004"/>
+    <testcase name="1_api_t3" classname="1_api_t3" time="0.003"/>
+    <testcase name="1_api_fail_t4" classname="1_api_fail_t4" time="0.062"/>
+    <testcase name="1_api_fail_t4 [E]" classname="1_api_fail_t4 [E]" time="0"/>
+  </testsuite>
+  <testsuite name="4_widget_test.dart" timestamp="2024-09-15T08:48:45.195Z" errors="0" skipped="0" failures="0" tests="2">
+    <testcase name="4_widget_t1" classname="4_widget_t1" time="0.712"/>
+    <testcase name="4_widget_t3" classname="4_widget_t3" time="0"/>
+  </testsuite>
+  <testsuite name="5_widget_test.dart" timestamp="2024-09-15T08:48:45.195Z" errors="0" skipped="0" failures="0" tests="2">
+    <testcase name="5_widget_t1" classname="5_widget_t1" time="0.04"/>
   </testsuite>
 </testsuites>
