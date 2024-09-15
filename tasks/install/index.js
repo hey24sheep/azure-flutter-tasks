@@ -23,6 +23,8 @@ const FLUTTER_PUBCACHE_PATH_ENV_VAR = 'FlutterPubCachePath';
 const DART_TOOL_PATH_ENV_VAR = 'DartToolPath';
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
+        task.debug(`[INFO] Found architecture  ${os.platform()}`);
+        console.log(`[INFO] Found architecture  ${os.platform()}`);
         // 1. Getting current platform identifier
         let arch = findArchitecture();
         // 2. Building version spec
