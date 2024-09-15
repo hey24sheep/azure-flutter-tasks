@@ -13,11 +13,12 @@ const FLUTTER_PUBCACHE_PATH_ENV_VAR: string = 'FlutterPubCachePath';
 const DART_TOOL_PATH_ENV_VAR: string = 'DartToolPath';
 
 async function main(): Promise<void> {
-	task.debug(`[INFO] Found architecture  ${os.platform()}`);
-	console.log(`[INFO] Found architecture  ${os.platform()}`);
+	task.debug(`[INFO] os.platform() = ${os.platform()}`);
 
 	// 1. Getting current platform identifier
 	let arch = findArchitecture();
+
+	task.debug(`[INFO] Simplified found arch = ${arch}`);
 
 	// 2. Building version spec
 	let mode = task.getInput('mode', true);
@@ -106,8 +107,8 @@ async function downloadAndCacheSdk(versionSpec: string, arch: string, downloadUr
 	tool.cacheDir(bundleDir, FLUTTER_TOOL_NAME, versionSpec, arch);
 }
 
-async function findLatestSdkVersion(channel: string, arch: string, version: string): Promise<{ downloadUrl: string, version: string, semverVersion: string }> {
-	var releasesUrl = `https://storage.googleapis.com/flutter_infra_release/releases/releases_${arch}.json`;
+async function findLatestSdkVersion(channel: string, osArch: string, version: string): Promise<{ downloadUrl: string, version: string, semverVersion: string }> {
+	var releasesUrl = `https://storage.googleapis.com/flutter_infra_release/releases/releases_${osArch}.json`;
 	task.debug(`Finding version '${version}' from '${releasesUrl}'`);
 	var body = await request.get(releasesUrl);
 	var json = JSON.parse(body);
