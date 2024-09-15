@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 4,
-        "Patch": 0
+        "Patch": 1
     },
     "instanceNameFormat": "Flutter Env",
     "inputs": [
@@ -45,7 +45,13 @@
         }
     ],
     "execution": {
-        "Node20": {
+        "Node10": {
+            "target": "index.js"
+        },
+        "Node16": {
+            "target": "index.js"
+        },
+        "Node20_1": {
             "target": "index.js"
         }
     }
