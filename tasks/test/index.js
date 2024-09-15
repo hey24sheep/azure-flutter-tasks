@@ -227,8 +227,8 @@ function createJunitResults(results) {
             "$": {
                 "name": suite.title,
                 "timestamp": new Date().toISOString(),
-                "errors": 0,
-                "skipped": 0,
+                "errors": 0, // TODO 
+                "skipped": 0, // TODO 
                 "failures": suite.failed,
                 "tests": (suite.failed + suite.succeeded)
             },

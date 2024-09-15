@@ -1,6 +1,6 @@
 {
   "name": "flutterinstall",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Flutter Install Build Task",
   "main": "index.js",
   "scripts": {
@@ -17,12 +17,12 @@
   },
   "homepage": "https://github.com/hey24sheep/azure-flutter-tasks#readme",
   "dependencies": {
-    "azure-pipelines-tool-lib": "0.13.3",
-    "azure-pipelines-task-lib": "^3.1.7",
-    "request-promise": "*",
-    "request": "*"
+    "azure-pipelines-task-lib": "^4.17.2",
+    "azure-pipelines-tool-lib": "^2.0.7",
+    "request": "*",
+    "request-promise": "*"
   },
   "devDependencies": {
-    "@types/node": "^13.13.5"
+    "@types/node": "^22.5.5"
   }
 }

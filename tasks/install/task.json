@@ -8,8 +8,8 @@
     "author": "Hey24sheep",
     "version": {
         "Major": 0,
-        "Minor": 3,
-        "Patch": 6
+        "Minor": 4,
+        "Patch": 0
     },
     "instanceNameFormat": "Flutter Install",
     "inputs": [
@@ -79,7 +79,7 @@
         }
     ],
     "execution": {
-        "Node10": {
+        "Node20": {
             "target": "index.js"
         }
     }

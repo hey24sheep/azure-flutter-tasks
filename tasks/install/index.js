@@ -103,8 +103,8 @@ function downloadAndCacheSdk(versionSpec, arch, downloadUrl) {
     });
 }
 function findLatestSdkVersion(channel, arch, version) {
-    var arch;
     return __awaiter(this, void 0, void 0, function* () {
+        var arch;
         var releasesUrl = `https://storage.googleapis.com/flutter_infra_release/releases/releases_${arch}.json`;
         task.debug(`Finding version '${version}' from '${releasesUrl}'`);
         var body = yield request.get(releasesUrl);
