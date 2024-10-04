@@ -137,66 +137,98 @@ function runTests(flutter, concurrency, updateGoldens, name, plainName, canGener
         return results;
     });
 }
+// TODO: remove in next version upgrade
+// function createTestCase(suite: any, output: string, globalFailure: number) {
+//     const testRunRegex = /\s*\d\d:\d\d (\+\d+)?(\s+\-\d+)?:\s*(.*)/;
+//     let match = testRunRegex.exec(output);
+//     if (match) {
+//         var tSplits = match[3].split(': ');
+//         var title = tSplits[tSplits.length - 1];
+//         var successes = Number(match[1]);
+//         var failures = match[2] ? -Number(match[2]) : suite.failed;
+//         var newCase = {
+//             title: title.trim(),
+//             isSuccess: false,
+//             started: new Date(),
+//             ended: new Date,
+//         };
+//         var hasNewCase = false;
+//         if (suite.succeeded !== successes) {
+//             newCase.isSuccess = true;
+//             hasNewCase = true;
+//         }
+//         else if (suite.failed !== failures) {
+//             newCase.isSuccess = false;
+//             hasNewCase = true;
+//         }
+//         else if (suite.cases.length <= 0
+//             && suite.succeeded === 0
+//             && successes === 0
+//             && suite.failed === 0
+//             && failures === 0) {
+//             // handles initial test, as it is always empty with everything as 0 or empty 
+//             // index in test starts with 0
+//             // everything is 0 meaning it's a new case
+//             newCase.isSuccess = true;
+//             hasNewCase = true;
+//         } else {
+//             newCase.isSuccess = true;
+//             hasNewCase = true;
+//         }
+//         if (hasNewCase) {
+//             if (suite.cases.length > 0) {
+//                 suite.cases[suite.cases.length - 1].ended = newCase.started;
+//             }
+//         }
+//         const caseExistsIdx = suite.cases.findIndex((i) => {
+//             return i.title.toString().trim() === newCase.title.toString().trim();
+//         });
+//         if (caseExistsIdx < 0 || !suite.cases[caseExistsIdx].isSuccess) {
+//             // only add cases if they are not added before
+//             // checks if case doesn't exist or already added with success
+//             suite.cases.push(newCase);
+//         }
+//         if (newCase.isSuccess) {
+//             suite.succeeded += 1;
+//         } else {
+//             suite.failed += 1;
+//         }
+//         // console.log('\n', '\x1b[36m',
+//         //     'Suite : ', suite, successes, failures,
+//         //     '\x1b[0m', '\n');
+//     }
+//     return suite;
+// }
 function createTestCase(suite, output, globalFailure) {
     const testRunRegex = /\s*\d\d:\d\d (\+\d+)?(\s+\-\d+)?:\s*(.*)/;
-    let match = testRunRegex.exec(output);
-    if (match) {
-        var tSplits = match[3].split(': ');
-        var title = tSplits[tSplits.length - 1];
-        var successes = Number(match[1]);
-        var failures = match[2] ? -Number(match[2]) : suite.failed;
-        var newCase = {
+    const match = testRunRegex.exec(output);
+    if (!match || match.length < 4) {
+        return suite;
+    }
+    const tSplits = match[3].split(': ');
+    if (tSplits.length === 1) {
+        // Log printed starting a new test suite - No test case handled here
+        return suite;
+    }
+    // Sanitise test case name from other information
+    let title = tSplits[tSplits.length - 1];
+    title = title.replace(' [E]', '');
+    const currentCase = suite.cases.find(testCase => testCase.title === title);
+    if (!currentCase) {
+        // Suite has to be marked as succeeded first, marking as failed can be done when there is a new row with [E] at the end
+        suite.cases.push({
             title: title.trim(),
-            isSuccess: false,
+            isSuccess: true,
             started: new Date(),
-            ended: new Date,
-        };
-        var hasNewCase = false;
-        if (suite.succeeded !== successes) {
-            newCase.isSuccess = true;
-            hasNewCase = true;
-        }
-        else if (suite.failed !== failures) {
-            newCase.isSuccess = false;
-            hasNewCase = true;
-        }
-        else if (suite.cases.length <= 0
-            && suite.succeeded === 0
-            && successes === 0
-            && suite.failed === 0
-            && failures === 0) {
-            // handles initial test, as it is always empty with everything as 0 or empty 
-            // index in test starts with 0
-            // everything is 0 meaning it's a new case
-            newCase.isSuccess = true;
-            hasNewCase = true;
-        }
-        else {
-            newCase.isSuccess = true;
-            hasNewCase = true;
-        }
-        if (hasNewCase) {
-            if (suite.cases.length > 0) {
-                suite.cases[suite.cases.length - 1].ended = newCase.started;
-            }
-        }
-        const caseExistsIdx = suite.cases.findIndex((i) => {
-            return i.title.toString().trim() === newCase.title.toString().trim();
+            ended: new Date(),
         });
-        if (caseExistsIdx < 0 || !suite.cases[caseExistsIdx].isSuccess) {
-            // only add cases if they are not added before
-            // checks if case doesn't exist or already added with success
-            suite.cases.push(newCase);
-        }
-        if (newCase.isSuccess) {
-            suite.succeeded += 1;
-        }
-        else {
-            suite.failed += 1;
-        }
-        // console.log('\n', '\x1b[36m',
-        //     'Suite : ', suite, successes, failures,
-        //     '\x1b[0m', '\n');
+        suite.succeeded += 1;
+        return suite;
+    }
+    if (match[3].endsWith(' [E]')) {
+        currentCase.isSuccess = false;
+        suite.failed += 1;
+        suite.succeeded -= 1;
     }
     return suite;
 }
