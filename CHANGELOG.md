@@ -15,7 +15,33 @@
 - *Command Task* version bump to "0.4.2", clear error message when the Flutter path is not set
 - *Env Task* version bump to "0.4.2", removed unused dependencies
 - Readme badges moved to vsmarketplacebadges.dev (shields.io retired the marketplace badges)
+- Readme fixed the *Build Task* `target` names ([merged#134](https://github.com/hey24sheep/azure-flutter-tasks/pull/134)), thanks to @ManuelRauber
 - Publish scripts pin TypeScript to 5.4.5
+
+## [0.4.4] - 5 October 2024
+- Extension version bump to 0.4.4
+- *Test Task* version bump to "0.4.2"
+- *Test Task* reworked test case parsing, each case is added once and marked as failed when Flutter reports `[E]` for it, thanks to @ipuhakka
+
+## [0.4.3] - 15 September 2024
+- Extension version bump to 0.4.3
+- *Install Task* version bump to "0.4.3"
+- *Install Task* keeps the OS name and the CPU arch separate when finding the release, better debug output
+
+## [0.4.2] - 15 September 2024
+- Extension version bump to 0.4.2
+- *Install Task* version bump to "0.4.2"
+- *Install Task* logs the detected platform
+
+## [0.4.1] - 15 September 2024
+- Extension version bump to 0.4.1
+- **Common** all tasks version bump to "0.4.1"
+- **Common** execution handlers set to `Node10`, `Node16` and `Node20_1` so older agents keep working
+
+## [0.4.0] - 15 September 2024
+- Extension version bump to 0.4.0
+- **Common** all tasks version bump to "0.4.0"
+- **Common** migrated all tasks to Node 20 (`azure-pipelines-task-lib` 4.x, `azure-pipelines-tool-lib` 2.x)
 
 ## [0.3.18] - 12 October 2023
 - Extension version bump to 0.3.18
