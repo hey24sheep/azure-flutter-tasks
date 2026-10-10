@@ -9,7 +9,7 @@
     "version": {
         "Major": 0,
         "Minor": 4,
-        "Patch": 2
+        "Patch": 3
     },
     "instanceNameFormat": "Flutter Test",
     "inputs": [
@@ -85,6 +85,9 @@
             "target": "index.js"
         },
         "Node20_1": {
+            "target": "index.js"
+        },
+        "Node24": {
             "target": "index.js"
         }
     }

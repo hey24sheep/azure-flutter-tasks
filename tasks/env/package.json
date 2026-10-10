@@ -18,9 +18,7 @@
   "homepage": "https://github.com/hey24sheep/azure-flutter-tasks#readme",
   "dependencies": {
     "azure-pipelines-task-lib": "^4.17.2",
-    "azure-pipelines-tool-lib": "^2.0.7",
-    "request": "*",
-    "request-promise": "*"
+    "azure-pipelines-tool-lib": "^2.0.7"
   },
   "devDependencies": {
     "@types/node": "^22.5.5"

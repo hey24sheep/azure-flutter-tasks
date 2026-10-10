@@ -17,10 +17,10 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         // 1. Check flutter environment
         var flutterPath = task.getVariable(FLUTTER_TOOL_PATH_ENV_VAR) || process.env[FLUTTER_TOOL_PATH_ENV_VAR];
-        flutterPath = path.join(flutterPath, "flutter");
         if (!flutterPath) {
             throw new Error(`The '${FLUTTER_TOOL_PATH_ENV_VAR}' environment variable must be set before using this task (you can use 'flutterinstall' task).`);
         }
+        flutterPath = path.join(flutterPath, "flutter");
         // 3. Move current working directory to project
         let projectDirectory = task.getPathInput('projectDirectory', false, false);
         if (projectDirectory) {
@@ -32,7 +32,7 @@ function main() {
         let testPlainName = task.getInput('testPlainName', false);
         let updateGoldens = task.getBoolInput('updateGoldens', false);
         let concurrency = task.getInput('concurrency', false);
-        let canPublishTests = task.getInput('publishTests', false);
+        let canPublishTests = task.getBoolInput('publishTests', false);
         let canGenerateCodeCoverage = task.getBoolInput("generateCodeCoverageReport", false);
         let extraArgs = task.getDelimitedInput('extraArgs', ',', false);
         // 5. Running tests

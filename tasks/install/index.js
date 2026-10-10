@@ -13,7 +13,7 @@ const task = require("azure-pipelines-task-lib/task");
 const tool = require("azure-pipelines-tool-lib/tool");
 const os = require("os");
 const path = require("path");
-const request = require("request-promise");
+const httpm = require("typed-rest-client/HttpClient");
 const FLUTTER_TOOL_NAME = 'Flutter';
 const FLUTTER_EXE_RELATIVEPATH = 'flutter/bin';
 const DART_EXE_RELATIVEPATH = 'cache/dart-sdk/bin';
@@ -99,17 +99,29 @@ function downloadAndCacheSdk(versionSpec, arch, downloadUrl) {
             bundleDir = yield tool.extractZip(bundleArchive);
         }
         task.debug(`Extracted to '${bundleDir}' '${downloadUrl}' archive`);
+        // archive is no longer needed, free its space before the cache copy (#139)
+        tryRemove(bundleArchive);
         // 3. Adding SDK bundle to cache
         task.debug(`Adding '${bundleDir}' to cache (${FLUTTER_TOOL_NAME},${versionSpec}, ${arch})`);
-        tool.cacheDir(bundleDir, FLUTTER_TOOL_NAME, versionSpec, arch);
+        yield tool.cacheDir(bundleDir, FLUTTER_TOOL_NAME, versionSpec, arch);
+        // cacheDir copies instead of moving, so remove the extracted temp copy (#139)
+        tryRemove(bundleDir);
     });
+}
+// Best-effort cleanup, failing to remove temp files must not fail the install
+function tryRemove(itemPath) {
+    try {
+        task.rmRF(itemPath);
+    }
+    catch (err) {
+        task.warning(`Could not remove '${itemPath}': ${err}`);
+    }
 }
 function findLatestSdkVersion(channel, osArch, version) {
     return __awaiter(this, void 0, void 0, function* () {
         var releasesUrl = `https://storage.googleapis.com/flutter_infra_release/releases/releases_${osArch}.json`;
         task.debug(`Finding version '${version}' from '${releasesUrl}'`);
-        var body = yield request.get(releasesUrl);
-        var json = JSON.parse(body);
+        var json = yield getJson(releasesUrl);
         var currentHash = json.current_release[channel];
         var arch = os.arch();
         // if user gave custom arch type, use that
@@ -122,9 +134,19 @@ function findLatestSdkVersion(channel, osArch, version) {
         // if user selected custom
         if (version.toLowerCase() !== 'latest') {
             // fetch custom version
-            version = task.getInput('customVersion', false);
+            version = task.getInput('customVersion', true);
             // filter based on custom version given
             let filtered = json.releases.filter((item) => item.channel == channel && uniformizeVersion(item.version) == uniformizeVersion(version));
+            // no exact match, treat '3.29' or '3.29.x' as the newest '3.29.*' release (#132)
+            if (filtered.length === 0) {
+                let prefix = uniformizeVersion(version).replace(/\.x$/i, '') + '.';
+                let newest = json.releases
+                    .filter((item) => item.channel == channel && uniformizeVersion(item.version).startsWith(prefix))
+                    .sort((a, b) => b.release_date.localeCompare(a.release_date))[0];
+                if (newest) {
+                    filtered = json.releases.filter((item) => item.channel == channel && item.version == newest.version);
+                }
+            }
             // if more than 1 release found, that means it has multiple dart_sdk_arch like x64, arm64
             if (filtered.length > 1) {
                 for (var i of filtered) {
@@ -139,14 +161,31 @@ function findLatestSdkVersion(channel, osArch, version) {
             else {
                 current = filtered[0];
             }
-            task.debug(`Found custom version '${current.version}'`);
         }
+        if (!current) {
+            throw new Error(`Flutter version '${version}' (channel '${channel}', arch '${arch}') was not found in '${releasesUrl}'`);
+        }
+        task.debug(`Found version '${current.version}'`);
         task.debug(`Found version hash '${current.hash}'`);
         return {
             version: current.version + '-' + channel,
             downloadUrl: json.base_url + '/' + current.archive,
             semverVersion: current.version
         };
+    });
+}
+// Uses the same http client and agent proxy/certificate settings as the SDK download
+function getJson(url) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let http = new httpm.HttpClient('azure-flutter-tasks', null, {
+            proxy: task.getHttpProxyConfiguration(),
+            cert: task.getHttpCertConfiguration()
+        });
+        let response = yield http.get(url);
+        if (response.message.statusCode !== 200) {
+            throw new Error(`Failed to fetch '${url}', status code ${response.message.statusCode}`);
+        }
+        return JSON.parse(yield response.readBody());
     });
 }
 // Removes the 'v' prefix from given version.

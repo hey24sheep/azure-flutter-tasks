@@ -19,8 +19,7 @@
   "dependencies": {
     "azure-pipelines-task-lib": "^4.17.2",
     "azure-pipelines-tool-lib": "^2.0.7",
-    "request": "*",
-    "request-promise": "*"
+    "typed-rest-client": "^1.8.6"
   },
   "devDependencies": {
     "@types/node": "^22.5.5"

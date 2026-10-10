@@ -6,10 +6,10 @@ const FLUTTER_TOOL_PATH_ENV_VAR: string = 'FlutterToolPath';
 async function main(): Promise<void> {
 	// 1. Check flutter environment
 	var flutterPath = task.getVariable(FLUTTER_TOOL_PATH_ENV_VAR) || process.env[FLUTTER_TOOL_PATH_ENV_VAR] || task.getInput('flutterDirectory', false);
-	flutterPath = path.join(flutterPath, "flutter")
 	if (!flutterPath) {
 		throw new Error(`The '${FLUTTER_TOOL_PATH_ENV_VAR}' environment variable must be set before using this task (you can use 'flutterinstall' task).`);
 	}
+	flutterPath = path.join(flutterPath, "flutter")
 
 	// 2. Move current working directory to project
 	let projectDirectory = task.getPathInput('projectDirectory', false, false);

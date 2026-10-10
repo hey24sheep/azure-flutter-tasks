@@ -1,3 +1,22 @@
+## [0.4.5] - 10 October 2026
+- Extension version bump to 0.4.5
+- **Common** all tasks add the `Node24` execution handler (Node 6/10/16 are removed from agents on 24 November 2026 and Node 20 is end-of-support)
+- *Install Task* version bump to "0.4.4"
+- *Install Task* removes the downloaded archive and the extracted temp copy after caching, cutting disk usage by about two thirds, fixes [#139](https://github.com/hey24sheep/azure-flutter-tasks/issues/139)
+- *Install Task* `customVersion` accepts `<M>.<m>` or `<M>.<m>.x` (like `3.29`) to get the latest patch release, fixes [#132](https://github.com/hey24sheep/azure-flutter-tasks/issues/132)
+- *Install Task* clear error message when the requested version or arch is not found
+- *Install Task* replaced the deprecated `request` lib, the release list now uses the agent proxy & certificate settings like the SDK download
+- *Build Task* version bump to "0.4.2"
+- *Build Task* clear error message when the Flutter path is not set
+- *Test Task* version bump to "0.4.3"
+- *Test Task* `publishTests: false` is now respected
+- *Test Task* clear error message when the Flutter path is not set
+- *Analyze Task* version bump to "0.4.2", clear error message when the Flutter path is not set
+- *Command Task* version bump to "0.4.2", clear error message when the Flutter path is not set
+- *Env Task* version bump to "0.4.2", removed unused dependencies
+- Readme badges moved to vsmarketplacebadges.dev (shields.io retired the marketplace badges)
+- Publish scripts pin TypeScript to 5.4.5
+
 ## [0.3.18] - 12 October 2023
 - Extension version bump to 0.3.18
 - *Test Task* version bump to "0.3.4"

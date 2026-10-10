@@ -2,11 +2,9 @@
 
 [![](https://img.shields.io/badge/hey24sheep.com-202124.svg?style=for-the-badge&logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAADIAAAAcCAMAAAAURxzFAAAADFBMVEUAAAAbvfUcvfUcvfXEslmQAAAAA3RSTlMA4PgXbk0cAAAATElEQVR42u3RgQbAMAyE4dvu%2Fd95Y%2FiHkRyEkUPTK5%2BqajMZ32FH00kriWltYkqDsHJekmd8AQiBvPWfSPH8iPhQcEv0lYycCDGWzQW5CAN5SL8q5AAAAABJRU5ErkJggg%3D%3D)](https://hey24sheep.com)
 
-![](https://img.shields.io/visual-studio-marketplace/release-date/hey24sheep.flutter?color=green&style=flat-square)
-![](https://img.shields.io/visual-studio-marketplace/azure-devops/installs/total/hey24sheep.flutter?style=flat-square)
-![](https://img.shields.io/visual-studio-marketplace/last-updated/hey24sheep.flutter?style=flat-square)
-![](https://img.shields.io/visual-studio-marketplace/r/hey24sheep.flutter?color=green&style=flat-square)
-![](https://img.shields.io/visual-studio-marketplace/v/hey24sheep.flutter?label=current%20version&style=flat-square)
+![](https://vsmarketplacebadges.dev/installs/hey24sheep.flutter.svg?style=flat-square)
+![](https://vsmarketplacebadges.dev/rating-star/hey24sheep.flutter.svg?color=green&style=flat-square)
+![](https://vsmarketplacebadges.dev/version/hey24sheep.flutter.svg?label=current%20version&style=flat-square)
 
 Latest [Flutter](http://flutter.io) tasks for [Azure DevOps](https://azure.microsoft.com/en-gb/services/devops/).
 
@@ -45,7 +43,7 @@ Installs the [Flutter SDK](https://flutter.io/sdk-archive/) onto the running age
 * Select the `Release Url Mode`: `auto` (default), `custom`. If `custom` is specified, a `Custom (Flutter SDK Install Url)` must be set.
 * Select the `channel`: `stable` (default), `beta`, or `dev`.
 * Select the `version` of the SDK to install:  `latest` (default), `custom`. If `custom` is specified, a `customVersion` must be set.
-* _(Optional)_. Set the `customVersion` (in a `<M>.<m>.<p>` semver format) if needed.
+* _(Optional)_. Set the `customVersion` (in a `<M>.<m>.<p>` semver format) if needed. Use `<M>.<m>` or `<M>.<m>.x` (like `3.29`) to get the latest patch release of that version.
 * _(Optional)_. Set the `Custom (Flutter SDK Install Url)` to release install url like `https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_2.2.1-stable.zip` or any other available on (https://flutter.dev/docs/development/tools/sdk/releases?tab=windows).
 * _(Optional)_. Set the `customArch` (example 'arm64') if needed.
 

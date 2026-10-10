@@ -1,5 +1,5 @@
 # Build TS
-npm install -g typescript
+npm install -g typescript@5.4.5
 cd ./tasks/test
 npm install
 tsc 

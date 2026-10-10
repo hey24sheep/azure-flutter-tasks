@@ -2,7 +2,7 @@ import * as task from "azure-pipelines-task-lib/task";
 import * as tool from 'azure-pipelines-tool-lib/tool';
 import * as os from 'os';
 import * as path from 'path';
-import * as request from 'request-promise';
+import * as httpm from 'typed-rest-client/HttpClient';
 
 const FLUTTER_TOOL_NAME: string = 'Flutter';
 const FLUTTER_EXE_RELATIVEPATH = 'flutter/bin';
@@ -102,16 +102,30 @@ async function downloadAndCacheSdk(versionSpec: string, arch: string, downloadUr
 
 	task.debug(`Extracted to '${bundleDir}' '${downloadUrl}' archive`);
 
+	// archive is no longer needed, free its space before the cache copy (#139)
+	tryRemove(bundleArchive);
+
 	// 3. Adding SDK bundle to cache
 	task.debug(`Adding '${bundleDir}' to cache (${FLUTTER_TOOL_NAME},${versionSpec}, ${arch})`);
-	tool.cacheDir(bundleDir, FLUTTER_TOOL_NAME, versionSpec, arch);
+	await tool.cacheDir(bundleDir, FLUTTER_TOOL_NAME, versionSpec, arch);
+
+	// cacheDir copies instead of moving, so remove the extracted temp copy (#139)
+	tryRemove(bundleDir);
+}
+
+// Best-effort cleanup, failing to remove temp files must not fail the install
+function tryRemove(itemPath: string) {
+	try {
+		task.rmRF(itemPath);
+	} catch (err) {
+		task.warning(`Could not remove '${itemPath}': ${err}`);
+	}
 }
 
 async function findLatestSdkVersion(channel: string, osArch: string, version: string): Promise<{ downloadUrl: string, version: string, semverVersion: string }> {
 	var releasesUrl = `https://storage.googleapis.com/flutter_infra_release/releases/releases_${osArch}.json`;
 	task.debug(`Finding version '${version}' from '${releasesUrl}'`);
-	var body = await request.get(releasesUrl);
-	var json = JSON.parse(body);
+	var json = await getJson(releasesUrl);
 
 	var currentHash = json.current_release[channel];
 	var arch = os.arch();
@@ -127,10 +141,21 @@ async function findLatestSdkVersion(channel: string, osArch: string, version: st
 	// if user selected custom
 	if (version.toLowerCase() !== 'latest') {
 		// fetch custom version
-		version = task.getInput('customVersion', false);
+		version = task.getInput('customVersion', true);
 
 		// filter based on custom version given
 		let filtered = json.releases.filter((item) => item.channel == channel && uniformizeVersion(item.version) == uniformizeVersion(version));
+
+		// no exact match, treat '3.29' or '3.29.x' as the newest '3.29.*' release (#132)
+		if (filtered.length === 0) {
+			let prefix = uniformizeVersion(version).replace(/\.x$/i, '') + '.';
+			let newest = json.releases
+				.filter((item) => item.channel == channel && uniformizeVersion(item.version).startsWith(prefix))
+				.sort((a, b) => b.release_date.localeCompare(a.release_date))[0];
+			if (newest) {
+				filtered = json.releases.filter((item) => item.channel == channel && item.version == newest.version);
+			}
+		}
 
 		// if more than 1 release found, that means it has multiple dart_sdk_arch like x64, arm64
 		if (filtered.length > 1) {
@@ -145,16 +170,32 @@ async function findLatestSdkVersion(channel: string, osArch: string, version: st
 		} else {
 			current = filtered[0];
 		}
-
-		task.debug(`Found custom version '${current.version}'`);
 	}
 
+	if (!current) {
+		throw new Error(`Flutter version '${version}' (channel '${channel}', arch '${arch}') was not found in '${releasesUrl}'`);
+	}
+
+	task.debug(`Found version '${current.version}'`);
 	task.debug(`Found version hash '${current.hash}'`);
 	return {
 		version: current.version + '-' + channel,
 		downloadUrl: json.base_url + '/' + current.archive,
 		semverVersion: current.version
 	};
+}
+
+// Uses the same http client and agent proxy/certificate settings as the SDK download
+async function getJson(url: string): Promise<any> {
+	let http = new httpm.HttpClient('azure-flutter-tasks', null, {
+		proxy: task.getHttpProxyConfiguration(),
+		cert: task.getHttpCertConfiguration()
+	});
+	let response = await http.get(url);
+	if (response.message.statusCode !== 200) {
+		throw new Error(`Failed to fetch '${url}', status code ${response.message.statusCode}`);
+	}
+	return JSON.parse(await response.readBody());
 }
 
 // Removes the 'v' prefix from given version.
