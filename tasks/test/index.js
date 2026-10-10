@@ -98,13 +98,14 @@ function runTests(flutter, concurrency, updateGoldens, name, plainName, canGener
             suites: []
         };
         let globalFailure = 0;
-        testRunner.on('stdout', line => {
+        const processLine = (line) => {
             let filename = undefined;
-            const allTestRegex = /\s*\d\d:\d\d (\+\d+)?(\s+\-\d+)?:\s* \s*(.*\.dart)\s*/;
+            let filepath = undefined;
+            const allTestRegex = /\s*\d\d:\d\d (\+\d+)?(?:\s+~\d+)?(\s+\-\d+)?:\s* \s*(.*\.dart)\s*/;
             const filenameRegex = /(\w+.dart)/;
             const allRegexResult = allTestRegex.exec(line);
             if (allRegexResult && allRegexResult[3]) {
-                const filepath = allRegexResult[3];
+                filepath = allRegexResult[3];
                 if (filepath) {
                     filename = filenameRegex.exec(filepath)[0];
                 }
@@ -116,20 +117,32 @@ function runTests(flutter, concurrency, updateGoldens, name, plainName, canGener
                 failed: 0,
                 cases: []
             };
-            if (allSuitesDict[newSuite.title]) {
-                currentSuite = allSuitesDict[newSuite.title];
+            if (allSuitesDict[filepath]) {
+                currentSuite = allSuitesDict[filepath];
             }
             else {
                 currentSuite = newSuite;
             }
             currentSuite = createTestCase(currentSuite, line, globalFailure);
-            allSuitesDict[currentSuite.title] = currentSuite;
+            if (currentSuite.cases.length > 0) {
+                allSuitesDict[filepath] = currentSuite;
+            }
+        };
+        // 'stdout' gives raw chunks that can hold several or partial lines, so split them into lines first (#111)
+        let pendingOutput = '';
+        testRunner.on('stdout', (data) => {
+            const lines = (pendingOutput + data.toString()).split(/\r?\n/);
+            pendingOutput = lines.pop();
+            lines.forEach(processLine);
         });
         try {
             yield testRunner.exec();
             results.isSuccess = true;
         }
         catch (_a) { }
+        if (pendingOutput) {
+            processLine(pendingOutput);
+        }
         var allKeys = Object.keys(allSuitesDict);
         allKeys.forEach((k) => {
             results.suites.push(allSuitesDict[k]);
@@ -200,7 +213,7 @@ function runTests(flutter, concurrency, updateGoldens, name, plainName, canGener
 //     return suite;
 // }
 function createTestCase(suite, output, globalFailure) {
-    const testRunRegex = /\s*\d\d:\d\d (\+\d+)?(\s+\-\d+)?:\s*(.*)/;
+    const testRunRegex = /\s*\d\d:\d\d (\+\d+)?(?:\s+~\d+)?(\s+\-\d+)?:\s*(.*)/;
     const match = testRunRegex.exec(output);
     if (!match || match.length < 4) {
         return suite;
@@ -212,12 +225,12 @@ function createTestCase(suite, output, globalFailure) {
     }
     // Sanitise test case name from other information
     let title = tSplits[tSplits.length - 1];
-    title = title.replace(' [E]', '');
+    title = title.replace(' [E]', '').trim();
     const currentCase = suite.cases.find(testCase => testCase.title === title);
     if (!currentCase) {
         // Suite has to be marked as succeeded first, marking as failed can be done when there is a new row with [E] at the end
         suite.cases.push({
-            title: title.trim(),
+            title: title,
             isSuccess: true,
             started: new Date(),
             ended: new Date(),
@@ -225,7 +238,7 @@ function createTestCase(suite, output, globalFailure) {
         suite.succeeded += 1;
         return suite;
     }
-    if (match[3].endsWith(' [E]')) {
+    if (match[3].trim().endsWith(' [E]')) {
         currentCase.isSuccess = false;
         suite.failed += 1;
         suite.succeeded -= 1;

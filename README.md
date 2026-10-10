@@ -102,6 +102,8 @@ Launch analyze on flutter directory.
 * _(Optional)_. Set `extraArgs` if you want to pass more official/custom command arguments. Example: "--fatal-infos --fatal-warnings"
 * _(Optional)_. Set `extraArgsSeparator` Separator used in params passed to `extraArgs`. Default is single space (' ')
 
+> NOTE : in YAML this task is used as `FlutterAnalyzeTask@0` (unlike the other tasks, its name ends with `Task`)
+
 
 ### Command
 

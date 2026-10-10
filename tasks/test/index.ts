@@ -118,16 +118,17 @@ async function runTests(flutter: string,
 
     let globalFailure = 0;
 
-    testRunner.on('stdout', line => {
+    const processLine = (line: string) => {
         let filename = undefined;
+        let filepath = undefined;
 
-        const allTestRegex = /\s*\d\d:\d\d (\+\d+)?(\s+\-\d+)?:\s* \s*(.*\.dart)\s*/;
+        const allTestRegex = /\s*\d\d:\d\d (\+\d+)?(?:\s+~\d+)?(\s+\-\d+)?:\s* \s*(.*\.dart)\s*/;
         const filenameRegex = /(\w+.dart)/;
 
         const allRegexResult = allTestRegex.exec(line);
 
         if (allRegexResult && allRegexResult[3]) {
-            const filepath = allRegexResult[3];
+            filepath = allRegexResult[3];
 
             if (filepath) {
                 filename = filenameRegex.exec(filepath)[0];
@@ -142,15 +143,25 @@ async function runTests(flutter: string,
             cases: []
         }
 
-        if (allSuitesDict[newSuite.title]) {
-            currentSuite = allSuitesDict[newSuite.title];
+        if (allSuitesDict[filepath]) {
+            currentSuite = allSuitesDict[filepath];
         } else {
             currentSuite = newSuite;
         }
 
         currentSuite = createTestCase(currentSuite, line, globalFailure);
 
-        allSuitesDict[currentSuite.title] = currentSuite;
+        if (currentSuite.cases.length > 0) {
+            allSuitesDict[filepath] = currentSuite;
+        }
+    };
+
+    // 'stdout' gives raw chunks that can hold several or partial lines, so split them into lines first (#111)
+    let pendingOutput = '';
+    testRunner.on('stdout', (data: Buffer) => {
+        const lines = (pendingOutput + data.toString()).split(/\r?\n/);
+        pendingOutput = lines.pop();
+        lines.forEach(processLine);
     });
 
     try {
@@ -159,6 +170,10 @@ async function runTests(flutter: string,
         results.isSuccess = true;
     }
     catch { }
+
+    if (pendingOutput) {
+        processLine(pendingOutput);
+    }
 
     var allKeys = Object.keys(allSuitesDict);
     allKeys.forEach((k) => {
@@ -240,7 +255,7 @@ async function runTests(flutter: string,
 // }
 
 function createTestCase(suite: any, output: string, globalFailure: number) {
-    const testRunRegex = /\s*\d\d:\d\d (\+\d+)?(\s+\-\d+)?:\s*(.*)/;
+    const testRunRegex = /\s*\d\d:\d\d (\+\d+)?(?:\s+~\d+)?(\s+\-\d+)?:\s*(.*)/;
     const match = testRunRegex.exec(output);
     if (!match || match.length < 4) {
         return suite;
@@ -254,13 +269,13 @@ function createTestCase(suite: any, output: string, globalFailure: number) {
 
     // Sanitise test case name from other information
     let title = tSplits[tSplits.length - 1];
-    title = title.replace(' [E]', '');
+    title = title.replace(' [E]', '').trim();
     const currentCase = suite.cases.find(testCase => testCase.title === title);
 
     if (!currentCase) {
         // Suite has to be marked as succeeded first, marking as failed can be done when there is a new row with [E] at the end
         suite.cases.push({
-            title: title.trim(),
+            title: title,
             isSuccess: true,
             started: new Date(),
             ended: new Date(),
@@ -269,7 +284,7 @@ function createTestCase(suite: any, output: string, globalFailure: number) {
         return suite;
     }
 
-    if (match[3].endsWith(' [E]')) {
+    if (match[3].trim().endsWith(' [E]')) {
         currentCase.isSuccess = false;
         suite.failed += 1;
         suite.succeeded -= 1;

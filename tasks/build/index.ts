@@ -427,10 +427,8 @@ async function buildIpa(
         args.push("--target=" + entryPoint);
     }
 
-    if (!simulator) {
-        if (buildFlavour) {
-            args.push("--flavor=" + buildFlavour);
-        }
+    if (buildFlavour) {
+        args.push("--flavor=" + buildFlavour);
     }
 
     if (dartDefine) {

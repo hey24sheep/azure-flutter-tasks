@@ -1,3 +1,15 @@
+## [0.4.6] - 10 October 2026
+- Extension version bump to 0.4.6
+- *Test Task* version bump to "0.4.4"
+- *Test Task* fixes the published test report showing the wrong number of tests and missing failures, fixes [#111](https://github.com/hey24sheep/azure-flutter-tasks/issues/111)
+    - output is now parsed line by line (previously several lines arriving together were dropped)
+    - results after a skipped test are no longer ignored
+    - test files with the same name in different folders are kept as separate suites
+    - NOTE: when tests run concurrently (the default), Flutter's console output does not list every passing test, set `concurrency: 1` for an exact count
+- *Build Task* version bump to "0.4.3"
+- *Build Task* `buildFlavour` is now passed for iOS simulator builds too, fixes [#103](https://github.com/hey24sheep/azure-flutter-tasks/issues/103)
+- Readme notes that the analyze task is used as `FlutterAnalyzeTask@0`, fixes [#91](https://github.com/hey24sheep/azure-flutter-tasks/issues/91)
+
 ## [0.4.5] - 10 October 2026
 - Extension version bump to 0.4.5
 - **Common** all tasks add the `Node24` execution handler (Node 6/10/16 are removed from agents on 24 November 2026 and Node 20 is end-of-support)

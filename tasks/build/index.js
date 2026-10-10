@@ -254,10 +254,8 @@ function buildIpa(flutter, simulator, codesign, buildName, buildNumber, debugMod
         if (entryPoint) {
             args.push("--target=" + entryPoint);
         }
-        if (!simulator) {
-            if (buildFlavour) {
-                args.push("--flavor=" + buildFlavour);
-            }
+        if (buildFlavour) {
+            args.push("--flavor=" + buildFlavour);
         }
         if (dartDefine) {
             var splitted = dartDefine.split(" ");
